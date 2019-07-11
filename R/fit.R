@@ -1,3 +1,28 @@
+# -------------------------------------------------------------------
+# ----------------- Model function implementation -------------------
+# -------------------------------------------------------------------
+ad_pca_impl <- function(predictors, outcome) {
+  list(coefs = 1)
+}
+
+# -------------------------------------------------------------------
+# ------------------- Model function bridge -------------------------
+# -------------------------------------------------------------------
+ad_pca_bridge <- function(processed, ...) {
+  predictors <- processed$predictors
+  outcome <- processed$outcomes[[1]]
+
+  fit <- ad_pca_impl(predictors, outcome)
+
+  new_ad_pca(
+    coefs = fit$coefs,
+    blueprint = processed$blueprint
+  )
+}
+
+# -------------------------------------------------------------------
+# ------------------ Model function interface -----------------------
+# -------------------------------------------------------------------
 #' Fit a `ad_pca`
 #'
 #' `ad_pca()` fits a model.
