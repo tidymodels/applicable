@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
-predict_ad_pca_numeric <- function(model, predictors) {
+score_ad_pca_numeric <- function(model, predictors) {
   predictions <- rep(1L, times = nrow(predictors))
   hardhat::spruce_numeric(predictions)
 }
@@ -9,21 +9,21 @@ predict_ad_pca_numeric <- function(model, predictors) {
 # -------------------------------------------------------------------
 # ------------------- Model function bridge -------------------------
 # -------------------------------------------------------------------
-predict_ad_pca_bridge <- function(type, model, predictors) {
+score_ad_pca_bridge <- function(type, model, predictors) {
   predictors <- as.matrix(predictors)
 
-  predict_function <- get_predict_function(type)
-  predictions <- predict_function(model, predictors)
+  score_function <- get_score_function(type)
+  predictions <- score_function(model, predictors)
 
   hardhat::validate_prediction_size(predictions, predictors)
 
   predictions
 }
 
-get_predict_function <- function(type) {
+get_score_function <- function(type) {
   switch(
     type,
-    numeric = predict_ad_pca_numeric
+    numeric = score_ad_pca_numeric
   )
 }
 
@@ -59,10 +59,10 @@ get_predict_function <- function(type) {
 #' predict(mod, test)
 #'
 #' @export
-predict.ad_pca <- function(object, new_data, type = "numeric", ...) {
+score.ad_pca <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)
   rlang::arg_match(type, valid_predict_types())
-  predict_ad_pca_bridge(type, object, forged$predictors)
+  score_ad_pca_bridge(type, object, forged$predictors)
 }
 
 valid_predict_types <- function() {
