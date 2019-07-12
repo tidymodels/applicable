@@ -34,6 +34,6 @@ test <- mtcars[21:32, -1]
 mod <- ad_pca(mpg ~ cyl + log(drat), train)
 
 # Predict, with preprocessing
-predict(mod, test)
+score(mod, test)
 
 }

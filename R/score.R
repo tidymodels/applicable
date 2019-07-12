@@ -56,7 +56,7 @@ get_score_function <- function(type) {
 #' mod <- ad_pca(mpg ~ cyl + log(drat), train)
 #'
 #' # Predict, with preprocessing
-#' predict(mod, test)
+#' score(mod, test)
 #'
 #' @export
 score.ad_pca <- function(object, new_data, type = "numeric", ...) {
