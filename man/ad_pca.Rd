@@ -13,9 +13,9 @@ ad_pca(x, ...)
 
 \method{ad_pca}{default}(x, ...)
 
-\method{ad_pca}{data.frame}(x, y, ...)
+\method{ad_pca}{data.frame}(x, ...)
 
-\method{ad_pca}{matrix}(x, y, ...)
+\method{ad_pca}{matrix}(x, ...)
 
 \method{ad_pca}{formula}(formula, data, ...)
 
@@ -32,20 +32,11 @@ created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 
 \item{...}{Not currently used, but required for extensibility.}
 
-\item{y}{When \code{x} is a \strong{data frame} or \strong{matrix}, \code{y} is the outcome
-specified as:
-\itemize{
-\item A \strong{data frame} with 1 numeric column.
-\item A \strong{matrix} with 1 numeric column.
-\item A numeric \strong{vector}.
-}}
-
-\item{formula}{A formula specifying the outcome terms on the left-hand side,
-and the predictor terms on the right-hand side.}
+\item{formula}{A formula specifying the predictor terms on the right-hand side.}
 
 \item{data}{When a \strong{recipe} or \strong{formula} is used, \code{data} is specified as:
 \itemize{
-\item A \strong{data frame} containing both the predictors and the outcome.
+\item A \strong{data frame} containing the predictors.
 }}
 }
 \value{
@@ -56,10 +47,9 @@ A \code{ad_pca} object.
 }
 \examples{
 predictors <- mtcars[, -1]
-outcome <- mtcars[, 1]
 
-# XY interface
-mod <- ad_pca(predictors, outcome)
+# Data frame interface
+mod <- ad_pca(predictors)
 
 # Formula interface
 mod2 <- ad_pca(mpg ~ ., mtcars)

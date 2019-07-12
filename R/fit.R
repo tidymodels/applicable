@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
-ad_pca_impl <- function(predictors, outcome) {
+ad_pca_impl <- function(predictors) {
   list(coefs = 1)
 }
 
@@ -10,9 +10,8 @@ ad_pca_impl <- function(predictors, outcome) {
 # -------------------------------------------------------------------
 ad_pca_bridge <- function(processed, ...) {
   predictors <- processed$predictors
-  outcome <- processed$outcomes[[1]]
 
-  fit <- ad_pca_impl(predictors, outcome)
+  fit <- ad_pca_impl(predictors)
 
   new_ad_pca(
     coefs = fit$coefs,
@@ -34,19 +33,11 @@ ad_pca_bridge <- function(processed, ...) {
 #'   * A __recipe__ specifying a set of preprocessing steps
 #'     created from [recipes::recipe()].
 #'
-#' @param y When `x` is a __data frame__ or __matrix__, `y` is the outcome
-#' specified as:
-#'
-#'   * A __data frame__ with 1 numeric column.
-#'   * A __matrix__ with 1 numeric column.
-#'   * A numeric __vector__.
-#'
 #' @param data When a __recipe__ or __formula__ is used, `data` is specified as:
 #'
-#'   * A __data frame__ containing both the predictors and the outcome.
+#'   * A __data frame__ containing the predictors.
 #'
-#' @param formula A formula specifying the outcome terms on the left-hand side,
-#' and the predictor terms on the right-hand side.
+#' @param formula A formula specifying the predictor terms on the right-hand side.
 #'
 #' @param ... Not currently used, but required for extensibility.
 #'
@@ -56,10 +47,9 @@ ad_pca_bridge <- function(processed, ...) {
 #'
 #' @examples
 #' predictors <- mtcars[, -1]
-#' outcome <- mtcars[, 1]
 #'
-#' # XY interface
-#' mod <- ad_pca(predictors, outcome)
+#' # Data frame interface
+#' mod <- ad_pca(predictors)
 #'
 #' # Formula interface
 #' mod2 <- ad_pca(mpg ~ ., mtcars)
@@ -81,21 +71,21 @@ ad_pca.default <- function(x, ...) {
   stop("`ad_pca()` is not defined for a '", class(x)[1], "'.", call. = FALSE)
 }
 
-# XY method - data frame
+# Data frame method
 
 #' @export
 #' @rdname ad_pca
-ad_pca.data.frame <- function(x, y, ...) {
-  processed <- hardhat::mold(x, y)
+ad_pca.data.frame <- function(x, ...) {
+  processed <- hardhat::mold(x, x[1])
   ad_pca_bridge(processed, ...)
 }
 
-# XY method - matrix
+# Matrix method
 
 #' @export
 #' @rdname ad_pca
-ad_pca.matrix <- function(x, y, ...) {
-  processed <- hardhat::mold(x, y)
+ad_pca.matrix <- function(x, ...) {
+  processed <- hardhat::mold(x, x[1])
   ad_pca_bridge(processed, ...)
 }
 
