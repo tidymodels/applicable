@@ -1,3 +1,3 @@
-new_ad_pca <- function(coefs, blueprint) {
-  hardhat::new_model(coefs = coefs, blueprint = blueprint, class = "ad_pca")
+new_ad_pca <- function(pcs, blueprint) {
+  hardhat::new_model(pcs = pcs, blueprint = blueprint, class = "ad_pca")
 }

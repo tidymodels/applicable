@@ -2,7 +2,7 @@
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
 ad_pca_impl <- function(predictors) {
-  list(coefs = 1)
+  list(pcs = stats::prcomp(predictors))
 }
 
 # -------------------------------------------------------------------
@@ -14,7 +14,7 @@ ad_pca_bridge <- function(processed, ...) {
   fit <- ad_pca_impl(predictors)
 
   new_ad_pca(
-    coefs = fit$coefs,
+    pcs = fit$pcs,
     blueprint = processed$blueprint
   )
 }
