@@ -76,7 +76,7 @@ ad_pca.default <- function(x, ...) {
 #' @export
 #' @rdname ad_pca
 ad_pca.data.frame <- function(x, ...) {
-  processed <- hardhat::mold(x, x[1])
+  processed <- hardhat::mold(x, NA_real_)
   ad_pca_bridge(processed, ...)
 }
 
@@ -85,7 +85,7 @@ ad_pca.data.frame <- function(x, ...) {
 #' @export
 #' @rdname ad_pca
 ad_pca.matrix <- function(x, ...) {
-  processed <- hardhat::mold(x, x[1])
+  processed <- hardhat::mold(x, NA_real_)
   ad_pca_bridge(processed, ...)
 }
 
