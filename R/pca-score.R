@@ -12,7 +12,7 @@ score_ad_pca_bridge <- function(type, model, predictors) {
   predictors <- as.matrix(predictors)
 
   score_function <- get_score_function(type)
-  predictions <- score_function(model, predictors)
+  predictions <- as.data.frame(score_function(model, predictors))
 
   hardhat::validate_prediction_size(predictions, predictors)
 
