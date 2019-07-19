@@ -1,7 +1,6 @@
 context("test-pca-fit")
 
 test_that("pcs matches `prcomp` output for the data frame method", {
-
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
 
   # Data frame method
@@ -12,7 +11,6 @@ test_that("pcs matches `prcomp` output for the data frame method", {
 })
 
 test_that("pcs matches `prcomp` output for the formula method", {
-
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
 
   # Formula method
@@ -23,7 +21,6 @@ test_that("pcs matches `prcomp` output for the formula method", {
 })
 
 test_that("pcs matches `prcomp` output for the recipe method", {
-
   skip("Skipping for now until issue 'argument \"data\" is missing, with no
         default' is fixed.")
 
@@ -39,13 +36,19 @@ test_that("pcs matches `prcomp` output for the recipe method", {
 })
 
 test_that("pcs matches `prcomp` output for the matrix method", {
-
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
 
   # Matrix method
   expect_equivalent(
     ad_pca(as.matrix(mtcars))$pcs,
     expected
+  )
+})
+
+test_that("ad_pca is not defined for vectors", {
+  expect_condition(
+    ad_pca(mtcars$mpg),
+    "`ad_pca()` is not defined for a 'numeric'."
   )
 })
 
