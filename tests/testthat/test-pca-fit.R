@@ -21,16 +21,14 @@ test_that("pcs matches `prcomp` output for the formula method", {
 })
 
 test_that("pcs matches `prcomp` output for the recipe method", {
-  skip("Skipping for now until issue 'argument \"data\" is missing, with no
-        default' is fixed.")
-
+  skip("Skipping until 'No variables or terms were selected.'
+       issue is fixed in hardhat.")
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
 
   # Recipe method
-  rec <- recipes::recipe(~., mtcars) %>%
-    recipes::prep()
+  rec <- recipes::recipe(~., mtcars)
   expect_equivalent(
-    ad_pca(rec)$pcs,
+    ad_pca(rec, data = mtcars)$pcs,
     expected
   )
 })
