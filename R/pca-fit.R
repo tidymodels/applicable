@@ -37,7 +37,8 @@ ad_pca_bridge <- function(processed, ...) {
 #'
 #'   * A __data frame__ containing the predictors.
 #'
-#' @param formula A formula specifying the predictor terms on the right-hand side.
+#' @param formula A formula specifying the predictor terms on the right-hand
+#' side. No outcome should be specified.
 #'
 #' @param ... Not currently used, but required for extensibility.
 #'
