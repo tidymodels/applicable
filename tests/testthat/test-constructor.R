@@ -8,7 +8,7 @@ test_that("pcs is assigned correctly", {
   expect_equal(x$pcs, 1)
 })
 
-test_that("pcs argument is provided", {
+test_that("pcs is provided", {
   expect_error(
     new_ad_pca(blueprint = hardhat::default_xy_blueprint()),
     'argument "pcs" is missing, with no default'
