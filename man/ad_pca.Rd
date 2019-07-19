@@ -32,7 +32,8 @@ created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 
 \item{...}{Not currently used, but required for extensibility.}
 
-\item{formula}{A formula specifying the predictor terms on the right-hand side.}
+\item{formula}{A formula specifying the predictor terms on the right-hand
+side. No outcome should be specified.}
 
 \item{data}{When a \strong{recipe} or \strong{formula} is used, \code{data} is specified as:
 \itemize{
