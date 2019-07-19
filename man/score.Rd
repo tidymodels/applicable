@@ -9,6 +9,17 @@ score(object, ...)
 
 \method{score}{default}(object, ...)
 }
+\arguments{
+\item{object}{Depending on the context:
+\itemize{
+\item A \strong{data frame} of predictors.
+\item A \strong{matrix} of predictors.
+\item A \strong{recipe} specifying a set of preprocessing steps
+created from \code{\link[recipes:recipe]{recipes::recipe()}}.
+}}
+
+\item{...}{Not currently used, but required for extensibility.}
+}
 \description{
 A scoring function
 }
