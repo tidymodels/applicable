@@ -16,10 +16,16 @@ test_that("`score` fails when predictors are factors", {
 })
 
 test_that("`ad_pca` fails when predictors are vectors", {
-  skip("Skipping until I understand why the expected & actual message differ.")
+  object <- iris
+  cls <- class(object)[1]
+  message <-
+    "`object` is not of a recognized type.
+     Only data.frame, matrix, recipe, and formula objects are allowed.
+     A {cls} was specified."
+  message <- glue::glue(message)
 
   expect_error(
-    ad_pca(iris$Sepal.Length),
-    "`ad_pca()` is not defined for a 'numeric'."
+    score(object),
+    message
     )
 })

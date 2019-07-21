@@ -93,5 +93,11 @@ score <- function (object, ...) {
 #' @export score.default
 #' @rdname score
 score.default <- function(object, ...) {
-  rlang::abort(message = "`score()` is not implemented for an object of this class.")
+  cls <- class(object)[1]
+  message <-
+    "`object` is not of a recognized type.
+     Only data.frame, matrix, recipe, and formula objects are allowed.
+     A {cls} was specified."
+  message <- glue::glue(message)
+  rlang::abort(message = message)
 }
