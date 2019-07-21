@@ -1,5 +1,12 @@
 context("test-pca-score")
 
+test_that("`score_ad_pca_numeric` fails when model has no pcs argument", {
+  expect_error(
+    score_ad_pca_numeric(mtcars, mtcars),
+    "The model must contain a pcs argument."
+  )
+})
+
 test_that("`score` fails when predictors are factors", {
   model <- ad_pca(~., iris)
   expect_error(
