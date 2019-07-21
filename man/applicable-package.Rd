@@ -9,7 +9,12 @@
 What the package does (one paragraph).
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (YOUR-ORCID-ID)
+\strong{Maintainer}: Marly Cormar \email{marly@rstudio.com}
+
+Authors:
+\itemize{
+  \item Max Kuhn \email{max@rstudio.com}
+}
 
 }
 \keyword{internal}
