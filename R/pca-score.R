@@ -2,6 +2,8 @@
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
 score_ad_pca_numeric <- function(model, predictors) {
+  if(!("pcs" %in% names(model)))
+    rlang::abort("The model must contain a pcs argument.")
   stats::predict(model$pcs, predictors)
 }
 
