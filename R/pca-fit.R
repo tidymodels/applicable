@@ -69,7 +69,13 @@ ad_pca <- function(x, ...) {
 #' @export
 #' @rdname ad_pca
 ad_pca.default <- function(x, ...) {
-  stop("`ad_pca()` is not defined for a '", class(x)[1], "'.", call. = FALSE)
+  cls <- class(x)[1]
+  message <-
+    "`x` is not of a recognized type.
+     Only data.frame, matrix, recipe, and formula objects are allowed.
+     A {cls} was specified."
+  message <- glue::glue(message)
+  rlang::abort(message = message)
 }
 
 # Data frame method
