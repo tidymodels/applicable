@@ -18,5 +18,5 @@ score <- function (object, ...) {
 #' @export score.default
 #' @rdname score
 score.default <- function(object, ...) {
-  stop("`score()` is not implemented for an object of this class.", call. = FALSE)
+  rlang::abort(message = "`score()` is not implemented for an object of this class.")
 }
