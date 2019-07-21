@@ -1,5 +1,10 @@
 context("test-pca-fit")
 
+test_that("`ad_pca` fails when model is not of class ad_pca", {
+  model <- ad_pca(~ Sepal.Length + Species, iris)
+  expect_is(model, "ad_pca")
+})
+
 test_that("pcs matches `prcomp` output for the data frame method", {
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
 
