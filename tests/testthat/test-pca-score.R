@@ -7,7 +7,7 @@ test_that("`score_ad_pca_numeric` fails when model has no pcs argument", {
   )
 })
 
-test_that("`score` fails when predictors are factors", {
+test_that("`score` fails when predictors only contain factors", {
   model <- ad_pca(~., iris)
   expect_error(
     score(model, iris$Species),
@@ -15,7 +15,7 @@ test_that("`score` fails when predictors are factors", {
   )
 })
 
-test_that("`ad_pca` fails when predictors are vectors", {
+test_that("`score` fails when predictors are vectors", {
   object <- iris
   cls <- class(object)[1]
   message <-
