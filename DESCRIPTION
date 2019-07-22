@@ -19,7 +19,9 @@ Imports:
     rlang,
     stats
 Suggests: 
-    recipes,
+    recipes (>= 0.1.6.9000),
     testthat (>= 2.1.0)
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
+Remotes:
+    tidymodels/recipes
