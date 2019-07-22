@@ -21,3 +21,11 @@ test_that("`new_ad_pca` fails when blueprint is numeric", {
     'blueprint should be a blueprint, not a numeric.'
   )
 })
+
+test_that("`new_ad_pca` returned blueprint is of class hardhat_blueprint", {
+  x <- new_ad_pca(
+    1,
+    blueprint = hardhat::default_xy_blueprint()
+  )
+  expect_true(is(x$blueprint, "hardhat_blueprint"))
+})
