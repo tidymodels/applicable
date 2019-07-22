@@ -15,7 +15,7 @@ test_that("pcs is provided", {
   )
 })
 
-test_that("blueprint is valid", {
+test_that("`new_ad_pca` fails when blueprint is numeric", {
   expect_error(
     new_ad_pca(pcs = 1, blueprint = 1),
     'blueprint should be a blueprint, not a numeric.'
