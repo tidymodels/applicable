@@ -53,7 +53,7 @@ test_that("pcs matches `prcomp` output for the matrix method", {
   )
 })
 
-test_that("ad_pca is not defined for vectors", {
+test_that("`ad_pca` is not defined for vectors", {
   cls <- class(mtcars$mpg)[1]
   expected_message <- glue::glue("`x` is not of a recognized type.
      Only data.frame, matrix, recipe, and formula objects are allowed.
