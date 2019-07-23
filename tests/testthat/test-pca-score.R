@@ -27,5 +27,17 @@ test_that("`score` fails when predictors are vectors", {
   expect_error(
     score(object),
     message
-    )
+  )
+})
+
+test_that("`score_ad_pca_numeric` output matches `stats::predict` output", {
+  model <- ad_pca(mtcars)
+  predictors <- as.matrix(mtcars)
+  expected <- stats::predict(model$pcs, predictors)
+
+  # Data frame method
+  expect_equivalent(
+    score_ad_pca_numeric(model, predictors),
+    expected
+  )
 })
