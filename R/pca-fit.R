@@ -2,7 +2,18 @@
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
 ad_pca_impl <- function(predictors) {
-  list(pcs = stats::prcomp(predictors, center = TRUE, scale. = TRUE))
+  res <-
+    list(
+      pcs = stats::prcomp(
+        predictors,
+        center = TRUE,
+        scale. = TRUE,
+        retx = TRUE
+      )
+    )
+  res$pca_means <- colMeans(res$pcs$x)
+  res$pcs$x <- NULL
+  res
 }
 
 # -------------------------------------------------------------------

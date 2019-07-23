@@ -5,6 +5,12 @@ score_ad_pca_numeric <- function(model, predictors) {
   if(!("pcs" %in% names(model)))
     rlang::abort("The model must contain a pcs argument.")
   stats::predict(model$pcs, predictors)
+  # add the distance column
+  # notes:
+  # te <- score(mod, test)
+  # diffs <- sweep(as.matrix(te), 2, means)^2
+  # sq_diff <- diffs^2
+  # dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
 }
 
 # -------------------------------------------------------------------
