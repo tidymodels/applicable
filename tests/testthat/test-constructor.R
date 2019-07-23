@@ -27,5 +27,5 @@ test_that("`new_ad_pca` returned blueprint is of class hardhat_blueprint", {
     1,
     blueprint = hardhat::default_xy_blueprint()
   )
-  expect_true(is(x$blueprint, "hardhat_blueprint"))
+  expect_is(x$blueprint, "hardhat_blueprint")
 })
