@@ -12,6 +12,7 @@ test_that("`ad_pca` fails when model is not of class hardhat_model", {
 
 test_that("pcs matches `prcomp` output for the data frame method", {
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
+  expected$x <- NULL
 
   # Data frame method
   expect_equivalent(
@@ -22,6 +23,7 @@ test_that("pcs matches `prcomp` output for the data frame method", {
 
 test_that("pcs matches `prcomp` output for the formula method", {
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
+  expected$x <- NULL
 
   # Formula method
   expect_equivalent(
@@ -34,6 +36,7 @@ test_that("pcs matches `prcomp` output for the recipe method", {
   skip("Skipping until 'No variables or terms were selected.'
        issue is fixed in hardhat.")
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
+  expected$x <- NULL
 
   # Recipe method
   rec <- recipes::recipe(~., mtcars)
@@ -45,6 +48,7 @@ test_that("pcs matches `prcomp` output for the recipe method", {
 
 test_that("pcs matches `prcomp` output for the matrix method", {
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
+  expected$x <- NULL
 
   # Matrix method
   expect_equivalent(
