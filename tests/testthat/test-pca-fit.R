@@ -33,8 +33,6 @@ test_that("pcs matches `prcomp` output for the formula method", {
 })
 
 test_that("pcs matches `prcomp` output for the recipe method", {
-  skip("Skipping until 'No variables or terms were selected.'
-       issue is fixed in hardhat.")
   expected <- stats::prcomp(mtcars, center = TRUE, scale. = TRUE)
   expected$x <- NULL
 
