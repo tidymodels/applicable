@@ -17,7 +17,9 @@ LazyData: true
 Imports: 
     hardhat,
     rlang,
-    stats
+    stats,
+    glue,
+    tibble
 Suggests: 
     recipes (>= 0.1.6.9000),
     testthat (>= 2.1.0)
