@@ -6,9 +6,11 @@ print.ad_pca <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
 
   print_output <- glue::glue(
-  "# Predictors: {predictors_count}
-   # Principal Components: The first {ninety_five_prop_var} principal components
-   account for 95% of the total variation in the predictors."
+  "# Predictors:
+      {predictors_count}
+   # Principal Components:
+      The first {ninety_five_prop_var} principal components
+      account for 95% of the total variation in the predictors."
   )
 
   cat(print_output)
