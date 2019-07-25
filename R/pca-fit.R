@@ -26,6 +26,7 @@ ad_pca_bridge <- function(processed, ...) {
 
   new_ad_pca(
     pcs = fit$pcs,
+    pca_means = fit$pca_means,
     blueprint = processed$blueprint
   )
 }
