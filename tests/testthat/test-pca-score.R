@@ -30,14 +30,17 @@ test_that("`score` fails when predictors are vectors", {
   )
 })
 
-test_that("`score_ad_pca_numeric` output matches `stats::predict` output", {
-  model <- ad_pca(mtcars)
-  predictors <- as.matrix(mtcars)
+test_that("`score_ad_pca_numeric` pcs output matches `stats::predict` output", {
+  model <- ad_pca(mtcars %>% dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+
   expected <- stats::predict(model$pcs, predictors)
+  actual_output <- score_ad_pca_numeric(model, predictors) %>%
+    dplyr::select(dplyr::starts_with("PC"))
 
   # Data frame method
   expect_equivalent(
-    score_ad_pca_numeric(model, predictors),
+    actual_output,
     expected
   )
 })
