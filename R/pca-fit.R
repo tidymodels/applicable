@@ -13,7 +13,24 @@ ad_pca_impl <- function(predictors) {
     )
   res$pca_means <- colMeans(res$pcs$x)
   res$pcs$x <- NULL
+  res$XtXinv <- round(get_inv(predictors), 3)
   res
+}
+
+get_inv <- function(X) {
+  if (!is.matrix(X)) {
+    X <- as.matrix(X)
+  }
+
+  XpX <- t(X) %*% X
+  XpX_inv <- try(qr.solve(XpX), silent = TRUE)
+
+  if (inherits(XpX_inv, "try-error")) {
+    rlang::abort(message = as.character(XpX_inv))
+  }
+
+  dimnames(XpX_inv) <- NULL
+  XpX_inv
 }
 
 # -------------------------------------------------------------------
@@ -27,6 +44,7 @@ ad_pca_bridge <- function(processed, ...) {
   new_ad_pca(
     pcs = fit$pcs,
     pca_means = fit$pca_means,
+    XtXinv = fit$XtXinv,
     blueprint = processed$blueprint
   )
 }

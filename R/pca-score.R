@@ -10,9 +10,13 @@ score_ad_pca_numeric <- function(model, predictors) {
   sq_diff <- diffs^2
   dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
 
+  proj_matrix <- predictors %*% model$XtXinv %*% t(predictors)
+  hat_values <- diag(proj_matrix)
+
   tibble::as_tibble(
     cbind(
       predicted_output,
+      hat_values,
       dists
     )
   )
