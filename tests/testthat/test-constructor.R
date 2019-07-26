@@ -1,7 +1,7 @@
 context("test-constructor")
 
-test_that("`new_ad_pca` arguments are assigned correctly", {
-  x <- new_ad_pca(
+test_that("`new_apd_pca` arguments are assigned correctly", {
+  x <- new_apd_pca(
     "pcs",
     "pca_means",
     "XtX_inv",
@@ -18,20 +18,20 @@ test_that("`new_ad_pca` arguments are assigned correctly", {
 
 test_that("pcs is provided", {
   expect_error(
-    new_ad_pca(blueprint = hardhat::default_xy_blueprint()),
+    new_apd_pca(blueprint = hardhat::default_xy_blueprint()),
     'argument "pcs" is missing, with no default'
   )
 })
 
-test_that("`new_ad_pca` fails when blueprint is numeric", {
+test_that("`new_apd_pca` fails when blueprint is numeric", {
   expect_error(
-    new_ad_pca(pcs = 1, blueprint = 1),
+    new_apd_pca(pcs = 1, blueprint = 1),
     'blueprint should be a blueprint, not a numeric.'
   )
 })
 
-test_that("`new_ad_pca` returned blueprint is of class hardhat_blueprint", {
-  x <- new_ad_pca(
+test_that("`new_apd_pca` returned blueprint is of class hardhat_blueprint", {
+  x <- new_apd_pca(
     "pcs",
     "pca_means",
     "XtX_inv",

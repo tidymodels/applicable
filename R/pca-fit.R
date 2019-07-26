@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
-ad_pca_impl <- function(predictors) {
+apd_pca_impl <- function(predictors) {
   res <-
     list(
       pcs = stats::prcomp(
@@ -36,12 +36,12 @@ get_inv <- function(X) {
 # -------------------------------------------------------------------
 # ------------------- Model function bridge -------------------------
 # -------------------------------------------------------------------
-ad_pca_bridge <- function(processed, ...) {
+apd_pca_bridge <- function(processed, ...) {
   predictors <- processed$predictors
 
-  fit <- ad_pca_impl(predictors)
+  fit <- apd_pca_impl(predictors)
 
-  new_ad_pca(
+  new_apd_pca(
     pcs = fit$pcs,
     pca_means = fit$pca_means,
     XtX_inv = fit$XtX_inv,
@@ -52,9 +52,9 @@ ad_pca_bridge <- function(processed, ...) {
 # -------------------------------------------------------------------
 # ------------------ Model function interface -----------------------
 # -------------------------------------------------------------------
-#' Fit a `ad_pca`
+#' Fit a `apd_pca`
 #'
-#' `ad_pca()` fits a model.
+#' `apd_pca()` fits a model.
 #'
 #' @param x Depending on the context:
 #'
@@ -74,31 +74,31 @@ ad_pca_bridge <- function(processed, ...) {
 #'
 #' @return
 #'
-#' A `ad_pca` object.
+#' A `apd_pca` object.
 #'
 #' @examples
 #' predictors <- mtcars[, -1]
 #'
 #' # Data frame interface
-#' mod <- ad_pca(predictors)
+#' mod <- apd_pca(predictors)
 #'
 #' # Formula interface
-#' mod2 <- ad_pca(mpg ~ ., mtcars)
+#' mod2 <- apd_pca(mpg ~ ., mtcars)
 #'
 #' # Recipes interface
 #' library(recipes)
 #' rec <- recipe(mpg ~ ., mtcars)
 #' rec <- step_log(rec, disp)
-#' mod3 <- ad_pca(rec, mtcars)
+#' mod3 <- apd_pca(rec, mtcars)
 #'
 #' @export
-ad_pca <- function(x, ...) {
-  UseMethod("ad_pca")
+apd_pca <- function(x, ...) {
+  UseMethod("apd_pca")
 }
 
 #' @export
-#' @rdname ad_pca
-ad_pca.default <- function(x, ...) {
+#' @rdname apd_pca
+apd_pca.default <- function(x, ...) {
   cls <- class(x)[1]
   message <-
     "`x` is not of a recognized type.
@@ -111,35 +111,35 @@ ad_pca.default <- function(x, ...) {
 # Data frame method
 
 #' @export
-#' @rdname ad_pca
-ad_pca.data.frame <- function(x, ...) {
+#' @rdname apd_pca
+apd_pca.data.frame <- function(x, ...) {
   processed <- hardhat::mold(x, NA_real_)
-  ad_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, ...)
 }
 
 # Matrix method
 
 #' @export
-#' @rdname ad_pca
-ad_pca.matrix <- function(x, ...) {
+#' @rdname apd_pca
+apd_pca.matrix <- function(x, ...) {
   processed <- hardhat::mold(x, NA_real_)
-  ad_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, ...)
 }
 
 # Formula method
 
 #' @export
-#' @rdname ad_pca
-ad_pca.formula <- function(formula, data, ...) {
+#' @rdname apd_pca
+apd_pca.formula <- function(formula, data, ...) {
   processed <- hardhat::mold(formula, data)
-  ad_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, ...)
 }
 
 # Recipe method
 
 #' @export
-#' @rdname ad_pca
-ad_pca.recipe <- function(x, data, ...) {
+#' @rdname apd_pca
+apd_pca.recipe <- function(x, data, ...) {
   processed <- hardhat::mold(x, data)
-  ad_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, ...)
 }

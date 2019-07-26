@@ -1,14 +1,14 @@
 context("test-pca-score")
 
-test_that("`score_ad_pca_numeric` fails when model has no pcs argument", {
+test_that("`score_apd_pca_numeric` fails when model has no pcs argument", {
   expect_error(
-    score_ad_pca_numeric(mtcars, mtcars),
+    score_apd_pca_numeric(mtcars, mtcars),
     "The model must contain a pcs argument."
   )
 })
 
 test_that("`score` fails when predictors only contain factors", {
-  model <- ad_pca(~., iris)
+  model <- apd_pca(~., iris)
   expect_error(
     score(model, iris$Species),
     "The class of `new_data`, 'factor', is not recognized."
@@ -30,12 +30,12 @@ test_that("`score` fails when predictors are vectors", {
   )
 })
 
-test_that("`score_ad_pca_numeric` pcs output matches `stats::predict` output", {
-  model <- ad_pca(mtcars %>% dplyr::slice(1:15))
+test_that("`score_apd_pca_numeric` pcs output matches `stats::predict` output", {
+  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
   predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
 
   expected <- stats::predict(model$pcs, predictors)
-  actual_output <- score_ad_pca_numeric(model, predictors) %>%
+  actual_output <- score_apd_pca_numeric(model, predictors) %>%
     dplyr::select(dplyr::starts_with("PC"))
 
   # Data frame method

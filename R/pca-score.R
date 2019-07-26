@@ -1,7 +1,7 @@
 # -------------------------------------------------------------------
 # ----------------- Model function implementation -------------------
 # -------------------------------------------------------------------
-score_ad_pca_numeric <- function(model, predictors) {
+score_apd_pca_numeric <- function(model, predictors) {
   if(!("pcs" %in% names(model)))
     rlang::abort("The model must contain a pcs argument.")
   predicted_output <- stats::predict(model$pcs, predictors)
@@ -25,7 +25,7 @@ score_ad_pca_numeric <- function(model, predictors) {
 # -------------------------------------------------------------------
 # ------------------- Model function bridge -------------------------
 # -------------------------------------------------------------------
-score_ad_pca_bridge <- function(type, model, predictors) {
+score_apd_pca_bridge <- function(type, model, predictors) {
   predictors <- as.matrix(predictors)
 
   score_function <- get_score_function(type)
@@ -39,7 +39,7 @@ score_ad_pca_bridge <- function(type, model, predictors) {
 get_score_function <- function(type) {
   switch(
     type,
-    numeric = score_ad_pca_numeric
+    numeric = score_apd_pca_numeric
   )
 }
 
@@ -75,9 +75,9 @@ score.default <- function(object, ...) {
   rlang::abort(message = message)
 }
 
-#' Predict from a `ad_pca`
+#' Predict from a `apd_pca`
 #'
-#' @param object A `ad_pca` object.
+#' @param object A `apd_pca` object.
 #'
 #' @param new_data A data frame or matrix of new predictors.
 #'
@@ -98,16 +98,16 @@ score.default <- function(object, ...) {
 #' test <- mtcars[21:32, -1]
 #'
 #' # Fit
-#' mod <- ad_pca(mpg ~ cyl + log(drat), train)
+#' mod <- apd_pca(mpg ~ cyl + log(drat), train)
 #'
 #' # Predict, with preprocessing
 #' score(mod, test)
 #'
 #' @export
-score.ad_pca <- function(object, new_data, type = "numeric", ...) {
+score.apd_pca <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)
   rlang::arg_match(type, valid_predict_types())
-  score_ad_pca_bridge(type, object, forged$predictors)
+  score_apd_pca_bridge(type, object, forged$predictors)
 }
 
 valid_predict_types <- function() {
