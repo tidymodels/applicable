@@ -31,7 +31,7 @@ NULL
 #' @name okc_binary
 #' @aliases okc_binary okc_binary_train okc_binary_test
 #' @docType data
-#' @return \item{okc_binary_train. okc_binary_test}{data frame frames with 61 columns}
+#' @return \item{okc_binary_train,okc_binary_test}{data frame frames with 61 columns}
 #'
 #' @source
 #' Kim (2015), "OkCupid Data for Introductory Statistics and Data Science Courses", _Journal of Statistics Education_, Volume 23, Number 2. \url{http://www.amstat.org/publications/jse/contents_2015.html}
