@@ -1,6 +1,7 @@
-# -------------------------------------------------------------------
-# ----------------- Model function implementation -------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model function implementation ------------------------
+# -----------------------------------------------------------------------------
+
 score_apd_pca_numeric <- function(model, predictors) {
   if(!("pcs" %in% names(model)))
     rlang::abort("The model must contain a pcs argument.")
@@ -18,13 +19,14 @@ score_apd_pca_numeric <- function(model, predictors) {
   )
 }
 
-# -------------------------------------------------------------------
-# ------------------- Model function bridge -------------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ------------------------ Model function bridge ------------------------------
+# -----------------------------------------------------------------------------
+
 score_apd_pca_bridge <- function(type, model, predictors) {
   predictors <- as.matrix(predictors)
 
-  score_function <- get_score_function(type)
+  score_function <- get_pca_score_function(type)
   predictions <- as.data.frame(score_function(model, predictors))
 
   hardhat::validate_prediction_size(predictions, predictors)
@@ -32,7 +34,7 @@ score_apd_pca_bridge <- function(type, model, predictors) {
   predictions
 }
 
-get_score_function <- function(type) {
+get_pca_score_function <- function(type) {
   switch(
     type,
     numeric = score_apd_pca_numeric
@@ -42,34 +44,6 @@ get_score_function <- function(type) {
 # -------------------------------------------------------------------
 # ------------------ Model function interface -----------------------
 # -------------------------------------------------------------------
-#' A scoring function
-#'
-#' @param object Depending on the context:
-#'
-#'   * A __data frame__ of predictors.
-#'   * A __matrix__ of predictors.
-#'   * A __recipe__ specifying a set of preprocessing steps
-#'     created from [recipes::recipe()].
-#'
-#' @param ... Not currently used, but required for extensibility.
-#'
-#' @export
-score <- function (object, ...) {
-  UseMethod("score")
-}
-
-#' @export
-#' @export score.default
-#' @rdname score
-score.default <- function(object, ...) {
-  cls <- class(object)[1]
-  message <-
-    "`object` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified."
-  message <- glue::glue(message)
-  rlang::abort(message = message)
-}
 
 #' Predict from a `apd_pca`
 #'
