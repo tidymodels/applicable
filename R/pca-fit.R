@@ -13,7 +13,6 @@ apd_pca_impl <- function(predictors) {
     )
   res$pca_means <- colMeans(res$pcs$x)
   res$pcs$x <- NULL
-  res$XtX_inv <- round(get_inv(predictors), 3)
   res
 }
 
@@ -44,7 +43,6 @@ apd_pca_bridge <- function(processed, ...) {
   new_apd_pca(
     pcs = fit$pcs,
     pca_means = fit$pca_means,
-    XtX_inv = fit$XtX_inv,
     blueprint = processed$blueprint
   )
 }
