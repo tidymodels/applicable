@@ -12,7 +12,7 @@ Kim (2015), "OkCupid Data for Introductory Statistics and Data Science Courses",
 Kuhn and Johnson (2020), \emph{Feature Engineering and Selection}, Chapman and Hall/CRC . \url{https://bookdown.org/max/FES/} and \url{https://github.com/topepo/FES}
 }
 \value{
-\item{okc_binary_train. okc_binary_test}{data frame frames with 61 columns}
+\item{okc_binary_train,okc_binary_test}{data frame frames with 61 columns}
 }
 \description{
 OkCupid Binary Predictors
