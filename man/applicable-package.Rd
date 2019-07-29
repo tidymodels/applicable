@@ -4,12 +4,14 @@
 \name{applicable-package}
 \alias{applicable}
 \alias{applicable-package}
-\title{applicable: What the Package Does (One Line, Title Case)}
+\title{applicable: A Compilation of Applicability Domain Methods}
 \description{
-What the package does (one paragraph).
+A modeling package compiling applicability domain methods in R.
+    It combines different methods to measure the amount of extrapolation new
+    samples can have from the training set.
 }
 \author{
-\strong{Maintainer}: Marly Cormar \email{marly@rstudio.com}
+\strong{Maintainer}: Marly Cormar \email{marlycormar@gmail.com}
 
 Authors:
 \itemize{
