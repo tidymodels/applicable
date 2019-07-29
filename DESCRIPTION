@@ -10,12 +10,18 @@ Description: A modeling package compiling applicability domain methods in R.
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
+Depends: R (>= 2.10)
 Imports: 
     hardhat,
     rlang,
     stats,
     glue,
-    tibble
+    tibble,
+    proxyC,
+    Matrix,
+    dplyr,
+    ggplot2,
+    utils
 Suggests: 
     recipes (>= 0.1.6.9000),
     testthat (>= 2.1.0)
