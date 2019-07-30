@@ -1,5 +1,44 @@
 context("test-pca-fit")
 
+test_that("`new_apd_pca` arguments are assigned correctly", {
+  x <- new_apd_pca(
+    "pcs",
+    "pca_means",
+    blueprint = hardhat::default_xy_blueprint()
+  )
+
+  expect_equal(names(x), c("pcs", "pca_means", "blueprint"))
+  expect_equal(x$pcs, "pcs")
+  expect_equal(x$pca_means, "pca_means")
+  expect_equal(x$blueprint, hardhat::default_xy_blueprint())
+
+})
+
+test_that("pcs is provided", {
+  expect_error(
+    new_apd_pca(blueprint = hardhat::default_xy_blueprint()),
+    'argument "pcs" is missing, with no default'
+  )
+})
+
+test_that("`new_apd_pca` fails when blueprint is numeric", {
+  expect_error(
+    new_apd_pca(pcs = 1, blueprint = 1),
+    'blueprint should be a blueprint, not a numeric.'
+  )
+})
+
+test_that("`new_apd_pca` returned blueprint is of class hardhat_blueprint", {
+  x <- new_apd_pca(
+    "pcs",
+    "pca_means",
+    blueprint = hardhat::default_xy_blueprint()
+  )
+
+  expect_is(x$blueprint, "hardhat_blueprint")
+})
+
+
 test_that("`apd_pca` fails when model is not of class apd_pca", {
   model <- apd_pca(~ Sepal.Length + Species, iris)
   expect_is(model, "apd_pca")
