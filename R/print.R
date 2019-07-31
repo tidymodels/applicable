@@ -10,7 +10,8 @@ print.apd_pca <- function(x, ...) {
       {predictors_count}
    # Principal Components:
       The first {ninety_five_prop_var} principal components
-      account for 95% of the total variation in the predictors."
+      account for 95% of the total variation
+      in the predictors."
   )
 
   cat(print_output)
