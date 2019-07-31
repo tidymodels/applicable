@@ -4,12 +4,14 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
   x <- new_apd_pca(
     "pcs",
     "pca_means",
+    "pctls",
     blueprint = hardhat::default_xy_blueprint()
   )
 
-  expect_equal(names(x), c("pcs", "pca_means", "blueprint"))
+  expect_equal(names(x), c("pcs", "pca_means", "pctls", "blueprint"))
   expect_equal(x$pcs, "pcs")
   expect_equal(x$pca_means, "pca_means")
+  expect_equal(x$pctls, "pctls")
   expect_equal(x$blueprint, hardhat::default_xy_blueprint())
 
 })
@@ -32,6 +34,7 @@ test_that("`new_apd_pca` returned blueprint is of class hardhat_blueprint", {
   x <- new_apd_pca(
     "pcs",
     "pca_means",
+    "pctls",
     blueprint = hardhat::default_xy_blueprint()
   )
 
