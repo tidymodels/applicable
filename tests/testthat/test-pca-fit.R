@@ -1,4 +1,4 @@
-context("test-pca-fit")
+context("pca fit tests")
 
 test_that("`new_apd_pca` arguments are assigned correctly", {
   x <- new_apd_pca(

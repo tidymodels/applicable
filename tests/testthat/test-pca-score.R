@@ -1,4 +1,4 @@
-context("test-pca-score")
+context("pca score tests")
 
 test_that("`score_apd_pca_numeric` fails when model has no pcs argument", {
   expect_error(
