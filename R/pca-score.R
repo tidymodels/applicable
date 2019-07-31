@@ -12,10 +12,14 @@ score_apd_pca_numeric <- function(model, predictors) {
   sq_diff <- diffs^2
   dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
 
+  predicted_output <-
+    as_tibble(predicted_output) %>%
+    mutate(distance = dists)
+
   # Compute percentile of new pca values
   new_pctls <- purrr::map2_dfc(
     model$pctls %>% dplyr::select(-percentile),
-    as_tibble(predicted_output),
+    predicted_output,
     get_new_percentile,
     grid = model$pctls$percentile
     )
@@ -25,7 +29,6 @@ score_apd_pca_numeric <- function(model, predictors) {
   tibble::as_tibble(
     cbind(
       predicted_output,
-      dists,
       new_pctls
     )
   )

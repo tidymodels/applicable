@@ -27,8 +27,18 @@ apd_pca_impl <- function(predictors) {
       )
     )
   res$pca_means <- colMeans(res$pcs$x)
+
+  # Compute distances between new pca values and the pca means
+  diffs <- sweep(res$pcs$x, 2, res$pca_means)
+  sq_diff <- diffs^2
+  dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
+
+  train_pcs_res <-
+    as_tibble(res$pcs$x) %>%
+    mutate(distance = dists)
+
   res$pctls <-
-    map_dfc(as_tibble(res$pcs$x), get_ref_percentile) %>%
+    map_dfc(train_pcs_res, get_ref_percentile) %>%
     mutate(percentile = seq(0, 100, length = 101))
   res$pcs$x <- NULL
 
