@@ -27,10 +27,10 @@ apd_pca_impl <- function(predictors) {
       )
     )
   res$pca_means <- colMeans(res$pcs$x)
-  res$pcs$x <- NULL
   res$pctls <-
-    map_dfc(as_tibble(res$pcs$rotation), get_ref_percentile) %>%
+    map_dfc(as_tibble(res$pcs$x), get_ref_percentile) %>%
     mutate(percentile = seq(0, 100, length = 101))
+  res$pcs$x <- NULL
 
   res
 }
