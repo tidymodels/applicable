@@ -26,6 +26,10 @@ apd_pca_impl <- function(predictors) {
         retx = TRUE
       )
     )
+
+  # compute num_comp here
+
+  # filter down to num_comp
   res$pca_means <- colMeans(res$pcs$x)
 
   # Compute distances between new pca values and the pca means
