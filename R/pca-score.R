@@ -7,14 +7,26 @@ score_apd_pca_numeric <- function(model, predictors) {
     rlang::abort("The model must contain a pcs argument.")
   predicted_output <- stats::predict(model$pcs, predictors)
 
+  # Compute distances between new pca values and the pca means
   diffs <- sweep(as.matrix(predicted_output), 2, model$pca_means)
   sq_diff <- diffs^2
   dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
 
+  # Compute percentile of new pca values
+  new_pctls <- purrr::map2_dfc(
+    model$pctls %>% dplyr::select(-percentile),
+    as_tibble(predicted_output),
+    get_new_percentile,
+    grid = model$pctls$percentile
+    )
+  new_pctls <- new_pctls %>%
+    dplyr::rename_all(paste0, "_pctl")
+
   tibble::as_tibble(
     cbind(
       predicted_output,
-      dists
+      dists,
+      new_pctls
     )
   )
 }
@@ -34,16 +46,9 @@ score_apd_pca_bridge <- function(type, model, predictors) {
   predictions
 }
 
-get_pca_score_function <- function(type) {
-  switch(
-    type,
-    numeric = score_apd_pca_numeric
-  )
-}
-
-# -------------------------------------------------------------------
-# ------------------ Model function interface -----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ----------------------- Model function interface ----------------------------
+# -----------------------------------------------------------------------------
 
 #' Predict from a `apd_pca`
 #'
@@ -80,6 +85,24 @@ score.apd_pca <- function(object, new_data, type = "numeric", ...) {
   score_apd_pca_bridge(type, object, forged$predictors)
 }
 
+# -----------------------------------------------------------------------------
+# ----------------------- Helper functions ------------------------------------
+# -----------------------------------------------------------------------------
+
+get_pca_score_function <- function(type) {
+  switch(
+    type,
+    numeric = score_apd_pca_numeric
+  )
+}
+
 valid_predict_types <- function() {
   c("numeric")
+}
+
+get_new_percentile <- function(ref, x_new, grid) {
+  res <- approx(ref, grid, xout = x_new)$y
+  res[x_new < min(ref, na.rm = TRUE)] <- 0
+  res[x_new > max(ref, na.rm = TRUE)] <- 1
+  res
 }
