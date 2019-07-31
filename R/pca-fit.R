@@ -2,10 +2,11 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_pca <- function(pcs, pca_means, blueprint) {
+new_apd_pca <- function(pcs, pca_means, pctls, blueprint) {
   hardhat::new_model(
     pcs = pcs,
     pca_means = pca_means,
+    pctls = pctls,
     blueprint = blueprint,
     class = "apd_pca"
   )
@@ -27,6 +28,10 @@ apd_pca_impl <- function(predictors) {
     )
   res$pca_means <- colMeans(res$pcs$x)
   res$pcs$x <- NULL
+  res$pctls <-
+    map_dfc(as_tibble(res$pcs$rotation), get_ref_percentile) %>%
+    mutate(percentile = seq(0, 100, length = 101))
+
   res
 }
 
@@ -42,6 +47,7 @@ apd_pca_bridge <- function(processed, ...) {
   new_apd_pca(
     pcs = fit$pcs,
     pca_means = fit$pca_means,
+    pctls = fit$pctls,
     blueprint = processed$blueprint
   )
 }
@@ -140,4 +146,15 @@ apd_pca.formula <- function(formula, data, ...) {
 apd_pca.recipe <- function(x, data, ...) {
   processed <- hardhat::mold(x, data)
   apd_pca_bridge(processed, ...)
+}
+
+# -----------------------------------------------------------------------------
+# ----------------------- Helper functions ------------------------------------
+# -----------------------------------------------------------------------------
+
+get_ref_percentile <- function(x) {
+  res <- stats::ecdf(x)
+  grid = seq(0, 1, length = 101)
+  res <- stats::quantile(res, grid)
+  unname(res)
 }
