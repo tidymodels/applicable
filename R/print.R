@@ -2,7 +2,7 @@
 print.apd_pca <- function(x, ...) {
   eigs <- x$pcs$sdev^2
   cum_sum <- cumsum(eigs)/sum(eigs)
-  ninety_five_prop_var <- sum(cum_sum <= 95) + 1
+  ninety_five_prop_var <- sum(cum_sum <= 95)
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
 
   print_output <- glue::glue(
