@@ -1,19 +1,15 @@
 #' Binary QSAR Data
 #'
 #' @details These data are from two different sources on quantitative
-#'  structure-activity relationship (QSAR) modeling and contain 49 predictors
-#'  that are either 0 or 1. The training set contains 3796 samples (from the
-#'  `caco` data set in the `QSARdata` package) and there are 80 unknown samples
-#'  (taken from the `bbb2` data in the same package).
-#'
-#' The training set was collected from a general set used to measure
-#'  permeability while the new samples are from a set of molecules used to study
-#'  brain penetration (presumably for neuroscience related purposes).
+#'  structure-activity relationship (QSAR) modeling and contain 67 predictors
+#'  that are either 0 or 1. The training set contains 4,330 samples and there
+#'  are five unknown samples (both from the `Mutagen` data in the `QSARdata`
+#'  package).
 #'
 #' @name binary
 #' @aliases qsar_binary binary_tr binary_unk
 #' @docType data
-#' @return \item{binary_tr,binary_ukn}{data frame frames with 49 columns}
+#' @return \item{binary_tr,binary_ukn}{data frame frames with 67 columns}
 #'
 #'
 #' @keywords datasets
