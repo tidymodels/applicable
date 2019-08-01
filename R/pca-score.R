@@ -109,3 +109,19 @@ get_new_percentile <- function(ref, x_new, grid) {
   res[x_new > max(ref, na.rm = TRUE)] <- 1
   res
 }
+
+#' Plot the distribution function for pcas
+#'
+#' @param object An object produced by `apd_pca`.
+#' @param ... Not currently used.
+#' @return A `ggplot` object that shows the cdistribution function for each
+#' principal component.
+#' @export autoplot.apd_pca
+#' @export
+autoplot.apd_pca <- function(object, ...) {
+  object$pctls %>%
+    tidyr::gather(component, value, -percentile) %>%
+    ggplot2::ggplot(aes(x = value, y = percentile)) +
+    ggplot2::geom_step(direction = "hv") +
+    ggplot2::facet_wrap(~ component)
+}
