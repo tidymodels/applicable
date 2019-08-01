@@ -9,7 +9,9 @@ autoplot.apd_pca(object, ...)
 \arguments{
 \item{object}{An object produced by \code{apd_pca}.}
 
-\item{...}{Not currently used.}
+\item{...}{An optional set of \code{dplyr} selectors, such as \code{dplyr::matches()} or
+\code{dplyr::starts_with()} for selecting which variables should be shown in the
+plot.}
 }
 \value{
 A \code{ggplot} object that shows the cdistribution function for each
@@ -17,4 +19,15 @@ principal component.
 }
 \description{
 Plot the distribution function for pcas
+}
+\examples{
+library(ggplot2)
+data(biomass, package = "recipes")
+
+biomass_ad <- apd_pca(biomass[, 3:7])
+
+autoplot(biomass_ad)
+# Using selectors in `...`
+autoplot(biomass_ad, distance) + scale_x_log10()
+autoplot(biomass_ad, matches("PC[1-2]"))
 }

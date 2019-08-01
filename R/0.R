@@ -4,12 +4,18 @@
 #' @importFrom dplyr matches
 #' @importFrom dplyr starts_with
 #' @importFrom dplyr rename_all
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr ungroup
+#' @importFrom dplyr count
+#' @importFrom dplyr sample_n
 #' @importFrom glue glue
 #' @importFrom tibble as_tibble
 #' @importFrom tibble tibble
 #' @importFrom purrr map_dfc
 #' @importFrom purrr map2_dfc
 #' @importFrom rlang abort
+#' @importFrom rlang enquos
 #' @importFrom rlang arg_match
 #' @importFrom stats predict
 #' @importFrom stats prcomp
@@ -21,9 +27,10 @@
 #' @importFrom hardhat forge
 #' @importFrom hardhat mold
 #' @importFrom hardhat new_model
-#' @importFrom ggplot2 ggplot geom_step xlab ylab
+#' @importFrom ggplot2 ggplot geom_step xlab ylab aes
 #' @importFrom Matrix Matrix colSums
-#' @importFrom dplyr %>% mutate group_by ungroup count sample_n
+#' @importFrom tidyselect vars_select
+#' @importFrom tidyr gather
 
 # ------------------------------------------------------------------------------
 # nocov
@@ -32,7 +39,7 @@
 # global variable" check
 #' @importFrom utils globalVariables
 utils::globalVariables(
-  c("cumulative", "n", "sim", "percentile")
+  c("cumulative", "n", "sim", "percentile", "component", "value")
 )
 
 # nocov end
