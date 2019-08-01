@@ -160,11 +160,12 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' jacc_sim
 #'
 #' # plot the empirical cumulative distribution function (ECDF) for the training set:
+#' library(ggplot2)
 #' autoplot(jacc_sim)
 #'
 #' # Example calculations for two samples:
 #' A <- as.matrix(binary_tr[1,])
-#' B <- as.matrix(binary_unk[7,])
+#' B <- as.matrix(binary_tr[2,])
 #' xtab <- table(A, B)
 #' xtab
 #'
@@ -178,8 +179,8 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' ( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
 #'
 #' # Summarize across all training set similarities
-#' median_sim <- score(jacc_sim, new_data = binary_unk[7,])
-#' median_sim
+#' mean_sim <- score(jacc_sim, new_data = binary_unk)
+#' mean_sim
 #' }
 #' @export
 apd_similarity <- function(x, ...) {

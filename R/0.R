@@ -31,7 +31,7 @@
 # global variable" check
 #' @importFrom utils globalVariables
 utils::globalVariables(
-  c("cumulative", "n", "sim")
+  c("cumulative", "n", "sim", "percentile")
 )
 
 # nocov end

@@ -83,11 +83,12 @@ jacc_sim <- apd_similarity(binary_tr)
 jacc_sim
 
 # plot the empirical cumulative distribution function (ECDF) for the training set:
+library(ggplot2)
 autoplot(jacc_sim)
 
 # Example calculations for two samples:
 A <- as.matrix(binary_tr[1,])
-B <- as.matrix(binary_unk[7,])
+B <- as.matrix(binary_tr[2,])
 xtab <- table(A, B)
 xtab
 
@@ -101,7 +102,7 @@ xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
 ( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
 
 # Summarize across all training set similarities
-median_sim <- score(jacc_sim, new_data = binary_unk[7,])
-median_sim
+mean_sim <- score(jacc_sim, new_data = binary_unk)
+mean_sim
 }
 }
