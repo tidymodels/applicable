@@ -35,6 +35,8 @@ test_that("`score_apd_pca_numeric` pcs output matches `stats::predict` output", 
   predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
 
   expected <- stats::predict(model$pcs, predictors)
+  colnames(expected) <- applicable:::names0(ncol(expected), "PC")
+
   # Select columns of the form PC{number}
   actual_output <- score_apd_pca_numeric(model, predictors) %>%
     dplyr::select(dplyr::matches("^PC\\d+$"))

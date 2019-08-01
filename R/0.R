@@ -16,6 +16,7 @@
 #' @importFrom stats approx
 #' @importFrom stats quantile
 #' @importFrom stats ecdf
+#' @importFrom stats setNames
 #' @importFrom hardhat validate_prediction_size
 #' @importFrom hardhat forge
 #' @importFrom hardhat mold

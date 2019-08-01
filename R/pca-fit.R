@@ -39,6 +39,7 @@ apd_pca_impl <- function(predictors) {
 
   train_pcs_res <-
     as_tibble(res$pcs$x) %>%
+    setNames(names0(ncol(res$pcs$x), "PC")) %>%
     mutate(distance = dists)
 
   res$pctls <-

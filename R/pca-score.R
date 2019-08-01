@@ -3,7 +3,7 @@
 # -----------------------------------------------------------------------------
 
 score_apd_pca_numeric <- function(model, predictors) {
-  if(!("pcs" %in% names(model)))
+  if (!("pcs" %in% names(model)))
     rlang::abort("The model must contain a pcs argument.")
   predicted_output <- stats::predict(model$pcs, predictors)
 
@@ -14,6 +14,7 @@ score_apd_pca_numeric <- function(model, predictors) {
 
   predicted_output <-
     as_tibble(predicted_output) %>%
+    setNames(names0(ncol(predicted_output), "PC")) %>%
     mutate(distance = dists)
 
   # Compute percentile of new pca values
