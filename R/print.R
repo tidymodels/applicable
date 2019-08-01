@@ -1,16 +1,15 @@
 #' @export
 print.apd_pca <- function(x, ...) {
-  eigs <- x$pcs$sdev^2
-  cum_sum <- cumsum(eigs)/sum(eigs)
-  ninety_five_prop_var <- sum(cum_sum <= 0.95)
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
+  percentage <- x$threshold * 100
+  num_comp <- ncol(x$num_comp)
 
   print_output <- glue::glue(
   "# Predictors:
       {predictors_count}
    # Principal Components:
-      The first {ninety_five_prop_var} principal components
-      account for 95% of the total variation
+      The first {num_comp} principal components
+      account for {percentage}% of the total variation
       in the predictors."
   )
 
