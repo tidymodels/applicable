@@ -117,13 +117,34 @@ get_new_percentile <- function(ref, x_new, grid) {
 #' Plot the distribution function for pcas
 #'
 #' @param object An object produced by `apd_pca`.
-#' @param ... Not currently used.
+#' @param ... An optional set of `dplyr` selectors, such as `dplyr::matches()` or
+#'  `dplyr::starts_with()` for selecting which variables should be shown in the
+#'  plot.
 #' @return A `ggplot` object that shows the cdistribution function for each
 #' principal component.
+#' @examples
+#' library(ggplot2)
+#' data(biomass, package = "recipes")
+#'
+#' biomass_ad <- apd_pca(biomass[, 3:7])
+#'
+#' autoplot(biomass_ad)
+#' # Using selectors in `...`
+#' autoplot(biomass_ad, distance) + scale_x_log10()
+#' autoplot(biomass_ad, matches("PC[1-2]"))
 #' @export autoplot.apd_pca
 #' @export
 autoplot.apd_pca <- function(object, ...) {
-  object$pctls %>%
+  selections <- rlang::enquos(...)
+
+  pctl_data <- object$pctls
+
+  if (length(selections) > 0) {
+    terms <- tidyselect::vars_select(names(pctl_data), !!!selections)
+    pctl_data <- pctl_data %>% dplyr::select(!!terms, percentile)
+  }
+
+  pctl_data %>%
     tidyr::gather(component, value, -percentile) %>%
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv") +

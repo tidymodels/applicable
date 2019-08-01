@@ -23,6 +23,7 @@ Imports:
     ggplot2,
     utils,
     purrr,
+    tidyselect,
     tidyr
 Suggests: 
     recipes (>= 0.1.6.9000),
