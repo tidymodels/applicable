@@ -13,13 +13,13 @@ apd_pca(x, ...)
 
 \method{apd_pca}{default}(x, ...)
 
-\method{apd_pca}{data.frame}(x, ...)
+\method{apd_pca}{data.frame}(x, threshold = 0.95, ...)
 
-\method{apd_pca}{matrix}(x, ...)
+\method{apd_pca}{matrix}(x, threshold = 0.95, ...)
 
-\method{apd_pca}{formula}(formula, data, ...)
+\method{apd_pca}{formula}(formula, data, threshold = 0.95, ...)
 
-\method{apd_pca}{recipe}(x, data, ...)
+\method{apd_pca}{recipe}(x, data, threshold = 0.95, ...)
 }
 \arguments{
 \item{x}{Depending on the context:
