@@ -23,8 +23,7 @@ score_apd_pca_numeric <- function(model, predictors) {
     predicted_output,
     get_new_percentile,
     grid = model$pctls$percentile
-    )
-  new_pctls <- new_pctls %>%
+    ) %>%
     dplyr::rename_all(paste0, "_pctl")
 
   tibble::as_tibble(
