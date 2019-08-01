@@ -2,11 +2,13 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_pca <- function(pcs, pca_means, pctls, blueprint) {
+new_apd_pca <- function(pcs, pca_means, pctls, threshold, num_comp, blueprint) {
   hardhat::new_model(
     pcs = pcs,
     pca_means = pca_means,
     pctls = pctls,
+    threshold = threshold,
+    num_comp = num_comp,
     blueprint = blueprint,
     class = "apd_pca"
   )
@@ -16,37 +18,49 @@ new_apd_pca <- function(pcs, pca_means, pctls, blueprint) {
 # ---------------------- Model function implementation ------------------------
 # -----------------------------------------------------------------------------
 
-apd_pca_impl <- function(predictors) {
-  res <-
-    list(
-      pcs = stats::prcomp(
-        predictors,
-        center = TRUE,
-        scale. = TRUE,
-        retx = TRUE
-      )
+apd_pca_impl <- function(predictors, threshold) {
+  pcs <- stats::prcomp(
+    predictors,
+    center = TRUE,
+    scale. = TRUE,
+    retx = TRUE
     )
 
-  # compute num_comp here
+  # TODO: verify threshold \in (0, 1]
+  eigs <- pcs$sdev^2
+  cum_sum <- cumsum(eigs)/sum(eigs)
+  num_comp <- sum(cum_sum <= threshold)
 
-  # filter down to num_comp
-  res$pca_means <- colMeans(res$pcs$x)
+  # Update `pcs` count to `num_comp`
+  pcs$x <- pcs$x[, 1:num_comp]
+  pcs$x <- as.matrix(pcs$x) # In case of num_comp == 1
 
-  # Compute distances between new pca values and the pca means
-  diffs <- sweep(res$pcs$x, 2, res$pca_means)
+  # Find the mean of each pca
+  pca_means <- colMeans(pcs$x)
+
+  # Compute distances between pca values and the pca means
+  diffs <- sweep(pcs$x, 2, pca_means)
   sq_diff <- diffs^2
   dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
 
+  # Calculate percentile for all PCs and dists
   train_pcs_res <-
-    as_tibble(res$pcs$x) %>%
-    setNames(names0(ncol(res$pcs$x), "PC")) %>%
+    as_tibble(pcs$x) %>%
+    setNames(names0(ncol(pcs$x), "PC")) %>%
     mutate(distance = dists)
-
-  res$pctls <-
+  pctls <-
     map_dfc(train_pcs_res, get_ref_percentile) %>%
     mutate(percentile = seq(0, 100, length = 101))
-  res$pcs$x <- NULL
 
+  pcs$x <- NULL
+
+  res <- list(
+    pcs = pcs,
+    pctls = pctls,
+    pca_means = pca_means,
+    threshold = threshold,
+    num_comp = num_comp
+  )
   res
 }
 
@@ -54,15 +68,17 @@ apd_pca_impl <- function(predictors) {
 # ------------------------ Model function bridge ------------------------------
 # -----------------------------------------------------------------------------
 
-apd_pca_bridge <- function(processed, ...) {
+apd_pca_bridge <- function(processed, threshold, ...) {
   predictors <- processed$predictors
 
-  fit <- apd_pca_impl(predictors)
+  fit <- apd_pca_impl(predictors, threshold)
 
   new_apd_pca(
     pcs = fit$pcs,
     pca_means = fit$pca_means,
     pctls = fit$pctls,
+    threshold = fit$threshold,
+    num_comp = fit$num_comp,
     blueprint = processed$blueprint
   )
 }
@@ -131,36 +147,36 @@ apd_pca.default <- function(x, ...) {
 
 #' @export
 #' @rdname apd_pca
-apd_pca.data.frame <- function(x, ...) {
+apd_pca.data.frame <- function(x, threshold = 0.95, ...) {
   processed <- hardhat::mold(x, NA_real_)
-  apd_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, threshold, ...)
 }
 
 # Matrix method
 
 #' @export
 #' @rdname apd_pca
-apd_pca.matrix <- function(x, ...) {
+apd_pca.matrix <- function(x, threshold = 0.95, ...) {
   processed <- hardhat::mold(x, NA_real_)
-  apd_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, threshold, ...)
 }
 
 # Formula method
 
 #' @export
 #' @rdname apd_pca
-apd_pca.formula <- function(formula, data, ...) {
+apd_pca.formula <- function(formula, data, threshold = 0.95, ...) {
   processed <- hardhat::mold(formula, data)
-  apd_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, threshold, ...)
 }
 
 # Recipe method
 
 #' @export
 #' @rdname apd_pca
-apd_pca.recipe <- function(x, data, ...) {
+apd_pca.recipe <- function(x, data, threshold = 0.95, ...) {
   processed <- hardhat::mold(x, data)
-  apd_pca_bridge(processed, ...)
+  apd_pca_bridge(processed, threshold, ...)
 }
 
 # -----------------------------------------------------------------------------

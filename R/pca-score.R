@@ -5,7 +5,11 @@
 score_apd_pca_numeric <- function(model, predictors) {
   if (!("pcs" %in% names(model)))
     rlang::abort("The model must contain a pcs argument.")
+
+  # Predict output and subset using `num_comp`
   predicted_output <- stats::predict(model$pcs, predictors)
+  predicted_output <- predicted_output[,1:model$num_comp]
+  predicted_output <- as.matrix(predicted_output) # In case of num_com==1
 
   # Compute distances between new pca values and the pca means
   diffs <- sweep(as.matrix(predicted_output), 2, model$pca_means)
