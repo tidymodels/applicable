@@ -237,24 +237,6 @@ apd_similarity.recipe <- function(x, data, quantile = NA_real_, ...) {
   apd_similarity_bridge(processed, quantile = quantile, ...)
 }
 
-# ------------------------------------------------------------------------------
-
-#' @export
-print.apd_similarity <- function(x, ...) {
-  cat("Applicability domain via similarity\n")
-  cat("Reference data were", ncol(x$ref_data), "variables collected on",
-      nrow(x$ref_data), "data points.\n")
-  if (!is.na(x$quantile)) {
-    cat("New data summarized using the ", round(x$quantile * 100, 1),
-        "th percentile.\n", sep = "")
-  } else {
-    cat("New data summarized using the mean.\n", sep = "")
-  }
-  invisible(x)
-}
-
-# ------------------------------------------------------------------------------
-
 # -------------------------------------------------------------------
 # ----------------- Scoring function implementation -----------------
 # -------------------------------------------------------------------

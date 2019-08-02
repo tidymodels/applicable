@@ -34,19 +34,18 @@ apd_pca_impl <- function(predictors, threshold) {
   # Update `pcs` count to `num_comp`
   pcs$x <- pcs$x[, 1:num_comp, drop=FALSE]
 
-  # Find the mean of each pca
+  # Find the mean of each principal component
   pca_means <- colMeans(pcs$x)
 
-  # Compute distances between pca values and the pca means
-  dists <- find_distance_to_pca_means(pcs$x, pca_means)
-
-  # Calculate percentile for all PCs and dists
-  train_pcs_res <-
-    as_tibble(pcs$x) %>%
+  # Compute distances between each principal component and its mean
+  distance <- find_distance_to_pca_means(pcs$x, pca_means)
+  pctls <- as_tibble(pcs$x) %>%
     setNames(names0(ncol(pcs$x), "PC")) %>%
-    mutate(distance = dists)
-  pctls <-
-    map_dfc(train_pcs_res, get_ref_percentile) %>%
+    mutate(distance = distance)
+
+  # Calculate percentile for all PCs and distances
+  pctls <- pctls %>%
+    map_dfc(., get_ref_percentile) %>%
     mutate(percentile = seq(0, 100, length = 101))
 
   pcs$x <- NULL
