@@ -2,7 +2,7 @@
 print.apd_pca <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
   percentage <- x$threshold * 100
-  num_comp <- ncol(x$num_comp)
+  num_comp <- x$num_comp
 
   print_output <- glue::glue(
   "# Predictors:
@@ -13,7 +13,7 @@ print.apd_pca <- function(x, ...) {
       in the predictors."
   )
 
-  cat(print_output)
+ cat(print_output)
 
-  invisible(x)
+ invisible(x)
 }
