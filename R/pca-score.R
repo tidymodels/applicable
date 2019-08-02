@@ -12,9 +12,7 @@ score_apd_pca_numeric <- function(model, predictors) {
   predicted_output <- as.matrix(predicted_output) # In case of num_com==1
 
   # Compute distances between new pca values and the pca means
-  diffs <- sweep(as.matrix(predicted_output), 2, model$pca_means)
-  sq_diff <- diffs^2
-  dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
+  dists <- find_distance_to_pca_means(as.matrix(predicted_output), model$pca_means)
 
   predicted_output <-
     as_tibble(predicted_output) %>%

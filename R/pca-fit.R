@@ -39,9 +39,7 @@ apd_pca_impl <- function(predictors, threshold) {
   pca_means <- colMeans(pcs$x)
 
   # Compute distances between pca values and the pca means
-  diffs <- sweep(pcs$x, 2, pca_means)
-  sq_diff <- diffs^2
-  dists <- apply(sq_diff, 1, function(x) sqrt(sum(x)))
+  dists <- find_distance_to_pca_means(pcs$x, pca_means)
 
   # Calculate percentile for all PCs and dists
   train_pcs_res <-
