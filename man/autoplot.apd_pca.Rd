@@ -20,3 +20,15 @@ principal component.
 \description{
 Plot the distribution function for pcas
 }
+\examples{
+library(ggplot2)
+library(dplyr)
+data(biomass, package = "recipes")
+
+biomass_ad <- apd_pca(biomass[, 3:7])
+
+autoplot(biomass_ad)
+# Using selectors in `...`
+autoplot(biomass_ad, distance) + scale_x_log10()
+autoplot(biomass_ad, matches("PC[1-2]"))
+}

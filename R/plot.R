@@ -6,6 +6,17 @@
 #'  plot.
 #' @return A `ggplot` object that shows the cdistribution function for each
 #' principal component.
+#' @examples
+#' library(ggplot2)
+#' library(dplyr)
+#' data(biomass, package = "recipes")
+#'
+#' biomass_ad <- apd_pca(biomass[, 3:7])
+#'
+#' autoplot(biomass_ad)
+#' # Using selectors in `...`
+#' autoplot(biomass_ad, distance) + scale_x_log10()
+#' autoplot(biomass_ad, matches("PC[1-2]"))
 #' @export autoplot.apd_pca
 #' @export
 autoplot.apd_pca <- function(object, ...) {
