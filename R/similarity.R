@@ -368,28 +368,3 @@ sim_percentile <- function(sims, ref) {
 
   res * 100
 }
-
-#' Plot the cumulative distribution function for similarity metrics
-#'
-#' @param object An object produced by `apd_similarity`.
-#' @param ... Not currently used.
-#' @return A `ggplot` object that shows the cumulative probability versus the
-#'  unique similarity values in the training set. Not that for large samples,
-#'  this is an approximation based on a random sample of 5,000 training set
-#'  points.
-#' @export autoplot.apd_similarity
-#' @export
-autoplot.apd_similarity <- function(object, ...) {
-  lab <-
-    dplyr::case_when(
-      is.na(object$quantile) ~ "mean",
-      object$quantile == 0.5 ~ "median",
-      TRUE ~ paste0(round(object$quantile * 100, 1), "th quantile of")
-    )
-
-  ggplot2::ggplot(object$ref_scores, ggplot2::aes(x = sim, y = cumulative)) +
-    ggplot2::geom_step(direction = "vh") +
-    ggplot2::ylab("Cumulative Probability") +
-    ggplot2::xlab(paste(lab, "similarity (training set)"))
-}
-
