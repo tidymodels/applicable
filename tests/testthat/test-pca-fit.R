@@ -98,7 +98,7 @@ test_that("pcs matches `prcomp` output for the matrix method", {
 
   # Matrix method
   expect_equivalent(
-    apd_pca(as.matrix(mtcars))$pcs,
+    apd_pca(mtcars)$pcs,
     expected
   )
 })

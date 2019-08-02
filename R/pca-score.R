@@ -8,11 +8,10 @@ score_apd_pca_numeric <- function(model, predictors) {
 
   # Predict output and subset using `num_comp`
   predicted_output <- stats::predict(model$pcs, predictors)
-  predicted_output <- predicted_output[,1:model$num_comp]
-  predicted_output <- as.matrix(predicted_output) # In case of num_com==1
+  predicted_output <- predicted_output[, 1:model$num_comp, drop=FALSE]
 
   # Compute distances between new pca values and the pca means
-  dists <- find_distance_to_pca_means(as.matrix(predicted_output), model$pca_means)
+  dists <- find_distance_to_pca_means(predicted_output, model$pca_means)
 
   predicted_output <-
     as_tibble(predicted_output) %>%

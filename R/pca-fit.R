@@ -32,8 +32,7 @@ apd_pca_impl <- function(predictors, threshold) {
   num_comp <- sum(cum_sum <= threshold)
 
   # Update `pcs` count to `num_comp`
-  pcs$x <- pcs$x[, 1:num_comp]
-  pcs$x <- as.matrix(pcs$x) # In case of num_comp == 1
+  pcs$x <- pcs$x[, 1:num_comp, drop=FALSE]
 
   # Find the mean of each pca
   pca_means <- colMeans(pcs$x)
