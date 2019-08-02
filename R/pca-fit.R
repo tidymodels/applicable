@@ -44,8 +44,7 @@ apd_pca_impl <- function(predictors, threshold) {
     mutate(distance = distance)
 
   # Calculate percentile for all PCs and distances
-  pctls <- pctls %>%
-    map_dfc(., get_ref_percentile) %>%
+  pctls <- map_dfc(pctls, get_ref_percentile) %>%
     mutate(percentile = seq(0, 100, length = 101))
 
   pcs$x <- NULL
