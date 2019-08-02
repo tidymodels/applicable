@@ -32,6 +32,10 @@ created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 
 \item{...}{Not currently used, but required for extensibility.}
 
+\item{threshold}{A number indicating the percentage of variance desired from
+the principal components. It must be a number greater than 0 and less or
+equal than 1.}
+
 \item{formula}{A formula specifying the predictor terms on the right-hand
 side. No outcome should be specified.}
 

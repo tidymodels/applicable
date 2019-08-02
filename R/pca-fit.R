@@ -105,6 +105,10 @@ apd_pca_bridge <- function(processed, threshold, ...) {
 #' @param formula A formula specifying the predictor terms on the right-hand
 #' side. No outcome should be specified.
 #'
+#' @param threshold A number indicating the percentage of variance desired from
+#' the principal components. It must be a number greater than 0 and less or
+#' equal than 1.
+#'
 #' @param ... Not currently used, but required for extensibility.
 #'
 #' @return
