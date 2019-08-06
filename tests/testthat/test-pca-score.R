@@ -47,3 +47,21 @@ test_that("`score_apd_pca_numeric` pcs output matches `stats::predict` output", 
     expected
   )
 })
+
+test_that("`score_apd_pca_bridge` output is correct", {
+  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+
+  expected <- stats::predict(model$pcs, predictors)
+  expected <- expected[, 1:model$num_comp, drop=FALSE]
+
+  # Select columns of the form PC{number}
+  actual_output <- score_apd_pca_bridge("numeric", model, predictors) %>%
+    dplyr::select(dplyr::matches("^PC\\d+$"))
+
+  # Data frame method
+  expect_equivalent(
+    actual_output,
+    expected
+  )
+})

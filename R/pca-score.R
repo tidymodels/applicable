@@ -58,7 +58,7 @@ score_apd_pca_bridge <- function(type, model, predictors) {
 #'
 #' @param object A `apd_pca` object.
 #'
-#' @param new_data A data frame or matrix of new predictors.
+#' @param new_data A data frame or matrix of new samples.
 #'
 #' @param type A single character. The type of predictions to generate.
 #' Valid options are:
