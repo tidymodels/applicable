@@ -80,6 +80,13 @@ test_that("matrix method - quantile similarity", {
   expect_equal(tmp_scores$similarity, apply(un_scores, 2, quantile, probs = .1))
 })
 
+test_that("formula method - quantile similarity", {
+  sim_form <- as.formula(" ~.")
+  tmp <- apd_similarity(sim_form, tr_x, quantile = .1)
+  tmp_scores <- score(tmp, as.data.frame(un_x))
+  expect_equal(tmp_scores$similarity, apply(un_scores, 2, quantile, probs = .1))
+})
+
 # ------------------------------------------------------------------------------
 
 test_that("recipe method - mean similarity", {
