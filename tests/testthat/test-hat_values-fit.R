@@ -69,6 +69,19 @@ test_that("`apd_hat_values` is defined for formula objects", {
   expect_equal(x$XtX_inv, XtX_inv)
 })
 
+test_that("`apd_hat_values` is defined for recipe objects", {
+  rec <- recipes::recipe(~Sepal.Width + Sepal.Length, iris)
+  x <- apd_hat_values(rec, data = iris)
+  X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
+  XpX <- t(X) %*% X
+  XtX_inv <- round(qr.solve(XpX), 3)
+  dimnames(XtX_inv) <- NULL
+
+  expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
+  expect_equal(names(x), c("XtX_inv", "blueprint"))
+  expect_equal(x$XtX_inv, XtX_inv)
+})
+
 test_that("`apd_hat_values` is not defined for vectors", {
   cls <- class(mtcars$mpg)[1]
   expected_message <- glue::glue("`x` is not of a recognized type.
