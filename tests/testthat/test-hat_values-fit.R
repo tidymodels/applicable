@@ -35,7 +35,6 @@ test_that("`new_apd_hat_values` returned blueprint is of class hardhat_blueprint
   expect_is(x$blueprint, "hardhat_blueprint")
 })
 
-
 test_that("`apd_hat_values` fails when model is not of class apd_hat_values", {
   model <- apd_hat_values(~ Sepal.Length + Species, iris)
   expect_is(model, "apd_hat_values")
@@ -46,11 +45,17 @@ test_that("`apd_hat_values` fails when model is not of class hardhat_model", {
   expect_is(model, "hardhat_model")
 })
 
-# TODO
-# Test apd_hat_values for data.frame
-# Test apd_hat_values for formula
-# Test apd_hat_values for recipe
-# Test apd_hat_values for matrix
+test_that("`apd_hat_values` is defined for data.frame objects", {
+  x <- apd_hat_values(mtcars)
+  X <- as.matrix(mtcars)
+  XpX <- t(X) %*% X
+  XtX_inv <- round(qr.solve(XpX), 3)
+  dimnames(XtX_inv) <- NULL
+
+  expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
+  expect_equal(names(x), c("XtX_inv", "blueprint"))
+  expect_equal(x$XtX_inv, XtX_inv)
+})
 
 test_that("`apd_hat_values` is not defined for vectors", {
   cls <- class(mtcars$mpg)[1]
