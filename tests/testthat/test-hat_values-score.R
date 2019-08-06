@@ -29,3 +29,20 @@ test_that("`score` fails when predictors are vectors", {
     message
   )
 })
+
+test_that("`score_apd_hat_values_numeric` pcs output matches `stats::predict` output", {
+  model <- apd_hat_values(mtcars %>% dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+
+  expected <- score(model, predictors)
+
+  proj_matrix <- predictors %*% model$XtX_inv %*% t(predictors)
+  hat_values <- diag(proj_matrix)
+  actual_output <- score_apd_hat_values_numeric(model, predictors)
+
+  # Data frame method
+  expect_equivalent(
+    actual_output,
+    expected
+  )
+})
