@@ -42,11 +42,22 @@ test_that("matrix method - mean similarity", {
   expect_equal(mean_tab$cumulative, tmp$ref_scores$cumulative)
 })
 
-
 test_that("data frame method - quantile similarity", {
   tmp <- apd_similarity(tr_x, quantile = .1)
   tmp_scores <- score(tmp, un_x)
   expect_equal(tmp_scores$similarity, apply(un_scores, 2, quantile, probs = .1))
+})
+
+test_that("formula method - mean similarity", {
+  sim_form <- as.formula(" ~.")
+  tmp <- apd_similarity(sim_form, tr_x)
+  tmp_scores <- score(tmp, un_x)
+  expect_equal(tmp_scores$similarity, apply(un_scores, 2, mean))
+  expect_equal(tmp$options, list(method = "jaccard"))
+  expect_equal(tmp$ref_data, tr_x_sp)
+  expect_equal(mean_tab$mean_tr, tmp$ref_scores$sim)
+  expect_equal(mean_tab$Freq, tmp$ref_scores$n)
+  expect_equal(mean_tab$cumulative, tmp$ref_scores$cumulative)
 })
 
 # ------------------------------------------------------------------------------
