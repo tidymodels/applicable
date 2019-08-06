@@ -105,3 +105,11 @@ test_that("`apd_hat_values` is not defined for vectors", {
     expected_message
   )
 })
+
+test_that("`apd_hat_values` fails when matrix has more predictors than samples", {
+  bad_data <- mtcars %>%
+    slice(1:5)
+
+  expect_error(apd_hat_values(bad_data),
+               message = "Error in qr.solve(XpX) : singular matrix 'a' in solve\n")
+})
