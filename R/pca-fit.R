@@ -29,7 +29,7 @@ apd_pca_impl <- function(predictors, threshold) {
   # TODO: verify threshold \in (0, 1]
   eigs <- pcs$sdev^2
   cum_sum <- cumsum(eigs)/sum(eigs)
-  num_comp <- sum(cum_sum <= threshold)
+  num_comp <- sum(cum_sum <= threshold) + 1
 
   # Update `pcs` count to `num_comp`
   pcs$x <- pcs$x[, 1:num_comp, drop=FALSE]
