@@ -58,8 +58,8 @@ one).
 \details{
 The function computes measures of similarity for different samples
 points. For example, suppose samples \code{A} and \code{B} both contain \emph{p} binary
-variables. First, a 2x2 table is constructed between \code{A} and \code{B} _across
-their elements. The table will contain \emph{p} entires across the four cells
+variables. First, a 2x2 table is constructed between \code{A} and \code{B} \emph{across
+their elements}. The table will contain \emph{p} entires across the four cells
 (see the example below). From this, different measures of likeness are
 computed.
 
@@ -105,4 +105,8 @@ xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
 mean_sim <- score(jacc_sim, new_data = binary_unk)
 mean_sim
 }
+}
+\references{
+Leach, A. and Gillet V. (2007). \emph{An Introduction to
+Chemoinformatics}. Springer, New York
 }

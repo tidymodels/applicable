@@ -3,6 +3,7 @@ context("similarity tests")
 library(proxyC)
 library(Matrix)
 library(recipes)
+library(ggplot2)
 
 # ------------------------------------------------------------------------------
 
@@ -101,5 +102,22 @@ test_that("bad args", {
   expect_error(apd_similarity(tr_x_sp))
 })
 
+# ------------------------------------------------------------------------------
+
+test_that("printed output", {
+  expect_output(print(apd_similarity(tr_x)), "Applicability domain via similarity")
+  expect_output(print(apd_similarity(tr_x)), "Reference data were")
+  expect_output(print(apd_similarity(tr_x)), "New data summarized using the mean")
+  expect_output(print(apd_similarity(tr_x, quantile = .13)), "New data summarized using the 13th percentile.")
+})
+# ------------------------------------------------------------------------------
+
+test_that("plot output", {
+ ad <- apd_similarity(tr_x)
+ ad_plot <- autoplot(ad)
+ expect_equal(ad_plot$data, ad$ref_scores)
+ expect_equal(ad_plot$labels$x, "mean similarity (training set)")
+ expect_equal(ad_plot$labels$y, "Cumulative Probability")
+})
 
 
