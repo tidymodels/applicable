@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{A \code{apd_pca} object.}
 
-\item{new_data}{A data frame or matrix of new predictors.}
+\item{new_data}{A data frame or matrix of new samples.}
 
 \item{type}{A single character. The type of predictions to generate.
 Valid options are:
