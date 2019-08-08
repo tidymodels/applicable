@@ -15,14 +15,16 @@ test_that("`new_apd_hat_values` arguments are assigned correctly", {
 test_that("XtX_inv is provided", {
   expect_error(
     new_apd_hat_values(blueprint = hardhat::default_xy_blueprint()),
-    'argument "XtX_inv" is missing, with no default'
+    'argument "XtX_inv" is missing, with no default',
+    fixed = TRUE
   )
 })
 
 test_that("`new_apd_hat_values` fails when blueprint is numeric", {
   expect_error(
     new_apd_hat_values(XtX_inv = 1, blueprint = 1),
-    'blueprint should be a blueprint, not a numeric.'
+    'blueprint should be a blueprint, not a numeric.',
+    fixed = TRUE
   )
 })
 
@@ -110,6 +112,11 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
   bad_data <- mtcars %>%
     slice(1:5)
 
-  expect_error(apd_hat_values(bad_data),
-               message = "Error in qr.solve(XpX) : singular matrix 'a' in solve\n")
+  message <- "Error in qr.solve(XpX) : singular matrix 'a' in solve\n"
+
+  expect_error(
+    apd_hat_values(bad_data),
+    message,
+    fixed = TRUE
+  )
 })

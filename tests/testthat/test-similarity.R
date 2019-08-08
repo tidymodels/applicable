@@ -141,7 +141,7 @@ test_that("plot output", {
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 1]", {
-  message <- 'The `quantile`` argument should be NA or a single numeric value in [0, 1].'
+  message <- "The `quantile` argument should be NA or a single numeric value in [0, 1]."
 
   expect_error(
     apd_similarity(tr_x, quantile = -1),
@@ -174,6 +174,7 @@ test_that("apd_similarity fails data is not binary", {
 
   expect_error(
     apd_similarity(bad_data),
-    message
+    message,
+    fixed = TRUE
   )
 })

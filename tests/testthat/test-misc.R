@@ -6,5 +6,7 @@ test_that("`names0` fails if `num` is less than 1", {
     names0(num),
     message = "NA/NaN argument
     In addition: Warning message:
-    In format(1:num) : NAs introduced by coercion")
+    In format(1:num) : NAs introduced by coercion",
+    fixed = TRUE
+  )
 })

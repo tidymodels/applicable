@@ -23,14 +23,16 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
 test_that("pcs is provided", {
   expect_error(
     new_apd_pca(blueprint = hardhat::default_xy_blueprint()),
-    'argument "pcs" is missing, with no default'
+    'argument "pcs" is missing, with no default',
+    fixed = TRUE
   )
 })
 
 test_that("`new_apd_pca` fails when blueprint is numeric", {
   expect_error(
     new_apd_pca(pcs = 1, blueprint = 1),
-    'blueprint should be a blueprint, not a numeric.'
+    'blueprint should be a blueprint, not a numeric.',
+    fixed = TRUE
   )
 })
 
