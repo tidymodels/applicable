@@ -145,13 +145,19 @@ test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 
 
   expect_error(
     apd_similarity(tr_x, quantile = -1),
-    message = message)
+    message,
+    fixed = TRUE
+  )
 
   expect_error(
     apd_similarity(tr_x, quantile = 3),
-    message = message)
+    message,
+    fixed = TRUE
+  )
 
   expect_error(
     apd_similarity(tr_x, quantile = c(0.1, 0.2)),
-    message = message)
+    message,
+    fixed = TRUE
+  )
 })
