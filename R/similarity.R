@@ -47,7 +47,7 @@ apd_similarity_impl <- function(predictors, quantile, options) {
 apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   opts <- list(...)
 
-  msg <- "The `quantile`` argument should be NA or a single numeric value in [0, 1]."
+  msg <- "The `quantile` argument should be NA or a single numeric value in [0, 1]."
   if (!is.na(quantile) && (!is.numeric(quantile) || length(quantile) != 1)) {
     stop(msg, call. = FALSE)
   }
