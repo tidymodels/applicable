@@ -161,3 +161,19 @@ test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 
     fixed = TRUE
   )
 })
+
+# ------------------------------------------------------------------------------
+
+test_that("apd_similarity fails data is not binary", {
+  bad_data <- list("a" = c(0, 0),
+                   "b" = c(1, 3),
+                   "c" = c(1, 1),
+                   "d" = c(2, 0))
+  bad_data <- as.data.frame(bad_data)
+  message <- "The following variables are not binary: b, d"
+
+  expect_error(
+    apd_similarity(bad_data),
+    message
+  )
+})
