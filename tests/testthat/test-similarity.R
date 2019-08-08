@@ -138,4 +138,20 @@ test_that("plot output", {
  expect_equal(ad_plot$labels$y, "Cumulative Probability")
 })
 
+# ------------------------------------------------------------------------------
 
+test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 1]", {
+  message <- 'The `quantile`` argument should be NA or a single numeric value in [0, 1].'
+
+  expect_error(
+    apd_similarity(tr_x, quantile = -1),
+    message = message)
+
+  expect_error(
+    apd_similarity(tr_x, quantile = 3),
+    message = message)
+
+  expect_error(
+    apd_similarity(tr_x, quantile = c(0.1, 0.2)),
+    message = message)
+})
