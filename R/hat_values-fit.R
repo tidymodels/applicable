@@ -2,9 +2,10 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_hat_values <- function(XtX_inv, blueprint) {
+new_apd_hat_values <- function(XtX_inv, hat_values, blueprint) {
   hardhat::new_model(
     XtX_inv = XtX_inv,
+    hat_values = hat_values,
     blueprint = blueprint,
     class = "apd_hat_values"
   )
@@ -15,9 +16,18 @@ new_apd_hat_values <- function(XtX_inv, blueprint) {
 # -----------------------------------------------------------------------------
 
 apd_hat_values_impl <- function(predictors) {
+  XtX_inv <- round(get_inv(predictors), 3)
+
+  X <- as.matrix(predictors)
+  dimnames(X) <- NULL
+
+  P <- X %*% XtX_inv %*% t(X)
+  hat_values <- diag(P)
+
   res <-
     list(
-      XtX_inv = round(get_inv(predictors), 3)
+      hat_values = hat_values,
+      XtX_inv = XtX_inv
     )
 
   res
@@ -50,6 +60,7 @@ apd_hat_values_bridge <- function(processed, ...) {
 
   new_apd_hat_values(
     XtX_inv = fit$XtX_inv,
+    hat_values = fit$hat_values,
     blueprint = processed$blueprint
   )
 }
