@@ -39,22 +39,6 @@ apd_hat_values_impl <- function(predictors) {
   res
 }
 
-get_inv <- function(X) {
-  if (!is.matrix(X)) {
-    X <- as.matrix(X)
-  }
-
-  XpX <- t(X) %*% X
-  XpX_inv <- try(qr.solve(XpX), silent = TRUE)
-
-  if (inherits(XpX_inv, "try-error")) {
-    rlang::abort(message = as.character(XpX_inv))
-  }
-
-  dimnames(XpX_inv) <- NULL
-  XpX_inv
-}
-
 # -----------------------------------------------------------------------------
 # ------------------------ Model function bridge ------------------------------
 # -----------------------------------------------------------------------------
