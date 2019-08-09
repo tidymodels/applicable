@@ -2,10 +2,11 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_hat_values <- function(XtX_inv, hat_values, blueprint) {
+new_apd_hat_values <- function(XtX_inv, hat_values, percentile, blueprint) {
   hardhat::new_model(
     XtX_inv = XtX_inv,
     hat_values = hat_values,
+    percentile = percentile,
     blueprint = blueprint,
     class = "apd_hat_values"
   )
@@ -24,10 +25,15 @@ apd_hat_values_impl <- function(predictors) {
   P <- X %*% XtX_inv %*% t(X)
   hat_values <- diag(P)
 
+  # Calculate percentile for all PCs and distances
+  percentile <- as.data.frame(get_ref_percentile(hat_values)) %>%
+    mutate(percentile = seq(0, 100, length = 101))
+
   res <-
     list(
+      XtX_inv = XtX_inv,
       hat_values = hat_values,
-      XtX_inv = XtX_inv
+      percentile = percentile
     )
 
   res
@@ -61,6 +67,7 @@ apd_hat_values_bridge <- function(processed, ...) {
   new_apd_hat_values(
     XtX_inv = fit$XtX_inv,
     hat_values = fit$hat_values,
+    percentile = fit$percentile,
     blueprint = processed$blueprint
   )
 }
