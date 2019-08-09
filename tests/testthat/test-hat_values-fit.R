@@ -4,12 +4,14 @@ test_that("`new_apd_hat_values` arguments are assigned correctly", {
   x <- new_apd_hat_values(
     "XtX_inv",
     "hat_values",
+    "percentile",
     blueprint = hardhat::default_xy_blueprint()
   )
 
-  expect_equal(names(x), c("XtX_inv", "hat_values", "blueprint"))
+  expect_equal(names(x), c("XtX_inv", "hat_values", "percentile", "blueprint"))
   expect_equal(x$XtX_inv, "XtX_inv")
   expect_equal(x$hat_values, "hat_values")
+  expect_equal(x$percentile, "percentile")
   expect_equal(x$blueprint, hardhat::default_xy_blueprint())
 
 })
@@ -34,6 +36,7 @@ test_that("`new_apd_hat_values` returned blueprint is of class hardhat_blueprint
   x <- new_apd_hat_values(
     "XtX_inv",
     "hat_values",
+    "percentile",
     blueprint = hardhat::default_xy_blueprint()
   )
 
@@ -58,7 +61,7 @@ test_that("`apd_hat_values` is defined for data.frame objects", {
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
-  expect_equal(names(x), c("XtX_inv", "hat_values", "blueprint"))
+  expect_equal(names(x), c("XtX_inv", "hat_values", "percentile", "blueprint"))
   expect_equal(x$XtX_inv, XtX_inv)
 })
 
@@ -70,7 +73,7 @@ test_that("`apd_hat_values` is defined for formula objects", {
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
-  expect_equal(names(x), c("XtX_inv", "hat_values", "blueprint"))
+  expect_equal(names(x), c("XtX_inv", "hat_values", "percentile", "blueprint"))
   expect_equal(x$XtX_inv, XtX_inv)
 })
 
@@ -83,7 +86,7 @@ test_that("`apd_hat_values` is defined for recipe objects", {
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
-  expect_equal(names(x), c("XtX_inv", "hat_values", "blueprint"))
+  expect_equal(names(x), c("XtX_inv", "hat_values", "percentile", "blueprint"))
   expect_equal(x$XtX_inv, XtX_inv)
 })
 
@@ -95,7 +98,7 @@ test_that("`apd_hat_values` is defined for matrix objects", {
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
-  expect_equal(names(x), c("XtX_inv", "hat_values", "blueprint"))
+  expect_equal(names(x), c("XtX_inv", "hat_values", "percentile", "blueprint"))
   expect_equal(x$XtX_inv, XtX_inv)
 })
 

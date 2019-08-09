@@ -1,6 +1,2 @@
 # Predictors:
- 11
-# Hat values:
- Min = -4.83
- Max = 2.311
- Mean = 0.13725.
+11
