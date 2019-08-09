@@ -156,7 +156,7 @@ test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 
   )
 
   expect_error(
-    apd_similarity(tr_x, quantile = c(0.1, 0.2)),
+    apd_similarity(tr_x, quantile = "la"),
     message,
     fixed = TRUE
   )
@@ -164,13 +164,29 @@ test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 
 
 # ------------------------------------------------------------------------------
 
-test_that("apd_similarity fails data is not binary", {
+test_that("apd_similarity outputs warning with zero variance variables ", {
   bad_data <- list("a" = c(0, 0),
-                   "b" = c(1, 3),
+                   "b" = c(0, 0),
                    "c" = c(1, 1),
-                   "d" = c(2, 0))
+                   "d" = c(0, 0))
   bad_data <- as.data.frame(bad_data)
-  message <- "The following variables are not binary: b, d"
+  message <- "The following variables had zero variance and were removed: a, b, d"
+
+  expect_warning(
+    apd_similarity(bad_data),
+    message,
+    fixed = TRUE
+  )
+})
+
+# ------------------------------------------------------------------------------
+
+test_that("apd_similarity fails when all the variables have zero variance", {
+  bad_data <- list("a" = c(0, 0),
+                   "b" = c(0, 0),
+                   "d" = c(0, 0))
+  bad_data <- as.data.frame(bad_data)
+  message <- "All variables have a single unique value."
 
   expect_error(
     apd_similarity(bad_data),
