@@ -23,6 +23,28 @@ print.apd_pca <- function(x, ...) {
 }
 
 #' @export
+print.apd_hat_values <- function(x, ...) {
+  predictors_count <- ncol(x$blueprint$ptypes$predictors)
+  hat_values <- round(x$hat_values, 3)
+  max_hat_values <- max(hat_values)
+  min_hat_values <- min(hat_values)
+  mean_hat_values <- mean(hat_values)
+
+  print_output <- glue::glue(
+    "# Predictors:
+      {predictors_count}
+     # Hat values:
+      Min = {min_hat_values}
+      Max = {max_hat_values}
+      Mean = {mean_hat_values}."
+  )
+
+  cat(print_output)
+
+  invisible(x)
+}
+
+#' @export
 print.apd_similarity <- function(x, ...) {
   cat("Applicability domain via similarity\n")
   cat("Reference data were", ncol(x$ref_data), "variables collected on",
