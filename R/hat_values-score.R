@@ -77,6 +77,10 @@ score.apd_hat_values <- function(object, new_data, type = "numeric", ...) {
   score_apd_hat_values_bridge(type, object, forged$predictors)
 }
 
+# -----------------------------------------------------------------------------
+# ----------------------- Helper functions ------------------------------------
+# -----------------------------------------------------------------------------
+
 valid_predict_types <- function() {
   c("numeric")
 }
