@@ -177,14 +177,3 @@ apd_pca.recipe <- function(x, data, threshold = 0.95, ...) {
   processed <- hardhat::mold(x, data)
   apd_pca_bridge(processed, threshold, ...)
 }
-
-# -----------------------------------------------------------------------------
-# ----------------------- Helper functions ------------------------------------
-# -----------------------------------------------------------------------------
-
-get_ref_percentile <- function(x) {
-  res <- stats::ecdf(x)
-  grid = seq(0, 1, length = 101)
-  res <- stats::quantile(res, grid)
-  unname(res)
-}
