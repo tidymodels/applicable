@@ -75,15 +75,15 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   # check for binary and not zero-vars
 
   zv <- Matrix::colSums(predictors)
-  if (any(zv == 0)) {
-    bad_x <- colnames(predictors)[zv == 0]
-    warning("The following variables had zero variance and were removed: ",
-            paste0(bad_x, collapse = ", "),
-            call. = FALSE)
-    predictors <- predictors[, zv > 0, drop = FALSE]
+  if (all(zv == 0)) {
+    stop("All variables have a single unique value.", call. = FALSE)
   } else {
-    if (all(zv == 0)) {
-      stop("All variables have a single unique value.", call. = FALSE)
+    if (any(zv == 0)) {
+      bad_x <- colnames(predictors)[zv == 0]
+      warning("The following variables had zero variance and were removed: ",
+              paste0(bad_x, collapse = ", "),
+              call. = FALSE)
+      predictors <- predictors[, zv > 0, drop = FALSE]
     }
   }
 
