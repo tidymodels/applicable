@@ -31,3 +31,12 @@ test_that("print for `apd_pca` displays correct threshold", {
     expected_output
   )
 })
+
+test_that("print for apd_hat_values work as expected", {
+  x <- apd_hat_values(mtcars)
+
+  expect_known_output(
+    print(x),
+    test_path("out/print-apd_hat_values.txt")
+  )
+})
