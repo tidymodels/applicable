@@ -1,0 +1,72 @@
+---
+title: "Applicability domain methods for binary data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{binary-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(applicable)
+library(ggplot2)
+library(dplyr)
+data(qsar_binary)
+```
+
+### Similarity methods
+```{r}
+
+jacc_sim <- apd_similarity(binary_tr)
+jacc_sim
+
+# plot the empirical cumulative distribution function (ECDF) for the training set:
+autoplot(jacc_sim)
+
+# Example calculations for two samples:
+A <- as.matrix(binary_tr[1,])
+B <- as.matrix(binary_tr[2,])
+xtab <- table(A, B)
+xtab
+
+# Jaccard statistic
+xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
+
+# Hamman statistic
+( ( xtab[1, 1] + xtab[2, 2] ) - ( xtab[1, 2] + xtab[2, 1] ) ) / sum(xtab)
+
+# Faith statistic
+( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
+
+# Summarize across all training set similarities
+mean_sim <- score(jacc_sim, new_data = binary_unk)
+mean_sim
+
+```
+
+### Principal component analysis
+```{r}
+
+pca_model <- apd_pca(binary_tr)
+pca_model
+
+# Plot the all the principal components
+autoplot(pca_model)
+
+# Plot a subset of the principal components
+autoplot(pca_model, matches("PC[1-2]"))
+
+# Plot only the distance metric
+autoplot(pca_model, distance) + scale_x_log10()
+
+pca_scores <- score(pca_model, new_data = binary_unk)
+pca_scores
+
+```
