@@ -37,4 +37,8 @@ You can install the development version of applicable from
 
 To learn about how to use applicable, check out the vignettes:
 
-(coming soon)
+  - `vignette("binary-data", "applicable")`: Learn different methods to
+    analyze binary data.
+
+  - `vignette("continuous-data", "applicable")`: Learn different methods
+    to analyze continuous data.
