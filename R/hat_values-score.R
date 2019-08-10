@@ -9,7 +9,7 @@ score_apd_hat_values_numeric <- function(model, predictors) {
   proj_matrix <- predictors %*% model$XtX_inv %*% t(predictors)
   hat_values <- diag(proj_matrix)
 
-  pctls <- get_new_percentile(
+  hat_values_pctls <- get_new_percentile(
     model$pctls$hat_values_pctls,
     hat_values,
     model$pctls$percentile
@@ -18,7 +18,7 @@ score_apd_hat_values_numeric <- function(model, predictors) {
   tibble::as_tibble(
     cbind(
       hat_values,
-      pctls
+      hat_values_pctls
     )
   )
 }
