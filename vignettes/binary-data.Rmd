@@ -50,23 +50,3 @@ mean_sim <- score(jacc_sim, new_data = binary_unk)
 mean_sim
 
 ```
-
-### Principal component analysis
-```{r}
-
-pca_model <- apd_pca(binary_tr)
-pca_model
-
-# Plot the all the principal components
-autoplot(pca_model)
-
-# Plot a subset of the principal components
-autoplot(pca_model, matches("PC[1-2]"))
-
-# Plot only the distance metric
-autoplot(pca_model, distance) + scale_x_log10()
-
-pca_scores <- score(pca_model, new_data = binary_unk)
-pca_scores
-
-```
