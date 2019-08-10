@@ -24,7 +24,7 @@ apd_similarity(x, ...)
 \arguments{
 \item{x}{Depending on the context:
 \itemize{
-\item A \strong{data frame} of of binary predictors.
+\item A \strong{data frame} of binary predictors.
 \item A \strong{matrix} of binary predictors.
 \item A \strong{recipe} specifying a set of preprocessing steps
 created from \code{\link[recipes:recipe]{recipes::recipe()}}.
