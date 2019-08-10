@@ -49,7 +49,7 @@ get_hat_values_score_function <- function(type) {
 # ----------------------- Model function interface ----------------------------
 # -----------------------------------------------------------------------------
 
-#' Predict from a `apd_hat_values`
+#' Score new samples using hat values
 #'
 #' @param object A `apd_hat_values` object.
 #'
@@ -58,24 +58,28 @@ get_hat_values_score_function <- function(type) {
 #' @param type A single character. The type of predictions to generate.
 #' Valid options are:
 #'
-#' - `"numeric"` for numeric predictions.
+#' - `"numeric"` for a numeric value that summarizes the hat values for
+#'   each sample across the training set.
 #'
 #' @param ... Not used, but required for extensibility.
 #'
 #' @return
 #'
 #' A tibble of predictions. The number of rows in the tibble is guaranteed
-#' to be the same as the number of rows in `new_data`.
+#' to be the same as the number of rows in `new_data`. For `type = "numeric"`,
+#' the tibble contains two columns `hat_values` and `hat_values_pctls`. The
+#' column `hat_values_pctls` is in percent units so that a value of 11.5
+#' indicates that, in the training set, 11.5 percent of the training set
+#' samples had smaller values than the sample being scored.
 #'
 #' @examples
-#' train <- mtcars[1:20,]
-#' test <- mtcars[21:32, -1]
+#' train_data <- mtcars[1:20,]
+#' test_data <- mtcars[21:32, -1]
 #'
-#' # Fit
-#' mod <- apd_hat_values(mpg ~ cyl + log(drat), train)
+#' hat_values_model <- apd_hat_values(train_data)
 #'
-#' # Predict, with preprocessing
-#' score(mod, test)
+#' hat_values_scoring <- score(hat_values_model, new_data = test_data)
+#' hat_values_scoring
 #'
 #' @export
 score.apd_hat_values <- function(object, new_data, type = "numeric", ...) {
