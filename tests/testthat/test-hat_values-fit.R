@@ -54,7 +54,7 @@ test_that("`apd_hat_values` is defined for data.frame objects", {
   x <- apd_hat_values(mtcars)
   X <- as.matrix(mtcars)
   XpX <- t(X) %*% X
-  XtX_inv <- round(qr.solve(XpX), 3)
+  XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
@@ -66,7 +66,7 @@ test_that("`apd_hat_values` is defined for formula objects", {
   x <- apd_hat_values(~ Sepal.Width + Sepal.Length, iris)
   X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
   XpX <- t(X) %*% X
-  XtX_inv <- round(qr.solve(XpX), 3)
+  XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
@@ -79,7 +79,7 @@ test_that("`apd_hat_values` is defined for recipe objects", {
   x <- apd_hat_values(rec, data = iris)
   X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
   XpX <- t(X) %*% X
-  XtX_inv <- round(qr.solve(XpX), 3)
+  XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
@@ -91,7 +91,7 @@ test_that("`apd_hat_values` is defined for matrix objects", {
   X <- as.matrix(iris %>% select(-Species))
   x <- apd_hat_values(X)
   XpX <- t(X) %*% X
-  XtX_inv <- round(qr.solve(XpX), 3)
+  XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
 
   expect_equal(class(x), c("apd_hat_values", "hardhat_model", "hardhat_scalar"))
