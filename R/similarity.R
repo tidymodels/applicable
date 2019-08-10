@@ -109,7 +109,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #'
 #' @param x Depending on the context:
 #'
-#'   * A __data frame__ of of binary predictors.
+#'   * A __data frame__ of binary predictors.
 #'   * A __matrix__ of binary predictors.
 #'   * A __recipe__ specifying a set of preprocessing steps
 #'     created from [recipes::recipe()].
