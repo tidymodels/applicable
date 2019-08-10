@@ -1,0 +1,50 @@
+---
+title: "Applicability domain methods for continuous data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{continuous-data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(applicable)
+```
+
+### Hat values scoring methods
+```{r}
+predictors <- mtcars[, -1]
+
+# Data frame interface
+mod <- apd_hat_values(predictors)
+
+# Formula interface
+mod2 <- apd_hat_values(mpg ~ ., mtcars)
+
+# Recipes interface
+library(recipes)
+rec <- recipe(mpg ~ ., mtcars)
+rec <- step_log(rec, disp)
+mod3 <- apd_hat_values(rec, mtcars)
+```
+
+### Principal component analysis
+```{r}
+library(ggplot2)
+library(dplyr)
+data(biomass, package = "recipes")
+
+biomass_ad <- apd_pca(biomass[, 3:7])
+
+autoplot(biomass_ad)
+# Using selectors in `...`
+autoplot(biomass_ad, distance) + scale_x_log10()
+autoplot(biomass_ad, matches("PC[1-2]"))
+```
