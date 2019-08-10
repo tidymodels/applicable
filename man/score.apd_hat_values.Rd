@@ -32,9 +32,12 @@ samples had smaller values than the sample being scored.
 Score new samples using hat values
 }
 \examples{
-hat_values_model <- apd_hat_values(mtcars[1:15,])
+train_data <- mtcars[1:20,]
+test_data <- mtcars[21:32,]
 
-hat_values_scoring <- score(hat_values_model, new_data = mtcars[16:30,])
+hat_values_model <- apd_hat_values(train_data)
+
+hat_values_scoring <- score(hat_values_model, new_data = test_data)
 hat_values_scoring
 
 }
