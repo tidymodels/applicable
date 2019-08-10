@@ -74,7 +74,7 @@ get_hat_values_score_function <- function(type) {
 #'
 #' @examples
 #' train_data <- mtcars[1:20,]
-#' test_data <- mtcars[21:32, -1]
+#' test_data <- mtcars[21:32,]
 #'
 #' hat_values_model <- apd_hat_values(train_data)
 #'
