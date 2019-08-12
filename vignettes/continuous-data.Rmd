@@ -46,7 +46,7 @@ More details can be found in [De Cock (2011, Journal of Statistics Education)](h
 
 The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we will use a processed version found in the [`AmesHousing`](https://github.com/topepo/AmesHousing) package.
 
-To pre-process the training set, we will use the _recipes_ package. We first eliminate predictors with sparse and highly unbalanced distributions (aka "near-zero variance predictors"), then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled and the PCA components are computed. These same transformations will be applied to the new data points using the statistics estimated from the training set (e.g. PCA loadings, etc).
+To pre-process the training set, we will use the _recipes_ package. We first eliminate predictors with sparse and highly unbalanced distributions (aka "near-zero variance predictors"), then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled and the PCA components are computed. These same transformations will be applied to the new data points using the statistics estimated from the training set.
 
 ```{r prep_data, message=FALSE}
 
@@ -72,8 +72,6 @@ training_recipe <-
   step_scale(all_predictors()) %>%
   prep(strings_as_factors = FALSE)
 
-sample(training_data)
-
 ```
 
 
@@ -85,20 +83,23 @@ ames_ad
 
 ```
 
+
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 
 autoplot(ames_ad)
 
 ```
 
-The plot contains too much information, making it hard to read. The autoplot function allows us to use selectors, in particular, regular expressions. For example, we can plot exactly the first nine principal components:
+The plot contains too much information, making it hard to read. The autoplot function allows us to use selectors, in particular, regular expressions. For example, we can plot exactly the first nine principal components and the last four components. Notice how there is less variance with higher principal components.
 
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 
 # Using selectors in `...`
-autoplot(ames_ad, matches("PC0\\d"))
+autoplot(ames_ad, matches("PC0\\d|PC7\\d"))
 
 ```
+
+Alternative, we can print only the distance statistic.
 
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 
@@ -108,6 +109,7 @@ autoplot(ames_ad, distance) + scale_x_log10()
 ```
 
 ### Hat values scoring methods
+
 ```{r}
 predictors <- mtcars[, -1]
 
