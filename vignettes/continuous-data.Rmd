@@ -76,6 +76,36 @@ sample(training_data)
 
 ```
 
+### Principal component analysis
+```{r}
+
+ames_ad <- apd_pca(training_recipe, training_data)
+ames_ad
+
+```
+
+```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
+
+autoplot(ames_ad)
+
+```
+
+The plot contains too much information, making it hard to read. The autoplot function allows us to use selectors, in particular, regular expressions. For example, we can plot exactly the first nine principal components:
+
+```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
+
+# Using selectors in `...`
+autoplot(ames_ad, matches("PC0\\d"))
+
+```
+
+```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
+
+# Using selectors in `...`
+autoplot(ames_ad, distance) + scale_x_log10()
+
+```
+
 ### Hat values scoring methods
 ```{r}
 predictors <- mtcars[, -1]
