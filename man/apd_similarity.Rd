@@ -63,7 +63,7 @@ their elements}. The table will contain \emph{p} entires across the four cells
 (see the example below). From this, different measures of likeness are
 computed.
 
-For a training set if \emph{n} samples, a new sample is compared to each,
+For a training set of \emph{n} samples, a new sample is compared to each,
 resulting in \emph{n} similarity scores. These can be summarized into a single
 value; the median similarity is used by default by the scoring function.
 
