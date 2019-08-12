@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, echo = TRUE, message = FALSE}
 library(applicable)
 library(ggplot2)
 library(dplyr)
@@ -22,28 +22,25 @@ data(qsar_binary)
 ```
 
 ### Similarity methods
+
+The example data is from two QSAR data sets where binary fingerprints are used as predictors.
+
+
 ```{r}
 
 jacc_sim <- apd_similarity(binary_tr)
 jacc_sim
 
+```
+
+```{r}
+
 # plot the empirical cumulative distribution function (ECDF) for the training set:
 autoplot(jacc_sim)
 
-# Example calculations for two samples:
-A <- as.matrix(binary_tr[1,])
-B <- as.matrix(binary_tr[2,])
-xtab <- table(A, B)
-xtab
+```
 
-# Jaccard statistic
-xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
-
-# Hamman statistic
-( ( xtab[1, 1] + xtab[2, 2] ) - ( xtab[1, 2] + xtab[2, 1] ) ) / sum(xtab)
-
-# Faith statistic
-( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
+```{r}
 
 # Summarize across all training set similarities
 mean_sim <- score(jacc_sim, new_data = binary_unk)
