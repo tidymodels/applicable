@@ -14,8 +14,23 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r setup, message=FALSE}
+
 library(applicable)
+library(ggplot2)
+library(dplyr)
+
+```
+
+### Introduction
+
+For our examples, we will use the Ames IA housing data.
+
+```{r ames_data, message=FALSE}
+
+library(AmesHousing)
+ames <- make_ames()
+
 ```
 
 ### Hat values scoring methods
@@ -29,22 +44,9 @@ mod <- apd_hat_values(predictors)
 mod2 <- apd_hat_values(mpg ~ ., mtcars)
 
 # Recipes interface
-library(recipes)
 rec <- recipe(mpg ~ ., mtcars)
 rec <- step_log(rec, disp)
 mod3 <- apd_hat_values(rec, mtcars)
 ```
 
-### Principal component analysis
-```{r}
-library(ggplot2)
-library(dplyr)
-data(biomass, package = "recipes")
 
-biomass_ad <- apd_pca(biomass[, 3:7])
-
-autoplot(biomass_ad)
-# Using selectors in `...`
-autoplot(biomass_ad, distance) + scale_x_log10()
-autoplot(biomass_ad, matches("PC[1-2]"))
-```
