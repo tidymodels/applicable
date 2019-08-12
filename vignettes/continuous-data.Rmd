@@ -48,6 +48,34 @@ The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we will
 
 To pre-process the training set, we will use the _recipes_ package. We first eliminate predictors with sparse and highly unbalanced distributions (aka "near-zero variance predictors"), then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled and the PCA components are computed. These same transformations will be applied to the new data points using the statistics estimated from the training set (e.g. PCA loadings, etc).
 
+```{r prep_data, message=FALSE}
+
+library(recipes)
+library(rsample)
+
+set.seed(4595)
+data_split <- initial_split(ames, strata = "Sale_Price")
+
+training_data <- training(data_split)
+test_data  <- testing(data_split)
+
+training_recipe <-
+  recipe( ~ ., data = training_data) %>%
+  step_dummy(all_nominal()) %>%
+  # Remove variables that have (or almost have) the same value for every data point.
+  step_nzv(all_predictors()) %>%
+  # Transform variables to be distributed as Gaussian-like as possible.
+  step_YeoJohnson(all_predictors()) %>%
+  # Normalize numeric data to have a mean of zero.
+  step_center(all_predictors()) %>%
+  # Normalize numeric data to have a standard deviation of one.
+  step_scale(all_predictors()) %>%
+  prep(strings_as_factors = FALSE)
+
+sample(training_data)
+
+```
+
 ### Hat values scoring methods
 ```{r}
 predictors <- mtcars[, -1]
