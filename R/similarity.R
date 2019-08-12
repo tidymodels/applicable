@@ -137,7 +137,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #'  (see the example below). From this, different measures of likeness are
 #'  computed.
 #'
-#' For a training set if _n_ samples, a new sample is compared to each,
+#' For a training set of _n_ samples, a new sample is compared to each,
 #'  resulting in _n_ similarity scores. These can be summarized into a single
 #'  value; the median similarity is used by default by the scoring function.
 #'
