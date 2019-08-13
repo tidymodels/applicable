@@ -108,6 +108,80 @@ autoplot(ames_ad, distance) + scale_x_log10()
 
 ```
 
+
+The `score` function compares the training data to new samples. Suppose that we have the following data:
+
+```{r fake_sample, echo = FALSE}
+
+training_df <-
+  juice(training_recipe)
+
+training_df_ad <- apd_pca(x = training_df)
+
+set.seed(1)
+s1 <- sample(x = c(0.1, 0.2, 0.254, 0.123), size = ncol(training_df), replace = TRUE)
+fake_sample <- matrix(s1, nrow = 1)
+colnames(fake_sample) <- colnames(training_df)
+fake_sample <- as.data.frame(fake_sample)
+
+scoring <- score(training_df_ad, fake_sample)
+
+training_pca <- data.frame("PC1" = training_df_ad$pcs$rotation[,1],
+                           "PC2" = training_df_ad$pcs$rotation[,2])
+
+testing_pca <- data.frame("PC1" = scoring$PC01,
+                          "PC2" = scoring$PC02)
+
+all_pca <- rbind(training_pca, testing_pca)
+pca_rng <- extendrange(c(all_pca$PC1, all_pca$PC2), f=c(.03,.01))
+
+training_pca_plot <- ggplot(training_pca, aes(x = PC1, y = PC2, col = data)) +
+  geom_point(alpha = .4) +
+  lims(x = pca_rng, y = pca_rng) +
+  theme(legend.position = "none")
+
+all_pca_plot <- ggplot(all_pca, aes(x = PC1, y = PC2, col = data)) +
+    geom_point(alpha = .4) +
+    lims(x = pca_rng, y = pca_rng) +
+  theme(legend.position = "none")
+
+
+training_pca_plot <- ggplot(training_pca, aes(x = PC1, y = PC2)) +
+  geom_point(alpha = .1) +
+  lims(x = pca_rng, y = pca_rng) +
+  theme(legend.position = "none")
+
+mean_point <- data.frame("PC1" = mean(training_pca$PC1),
+                         "PC2" = mean(training_pca$PC2))
+
+training_pca_plot_with_new_sample_expectation <-
+  ggplot(training_pca, aes(x = PC1, y = PC2)) +
+  geom_point(alpha = .1) +
+  lims(x = pca_rng, y = pca_rng) +
+  theme(legend.position = "none") +
+  geom_point(data = mean_point, col = "red", cex = 5)
+
+training_pca_plot_with_new_sample_reality <-
+  ggplot(training_pca, aes(x = PC1, y = PC2)) +
+  geom_point(alpha = .1) +
+  lims(x = pca_rng, y = pca_rng) +
+  theme(legend.position = "none") +
+  geom_point(data = testing_pca, col = "red", cex = 5)
+
+#ggplot(scoring, aes(x = PC01, y = PC01_pctl)) +
+#  geom_bar(stat="identity")
+
+#ggplot(scoring, aes(PC01)) + geom_bar(aes(weight = PC01_pctl))
+
+par(mfrow=c(1,2))
+
+training_pca_plot
+training_pca_plot_with_new_sample_expectation
+
+```
+
+and we want to predict a new sample.
+
 ### Hat values scoring methods
 
 ```{r}
