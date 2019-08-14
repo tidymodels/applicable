@@ -106,6 +106,11 @@ apd_pca_bridge <- function(processed, threshold, ...) {
 #'
 #' @param ... Not currently used, but required for extensibility.
 #'
+#' @details The function computes the principal components that account for
+#'  up to either 95% or the provided `threshold` of variability. It also
+#'  computes the percentiles of the principal components and the mean of each
+#'  principal component.
+#'
 #' @return
 #'
 #' A `apd_pca` object.
