@@ -31,8 +31,7 @@ To analyze the Jaccard metric, we have the following methods
 
 * `autoplot`: shows the cumulative probability versus the unique similarity values in the training set.
 
-* `score`: Score new samples using similarity methods. In particular, it calculates the similarity scores and if `add_percentile = TRUE`, it also estimates the percentile of the similarity scores.
-
+* `score`: scores new samples using similarity methods. In particular, it calculates the similarity scores and if `add_percentile = TRUE`, it also estimates the percentile of the similarity scores.
 
 ## Example 
 
