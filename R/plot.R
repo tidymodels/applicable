@@ -4,7 +4,7 @@
 #' @param ... An optional set of `dplyr` selectors, such as `dplyr::matches()` or
 #'  `dplyr::starts_with()` for selecting which variables should be shown in the
 #'  plot.
-#' @return A `ggplot` object that shows the cdistribution function for each
+#' @return A `ggplot` object that shows the distribution function for each
 #' principal component.
 #' @examples
 #' library(ggplot2)
