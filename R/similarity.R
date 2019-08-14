@@ -148,6 +148,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' By default, the computations are run in parallel using _all possible
 #'  cores_. To change this, call the `setThreadOptions` function in the
 #'  `RcppParallel` package.
+#'
 #' @return
 #'
 #' A `apd_similarity` object.
