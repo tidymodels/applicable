@@ -67,6 +67,12 @@ score_apd_pca_bridge <- function(type, model, predictors) {
 #'
 #' @param ... Not used, but required for extensibility.
 #'
+#' @details The function computes the principal components of the new data and
+#' their percentiles as compared to the training data. The number of principal
+#' components computed depends on the `threshold` given at fit time. It also
+#' computes the multivariate distance between each principal component and its
+#' mean.
+#'
 #' @return
 #'
 #' A tibble of predictions. The number of rows in the tibble is guaranteed
