@@ -14,17 +14,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, message=FALSE}
+## Introduction
 
+```{r}
 library(applicable)
-library(ggplot2)
-library(dplyr)
-
 ```
 
-### Introduction
+To analyze the applicability domain of your model, `applicable` provides the following methods:
 
-For our examples, we will use the Ames IA housing data.
+* Principal component analysis
+* Hat values statistics
 
 ```{r ames_data, message=FALSE}
 
