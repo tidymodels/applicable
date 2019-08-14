@@ -25,11 +25,15 @@ To analyze the applicability domain of your model, `applicable` provides the fol
 * Principal component analysis
 * Hat values statistics
 
-```{r ames_data, message=FALSE}
+To explain these methods, let us take a look at an example.
 
+## Example
+
+We will use the Ames IA housing data for our example.
+
+```{r ames_data, message=FALSE}
 library(AmesHousing)
 ames <- make_ames()
-
 ```
 
 There are `r format(nrow(ames), big.mark = ",")` properties in the data.
@@ -47,16 +51,13 @@ The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we will
 
 To pre-process the training set, we will use the _recipes_ package. We first eliminate predictors with sparse and highly unbalanced distributions (aka "near-zero variance predictors"), then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled and the PCA components are computed. These same transformations will be applied to the new data points using the statistics estimated from the training set.
 
-```{r prep_data, message=FALSE}
 
+```{r prep_data, message=FALSE}
 library(recipes)
 library(rsample)
+library(dplyr)
 
-set.seed(4595)
-data_split <- initial_split(ames, strata = "Sale_Price")
-
-training_data <- training(data_split)
-test_data  <- testing(data_split)
+training_data <- ames
 
 training_recipe <-
   recipe( ~ ., data = training_data) %>%
