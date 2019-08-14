@@ -75,14 +75,34 @@ training_recipe <-
 ```
 
 
-### Principal component analysis
-```{r}
+### Principal Component Analysis
 
+The following functions in `applicable` are used for principal component
+analysis:
+
+* `apd_pca`: computes the principal components that account for up
+to either 95% or the provided `threshold` of variability. It alsomcomputes the
+percentiles of the principal components and the mean of each principal
+component.
+* `autoplot`: plots the distribution function for pcas. You can also provide an
+optional set of `dplyr` selectors, such as `dplyr::matches()` or
+`dplyr::starts_with()`, for selecting which variables should be shown in the
+plot.
+* `score`: calculates the principal components of the new data and their
+percentiles as compared to the training data. The number of principal
+components computed depends on the `threshold` given at fit time. It also
+computes the multivariate distance between each principal component and its
+mean.
+
+Let us apply `apd_pca` modeling function to our data:
+
+```{r}
 ames_ad <- apd_pca(training_recipe, training_data)
 ames_ad
-
 ```
 
+Since no `threshold` was provided, the function computed the number of
+principal components that accounted for at most 95% of the total variance.
 
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 
