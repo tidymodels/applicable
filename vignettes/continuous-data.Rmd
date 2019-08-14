@@ -104,7 +104,7 @@ ames_ad
 Since no `threshold` was provided, the function computed the number of
 principal components that accounted for at most 95% of the total variance.
 
-Setting `threshold = 0.43` or 43%, we now need only 16 principal components:
+Setting `threshold = 0.43` or 43%, we now need only 10 principal components:
 
 ```{r}
 ames_ad <- apd_pca(training_recipe, training_data, threshold = 0.43)
