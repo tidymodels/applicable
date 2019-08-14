@@ -14,6 +14,10 @@ knitr::opts_chunk$set(
 )
 ```
 
+#> TODO
+#> - Mention you can use different input data types: data.frame, recipes, matrix, etc.
+#> - Maybe make a conclusion?
+#> - Explain why is the diverse training set.
 
 ## Introduction
 
