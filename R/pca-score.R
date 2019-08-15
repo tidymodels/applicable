@@ -20,7 +20,9 @@ score_apd_pca_numeric <- function(model, predictors) {
 
   # Compute percentile of new pca values
   new_pctls <- purrr::map2_dfc(
-    model$pctls %>% dplyr::select(-percentile),
+    model$pctls %>%
+      dplyr::select(-percentile) %>%
+      mutate_all(abs),
     predicted_output,
     get_new_percentile,
     grid = model$pctls$percentile
