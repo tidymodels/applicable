@@ -5,3 +5,4 @@
 ^pkgdown$
 ^README.Rmd$
 
+^\.travis\.yml$
