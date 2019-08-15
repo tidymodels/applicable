@@ -6,7 +6,7 @@ test_that("output of autoplot.apd_pca is correct when no options are provided", 
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "value")
+  expect_equal(ad_plot$labels$x, "abs(value)")
   expect_equal(ad_plot$labels$y, "percentile")
 })
 
@@ -19,7 +19,7 @@ test_that("output of autoplot.apd_pca is correct when options=matches are provid
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "value")
+  expect_equal(ad_plot$labels$x, "abs(value)")
   expect_equal(ad_plot$labels$y, "percentile")
 })
 
@@ -32,6 +32,6 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "value")
+  expect_equal(ad_plot$labels$x, "abs(value)")
   expect_equal(ad_plot$labels$y, "percentile")
 })
