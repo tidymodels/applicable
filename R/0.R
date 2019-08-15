@@ -5,6 +5,7 @@
 #' @importFrom dplyr starts_with
 #' @importFrom dplyr rename_all
 #' @importFrom dplyr mutate
+#' @importFrom dplyr mutate_all
 #' @importFrom dplyr group_by
 #' @importFrom dplyr ungroup
 #' @importFrom dplyr count
