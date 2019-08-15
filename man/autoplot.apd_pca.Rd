@@ -14,7 +14,7 @@ autoplot.apd_pca(object, ...)
 plot.}
 }
 \value{
-A \code{ggplot} object that shows the cdistribution function for each
+A \code{ggplot} object that shows the distribution function for each
 principal component.
 }
 \description{

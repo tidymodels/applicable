@@ -26,6 +26,13 @@ to be the same as the number of rows in \code{new_data}.
 \description{
 Predict from a \code{apd_pca}
 }
+\details{
+The function computes the principal components of the new data and
+their percentiles as compared to the training data. The number of principal
+components computed depends on the \code{threshold} given at fit time. It also
+computes the multivariate distance between each principal component and its
+mean.
+}
 \examples{
 train <- mtcars[1:20,]
 test <- mtcars[21:32, -1]

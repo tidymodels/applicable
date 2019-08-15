@@ -50,6 +50,12 @@ A \code{apd_pca} object.
 \description{
 \code{apd_pca()} fits a model.
 }
+\details{
+The function computes the principal components that account for
+up to either 95% or the provided \code{threshold} of variability. It also
+computes the percentiles of the principal components and the mean of each
+principal component.
+}
 \examples{
 predictors <- mtcars[, -1]
 
