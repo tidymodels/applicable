@@ -41,6 +41,7 @@ apd_pca_impl <- function(predictors, threshold) {
   distance <- find_distance_to_pca_means(pcs$x, pca_means)
   pctls <- as_tibble(pcs$x) %>%
     setNames(names0(ncol(pcs$x), "PC")) %>%
+    mutate_all(abs) %>%
     mutate(distance = distance)
 
   # Calculate percentile for all PCs and distances
