@@ -33,7 +33,8 @@ autoplot.apd_pca <- function(object, ...) {
     tidyr::gather(component, value, -percentile) %>%
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv") +
-    ggplot2::facet_wrap(~ component)
+    ggplot2::facet_wrap(~ component) +
+    xlab("abs(value)")
 }
 
 #' Plot the cumulative distribution function for similarity metrics
