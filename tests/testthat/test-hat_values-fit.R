@@ -115,6 +115,22 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
   bad_data <- mtcars %>%
     slice(1:5)
 
+  message <- paste("The number of columns must be less than",
+                   "the number of rows.",
+                   sep = "\n")
+
+  expect_error(
+    apd_hat_values(bad_data),
+    message,
+    fixed = TRUE
+  )
+})
+
+test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
+  bad_data <- matrix(
+    rep(0, 6), nrow = 3
+  )
+
   message <- paste("Unable to compute the hat values of the matrix X of",
                    "predictors because the matrix resulting from multiplying",
                    "the transpose of X by X is singular.",
