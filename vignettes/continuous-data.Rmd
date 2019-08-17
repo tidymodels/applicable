@@ -20,12 +20,10 @@ knitr::opts_chunk$set(
 library(applicable)
 ```
 
-To analyze the applicability domain of your model, `applicable` provides the following methods:
+`applicable` provides the following methods to analyze the applicability domain of your model:
 
 * Principal component analysis
 * Hat values statistics
-
-To explain these methods, let us take a look at an example.
 
 ## Example
 
@@ -97,8 +95,8 @@ mean.
 Let us apply `apd_pca` modeling function to our data:
 
 ```{r}
-ames_ad <- apd_pca(training_recipe, training_data)
-ames_ad
+ames_pca <- apd_pca(training_recipe, training_data)
+ames_pca
 ```
 
 Since no `threshold` was provided, the function computed the number of
@@ -107,23 +105,23 @@ principal components that accounted for at most 95% of the total variance.
 Setting `threshold = 0.43` or 43%, we now need only 10 principal components:
 
 ```{r}
-ames_ad <- apd_pca(training_recipe, training_data, threshold = 0.43)
-ames_ad
+ames_pca <- apd_pca(training_recipe, training_data, threshold = 0.43)
+ames_pca
 ```
 
 Plotting the distribution function for pcas is also helpful:
 
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 library(ggplot2)
-autoplot(ames_ad)
+autoplot(ames_pca)
 ```
 
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
 ```{r, echo = FALSE}
 par(mfrow=c(1,2))
-autoplot(ames_ad, matches("PC0[1-5]"))
-autoplot(ames_ad, distance) + scale_x_log10()
+autoplot(ames_pca, matches("PC0[1-5]"))
+autoplot(ames_pca, distance) + scale_x_log10()
 ```
 
 The `score` function compares the training data to new samples. We will
@@ -170,7 +168,6 @@ training_pca_plot_with_new_sample_reality
 
 ```
 
-and we want to predict a new sample.
 
 ### Hat Values
 
