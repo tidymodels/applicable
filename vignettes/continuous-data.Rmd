@@ -171,8 +171,28 @@ training_pca_plot_with_new_sample_reality
 
 ### Hat Values
 
+The following functions in `applicable` are used to compute the hat values of your model:
+
+* `apd_hat_values`:
+* `score`:
+
+Let us apply `apd_hat_values` modeling function to our data:
+
 ```{r}
-predictors <- mtcars[, -1]
+
+# Data frame interface
+ames_hat <- apd_hat_values(training_df)
+
+X <- as.matrix(training_df)
+colnames(X) <- NULL
+xtx <- t(X) %*% X
+det(xtx)
+
+```
+
+
+
+```{r}
 
 # Data frame interface
 mod <- apd_hat_values(predictors)
@@ -180,8 +200,4 @@ mod <- apd_hat_values(predictors)
 # Formula interface
 mod2 <- apd_hat_values(mpg ~ ., mtcars)
 
-# Recipes interface
-rec <- recipe(mpg ~ ., mtcars)
-rec <- step_log(rec, disp)
-mod3 <- apd_hat_values(rec, mtcars)
 ```
