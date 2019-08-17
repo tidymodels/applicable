@@ -16,10 +16,11 @@ new_apd_hat_values <- function(XtX_inv, pctls, blueprint) {
 # -----------------------------------------------------------------------------
 
 apd_hat_values_impl <- function(predictors) {
-  XtX_inv <- get_inv(predictors)
 
   X <- as.matrix(predictors)
   dimnames(X) <- NULL
+
+  XtX_inv <- get_inv(X)
 
   P <- X %*% XtX_inv %*% t(X)
   hat_values <- diag(P)
