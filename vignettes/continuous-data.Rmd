@@ -190,14 +190,3 @@ det(xtx)
 
 ```
 
-
-
-```{r}
-
-# Data frame interface
-mod <- apd_hat_values(predictors)
-
-# Formula interface
-mod2 <- apd_hat_values(mpg ~ ., mtcars)
-
-```
