@@ -46,6 +46,13 @@ apd_hat_values_impl <- function(predictors) {
 apd_hat_values_bridge <- function(processed, ...) {
   predictors <- processed$predictors
 
+  if(ncol(predictors) >= nrow(predictors)){
+    message <- paste("The number of columns must be less than",
+                     "the number of rows.",
+                     sep = "\n")
+    stop(message, call. = FALSE)
+  }
+
   fit <- apd_hat_values_impl(predictors)
 
   new_apd_hat_values(
