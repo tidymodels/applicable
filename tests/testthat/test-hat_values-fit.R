@@ -115,7 +115,10 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
   bad_data <- mtcars %>%
     slice(1:5)
 
-  message <- "Error in qr.solve(XpX) : singular matrix 'a' in solve\n"
+  message <- paste("Unable to compute the hat values of the matrix X of",
+                   "predictors since the matrix resulting from multiplying",
+                   "X by the tranpose of X is singular.",
+                   sep = "\n")
 
   expect_error(
     apd_hat_values(bad_data),
