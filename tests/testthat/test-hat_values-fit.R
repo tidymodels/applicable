@@ -116,8 +116,8 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
     slice(1:5)
 
   message <- paste("Unable to compute the hat values of the matrix X of",
-                   "predictors since the matrix resulting from multiplying",
-                   "X by the tranpose of X is singular.",
+                   "predictors because the matrix resulting from multiplying",
+                   "the transpose of X by X is singular.",
                    sep = "\n")
 
   expect_error(
