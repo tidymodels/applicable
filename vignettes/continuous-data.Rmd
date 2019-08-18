@@ -58,18 +58,15 @@ library(dplyr)
 training_data <- ames
 
 training_recipe <-
-  recipe( ~ ., data = training_data) %>%
+  recipe(Sale_Price ~ ., data = training_data) %>%
   step_dummy(all_nominal()) %>%
-  # Remove variables that have (or almost have) the same value for every data point.
-  step_nzv(all_predictors()) %>%
+  # Remove variables that have the same value for every data point.
+  step_zv(all_predictors()) %>%
   # Transform variables to be distributed as Gaussian-like as possible.
   step_YeoJohnson(all_predictors()) %>%
-  # Normalize numeric data to have a mean of zero.
-  step_center(all_predictors()) %>%
-  # Normalize numeric data to have a standard deviation of one.
-  step_scale(all_predictors()) %>%
-  prep(strings_as_factors = FALSE)
-
+  # Normalize numeric data to have a mean of zero and
+  # standard deviation of one.
+  step_normalize(all_predictors())
 ```
 
 
@@ -118,8 +115,7 @@ autoplot(ames_pca)
 
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
-```{r, echo = FALSE}
-par(mfrow=c(1,2))
+```{r, echo = FALSE, results = "hold"}
 autoplot(ames_pca, matches("PC0[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
@@ -127,7 +123,7 @@ autoplot(ames_pca, distance) + scale_x_log10()
 The `score` function compares the training data to new samples. We will
 engineer a new fake sample that is an extrapolation of the training data.
 
-```{r fake_sample}
+```{r fake_sample, eval = FALSE}
 
 training_df <- juice(training_recipe)
 training_df_ad <- apd_pca(x = training_df)
@@ -171,22 +167,35 @@ training_pca_plot_with_new_sample_reality
 
 ### Hat Values
 
+The [Hat or leverage values](https://en.wikipedia.org/wiki/Leverage_(statistics)) are based on the numerics of linear regression. The measure the distance of a data point to the center of the training set distribution. For example, if the numeric training set matrix was $X_{n \times p}$, the _hat matrix_ for the training set would be computed using 
+
+$$H = X'(X'X)^{-1}X$$
+
+The corresponding hat values for the training would be the diagonals of $H$. These values can be computed using `stats::hatvalues(lm_model)` but only for an `lm` model object. Also, it cannot compute the values for new samples. 
+
+Suppose that we had a new, unknown sample (as a $p \times 1$ data vector $\mathbf{u}$). The hat value for this sample would be 
+
+$$\mathbf{u}'(X'X)^{-1}\mathbf{u}$$.
+
 The following functions in `applicable` are used to compute the hat values of your model:
 
 * `apd_hat_values`:
 * `score`:
 
-Let us apply `apd_hat_values` modeling function to our data:
+Two caveats for using the hat values:
+
+ 1. The numerical methods are less tolerant than PCA. For example, extremely correlated predictors will degrade the ability of the hat values to be effectively used. Also, since an inverse is used, there cannot be an linear dependencies within $X$. To resolve this the former example, the recipe step `recipes::step_corr()` can be used to reduce correlation. For the latter issue, `recipes::step_lincomp()` will idnetify and remove linear dependencies in the data (as shown below). 
+ 
+ 1. When using a linear or logistic model, the model adds an intercept columns of ones to $X$. For equivalent computations, you should add a vector or ones to the data or use `recipes::step_intercept()`. 
+
+Let us apply `apd_hat_values` modeling function to our data (while ensuring that there are no linear dependencies):
 
 ```{r}
+non_singular_recipe <- 
+  training_recipe %>% 
+  step_lincomb(all_predictors())
 
-# Data frame interface
-ames_hat <- apd_hat_values(training_df)
-
-X <- as.matrix(training_df)
-colnames(X) <- NULL
-xtx <- t(X) %*% X
-det(xtx)
-
+# Recipe interface
+ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 ```
 
