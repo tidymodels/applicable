@@ -30,7 +30,7 @@ You can install the development version of applicable from
 
 ``` r
 # install.packages("devtools")
-#devtools::install_github("tidymodels/applicable")
+devtools::install_github("tidymodels/applicable")
 ```
 
 ## Vignettes
