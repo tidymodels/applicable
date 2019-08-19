@@ -12,6 +12,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+options(width = 100)
+library(ggplot2)
+theme_set(theme_bw())
 ```
 
 ## Introduction
@@ -45,28 +48,48 @@ The Sale Price was recorded along with `r ncol(ames)` predictors, including:
 
 More details can be found in [De Cock (2011, Journal of Statistics Education)](http://ww2.amstat.org/publications/jse/v19n3/decock.pdf).
 
-The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we will use a processed version found in the [`AmesHousing`](https://github.com/topepo/AmesHousing) package.
+The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we 
+will use a processed version found in the 
+[`AmesHousing`](https://github.com/topepo/AmesHousing) package. `applicable` 
+also contains an update for these data for three new properties (although fewer 
+fields were collected on these). 
 
-To pre-process the training set, we will use the _recipes_ package. We first eliminate predictors with sparse and highly unbalanced distributions (aka "near-zero variance predictors"), then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled and the PCA components are computed. These same transformations will be applied to the new data points using the statistics estimated from the training set.
-
+To pre-process the training set, we will use the _recipes_ package. We first
+tell the recipes that there is an additional value for the neighborhood in these
+data, then direct it to create dummy variables for all categorical predictors. In
+cases where there are no levels observed for a factor, we eliminate predictors
+with a single unique value, then estimate a transformation that will make the
+predictor distributions more symmetric. After these, the data are centered and
+scaled. These same transformations will be applied to the new data points using
+the statistics estimated from the training set.
 
 ```{r prep_data, message=FALSE}
 library(recipes)
-library(rsample)
 library(dplyr)
 
-training_data <- ames
+ames_cols <- names(ames_new)
+
+training_data <- 
+  ames %>% 
+  # For consistency, only analyze the data on new properties
+  dplyr::select(one_of(ames_cols)) %>% 
+  mutate(
+    # There is a new neighborhood in ames_new
+    Neighborhood = as.character(Neighborhood),
+    Neighborhood = factor(Neighborhood, levels = levels(ames_new$Neighborhood))
+  )
+
 
 training_recipe <-
-  recipe(Sale_Price ~ ., data = training_data) %>%
-  step_dummy(all_nominal()) %>%
+  recipe( ~ ., data = training_data) %>%
+  step_dummy(all_nominal()) %>% 
   # Remove variables that have the same value for every data point.
-  step_zv(all_predictors()) %>%
+  step_zv(all_predictors()) %>% 
   # Transform variables to be distributed as Gaussian-like as possible.
-  step_YeoJohnson(all_predictors()) %>%
+  step_YeoJohnson(all_numeric()) %>%
   # Normalize numeric data to have a mean of zero and
   # standard deviation of one.
-  step_normalize(all_predictors())
+  step_normalize(all_numeric())
 ```
 
 
@@ -76,7 +99,7 @@ The following functions in `applicable` are used for principal component
 analysis:
 
 * `apd_pca`: computes the principal components that account for up
-to either 95% or the provided `threshold` of variability. It alsomcomputes the
+to either 95% or the provided `threshold` of variability. It also computes the
 percentiles of the principal components and the mean of each principal
 component.
 * `autoplot`: plots the distribution function for pcas. You can also provide an
@@ -99,14 +122,14 @@ ames_pca
 Since no `threshold` was provided, the function computed the number of
 principal components that accounted for at most 95% of the total variance.
 
-Setting `threshold = 0.43` or 43%, we now need only 10 principal components:
+For illustration, setting `threshold = 0.25` or 25%, we now need only 10 principal components:
 
 ```{r}
-ames_pca <- apd_pca(training_recipe, training_data, threshold = 0.43)
+ames_pca <- apd_pca(training_recipe, training_data, threshold = 0.25)
 ames_pca
 ```
 
-Plotting the distribution function for pcas is also helpful:
+Plotting the distribution function for the PCA scores is also helpful:
 
 ```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
 library(ggplot2)
@@ -120,49 +143,51 @@ autoplot(ames_pca, matches("PC0[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
 
-The `score` function compares the training data to new samples. We will
-engineer a new fake sample that is an extrapolation of the training data.
+The `score` function compares the training data to new samples. Let's go back to 
+the case where we capture 95% of the variation in the predictors and score the 
+new samples. Since we used the recipe interface, we can give the score function
+the original data:
 
-```{r fake_sample, eval = FALSE}
-
-training_df <- juice(training_recipe)
-training_df_ad <- apd_pca(x = training_df)
-
-set.seed(1)
-s1 <- sample(x = c(0.1, 0.2, 0.254, 0.123), size = ncol(training_df), replace = TRUE)
-fake_sample <- matrix(s1, nrow = 1)
-colnames(fake_sample) <- colnames(training_df)
-fake_sample <- as.data.frame(fake_sample)
-
-pca_score <- score(training_df_ad, fake_sample)
-pca_score
-
+```{r new_sample}
+ames_pca <- apd_pca(training_recipe, training_data)
+pca_score <- score(ames_pca, ames_new)
+pca_score %>% select(matches("PC00[1-3]"), contains("distance"))
 ```
 
-Notice how the new sample, displayed in red, is very disimilar to the training
-set in the first two components:
+Notice how the samples, displayed in red, are fairly disimilar to the training
+set in the first component:
 
 ```{r, echo = FALSE}
-
-training_pca <- data.frame("PC1" = training_df_ad$pcs$rotation[,1],
-                           "PC2" = training_df_ad$pcs$rotation[,2])
-
-testing_pca <- data.frame("PC1" = pca_score$PC01,
-                          "PC2" = pca_score$PC02)
-
-all_pca <- rbind(training_pca, testing_pca)
-pca_rng <- extendrange(c(all_pca$PC1, all_pca$PC2), f=c(.03,.01))
-
-training_pca_plot_with_new_sample_reality <-
-  ggplot(training_pca, aes(x = PC1, y = PC2)) +
-  geom_point(alpha = .1) +
-  lims(x = pca_rng, y = pca_rng) +
-  theme(legend.position = "none") +
-  geom_point(data = testing_pca, col = "red", cex = 3)
-
-training_pca_plot_with_new_sample_reality
-
+training_scores <- score(ames_pca, training_data)
+ggplot(training_scores, aes(x = PC001)) + 
+  geom_histogram(col = "white", binwidth = .5) + 
+  geom_vline(xintercept = pca_score$PC001, col = "red")
 ```
+
+What is driving the first component? We can look at which predictors have the
+largest values in the rotation matrix (i.e. the values that define the linear 
+combinations in the PC scores). The top five are:
+
+```{r}
+# `ames_pca$pcs` is the output of `prcomp()`
+comp_one <- ames_pca$pcs$rotation[, 1]
+comp_one[order(abs(comp_one), decreasing = TRUE)] %>% head(5)
+```
+
+These three houses are extreme in the most influential variable (year built) since
+they were new homes. The also tend to have fairly large garages:
+
+```{r, echo = FALSE}
+ggplot(training_data, aes(x = Garage_Area )) + 
+  geom_histogram(col = "white", binwidth = 50) + 
+  geom_vline(xintercept = ames_new$Garage_Area, col = "red")
+```
+
+This may be what is driving the first component. 
+
+However, the overall distance values are relatively small, which indicates that,
+overall, these new houses are not outside the mainstream of the data. 
+
 
 
 ### Hat Values
@@ -173,9 +198,9 @@ $$H = X'(X'X)^{-1}X$$
 
 The corresponding hat values for the training would be the diagonals of $H$. These values can be computed using `stats::hatvalues(lm_model)` but only for an `lm` model object. Also, it cannot compute the values for new samples. 
 
-Suppose that we had a new, unknown sample (as a $p \times 1$ data vector $\mathbf{u}$). The hat value for this sample would be 
+Suppose that we had a new, unknown sample (as a $p \times 1$ data vector $u$). The hat value for this sample would be 
 
-$$\mathbf{u}'(X'X)^{-1}\mathbf{u}$$.
+$$h = u'(X'X)^{-1}u$$.
 
 The following functions in `applicable` are used to compute the hat values of your model:
 

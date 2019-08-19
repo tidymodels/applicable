@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity • applicable</title>
+<title>Score new samples using hat values — score.apd_hat_values • applicable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,9 @@
 
 
 
-<meta property="og:title" content="Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity" />
+<meta property="og:title" content="Score new samples using hat values — score.apd_hat_values" />
 
-<meta property="og:description" content="Plot the cumulative distribution function for similarity metrics" />
+<meta property="og:description" content="Score new samples using hat values" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,40 +119,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the cumulative distribution function for similarity metrics</h1>
+    <h1>Score new samples using hat values</h1>
     
-    <div class="hidden name"><code>autoplot.apd_similarity.Rd</code></div>
+    <div class="hidden name"><code>score.apd_hat_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot the cumulative distribution function for similarity metrics</p>
+    <p>Score new samples using hat values</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autoplot.apd_similarity</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for apd_hat_values</span>
+<span class='fu'><a href='score.html'>score</a></span>(<span class='no'>object</span>, <span class='no'>new_data</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"numeric"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object produced by <code>apd_similarity</code>.</p></td>
+      <td><p>A <code>apd_hat_values</code> object.</p></td>
+    </tr>
+    <tr>
+      <th>new_data</th>
+      <td><p>A data frame or matrix of new predictors.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>A single character. The type of predictions to generate.
+Valid options are:</p><ul>
+<li><p><code>"numeric"</code> for a numeric value that summarizes the hat values for
+each sample across the training set.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not currently used.</p></td>
+      <td><p>Not used, but required for extensibility.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>ggplot</code> object that shows the cumulative probability versus the
-unique similarity values in the training set. Not that for large samples,
-this is an approximation based on a random sample of 5,000 training set
-points.</p>
+    <p>A tibble of predictions. The number of rows in the tibble is guaranteed
+to be the same as the number of rows in <code>new_data</code>. For <code>type = "numeric"</code>,
+the tibble contains two columns <code>hat_values</code> and <code>hat_values_pctls</code>. The
+column <code>hat_values_pctls</code> is in percent units so that a value of 11.5
+indicates that, in the training set, 11.5 percent of the training set
+samples had smaller values than the sample being scored.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>train_data</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>[<span class='fl'>1</span>:<span class='fl'>20</span>,]
+<span class='no'>test_data</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>[<span class='fl'>21</span>:<span class='fl'>32</span>,]
+
+<span class='no'>hat_values_model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apd_hat_values.html'>apd_hat_values</a></span>(<span class='no'>train_data</span>)
+
+<span class='no'>hat_values_scoring</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>hat_values_model</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>test_data</span>)
+<span class='no'>hat_values_scoring</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 12 x 2</span><span>
+#&gt;    hat_values hat_values_pctls
+#&gt;         </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span>      1.45              1   
+#&gt; </span><span style='color: #555555;'> 2</span><span>      0.852            90.0 
+#&gt; </span><span style='color: #555555;'> 3</span><span>      1.13              1   
+#&gt; </span><span style='color: #555555;'> 4</span><span>      1.19              1   
+#&gt; </span><span style='color: #555555;'> 5</span><span>      0.901            93.2 
+#&gt; </span><span style='color: #555555;'> 6</span><span>      0.335             6.34
+#&gt; </span><span style='color: #555555;'> 7</span><span>      5.41              1   
+#&gt; </span><span style='color: #555555;'> 8</span><span>      5.91              1   
+#&gt; </span><span style='color: #555555;'> 9</span><span>      8.19              1   
+#&gt; </span><span style='color: #555555;'>10</span><span>      5.11              1   
+#&gt; </span><span style='color: #555555;'>11</span><span>     12.4               1   
+#&gt; </span><span style='color: #555555;'>12</span><span>      0.960             1   </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,7 +198,9 @@ points.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

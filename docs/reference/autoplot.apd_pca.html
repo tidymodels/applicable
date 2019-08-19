@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity • applicable</title>
+<title>Plot the distribution function for pcas — autoplot.apd_pca • applicable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,9 @@
 
 
 
-<meta property="og:title" content="Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity" />
+<meta property="og:title" content="Plot the distribution function for pcas — autoplot.apd_pca" />
 
-<meta property="og:description" content="Plot the cumulative distribution function for similarity metrics" />
+<meta property="og:description" content="Plot the distribution function for pcas" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,40 +119,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the cumulative distribution function for similarity metrics</h1>
+    <h1>Plot the distribution function for pcas</h1>
     
-    <div class="hidden name"><code>autoplot.apd_similarity.Rd</code></div>
+    <div class="hidden name"><code>autoplot.apd_pca.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot the cumulative distribution function for similarity metrics</p>
+    <p>Plot the distribution function for pcas</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autoplot.apd_similarity</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>autoplot.apd_pca</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>An object produced by <code>apd_similarity</code>.</p></td>
+      <td><p>An object produced by <code>apd_pca</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not currently used.</p></td>
+      <td><p>An optional set of <code>dplyr</code> selectors, such as <code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::matches()</a></code> or
+<code><a href='https://dplyr.tidyverse.org/reference/reexports.html'>dplyr::starts_with()</a></code> for selecting which variables should be shown in the
+plot.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>ggplot</code> object that shows the cumulative probability versus the
-unique similarity values in the training set. Not that for large samples,
-this is an approximation based on a random sample of 5,000 training set
-points.</p>
+    <p>A <code>ggplot</code> object that shows the distribution function for each
+principal component.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>biomass</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"recipes"</span>)
+
+<span class='no'>biomass_ad</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apd_pca.html'>apd_pca</a></span>(<span class='no'>biomass</span>[, <span class='fl'>3</span>:<span class='fl'>7</span>])
+
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>biomass_ad</span>)</div><div class='img'><img src='autoplot.apd_pca-1.png' alt='' width='768' height='552' /></div><div class='input'><span class='co'># Using selectors in `...`</span>
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>biomass_ad</span>, <span class='no'>distance</span>) + <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/scale_continuous.html'>scale_x_log10</a></span>()</div><div class='img'><img src='autoplot.apd_pca-2.png' alt='' width='768' height='552' /></div><div class='input'><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>biomass_ad</span>, <span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>matches</a></span>(<span class='st'>"PC[1-2]"</span>))</div><div class='img'><img src='autoplot.apd_pca-3.png' alt='' width='768' height='552' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,7 +169,9 @@ points.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

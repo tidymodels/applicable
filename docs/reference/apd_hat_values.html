@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity • applicable</title>
+<title>Fit a <code>apd_hat_values</code> — apd_hat_values • applicable</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,9 @@
 
 
 
-<meta property="og:title" content="Plot the cumulative distribution function for similarity metrics — autoplot.apd_similarity" />
+<meta property="og:title" content="Fit a <code>apd_hat_values</code> — apd_hat_values" />
 
-<meta property="og:description" content="Plot the cumulative distribution function for similarity metrics" />
+<meta property="og:description" content="apd_hat_values() fits a model." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,40 +119,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the cumulative distribution function for similarity metrics</h1>
+    <h1>Fit a <code>apd_hat_values</code></h1>
     
-    <div class="hidden name"><code>autoplot.apd_similarity.Rd</code></div>
+    <div class="hidden name"><code>apd_hat_values.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Plot the cumulative distribution function for similarity metrics</p>
+    <p><code>apd_hat_values()</code> fits a model.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>autoplot.apd_similarity</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for data.frame</span>
+<span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for matrix</span>
+<span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for formula</span>
+<span class='fu'>apd_hat_values</span>(<span class='no'>formula</span>, <span class='no'>data</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for recipe</span>
+<span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>An object produced by <code>apd_similarity</code>.</p></td>
+      <th>x</th>
+      <td><p>Depending on the context:</p><ul>
+<li><p>A <strong>data frame</strong> of predictors.</p></li>
+<li><p>A <strong>matrix</strong> of predictors.</p></li>
+<li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
+created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Not currently used.</p></td>
+      <td><p>Not currently used, but required for extensibility.</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p>A formula specifying the predictor terms on the right-hand
+side. No outcome should be specified.</p></td>
+    </tr>
+    <tr>
+      <th>data</th>
+      <td><p>When a <strong>recipe</strong> or <strong>formula</strong> is used, <code>data</code> is specified as:</p><ul>
+<li><p>A <strong>data frame</strong> containing the predictors.</p></li>
+</ul></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <code>ggplot</code> object that shows the cumulative probability versus the
-unique similarity values in the training set. Not that for large samples,
-this is an approximation based on a random sample of 5,000 training set
-points.</p>
+    <p>A <code>apd_hat_values</code> object.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>predictors</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>[, -<span class='fl'>1</span>]
+
+<span class='co'># Data frame interface</span>
+<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>predictors</span>)
+
+<span class='co'># Formula interface</span>
+<span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
+
+<span class='co'># Recipes interface</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
+<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_log.html'>step_log</a></span>(<span class='no'>rec</span>, <span class='no'>disp</span>)
+<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>rec</span>, <span class='no'>mtcars</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -160,7 +211,9 @@ points.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

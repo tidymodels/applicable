@@ -92,6 +92,21 @@ one)." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/binary-data.html">Applicability domain methods for binary data</a>
+    </li>
+    <li>
+      <a href="../articles/continuous-data.html">Applicability domain methods for continuous data</a>
+    </li>
+  </ul>
+</li>
         
       </ul>
       
@@ -142,7 +157,7 @@ one).</p>
     <tr>
       <th>x</th>
       <td><p>Depending on the context:</p><ul>
-<li><p>A <strong>data frame</strong> of of binary predictors.</p></li>
+<li><p>A <strong>data frame</strong> of binary predictors.</p></li>
 <li><p>A <strong>matrix</strong> of binary predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
 created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
@@ -182,11 +197,11 @@ no 1's will be removed (with a warning).</p></li>
 
     <p>The function computes measures of similarity for different samples
 points. For example, suppose samples <code>A</code> and <code>B</code> both contain <em>p</em> binary
-variables. First, a 2x2 table is constructed between <code>A</code> and <code>B</code> _across
-their elements. The table will contain <em>p</em> entires across the four cells
+variables. First, a 2x2 table is constructed between <code>A</code> and <code>B</code> <em>across
+their elements</em>. The table will contain <em>p</em> entires across the four cells
 (see the example below). From this, different measures of likeness are
 computed.</p>
-<p>For a training set if <em>n</em> samples, a new sample is compared to each,
+<p>For a training set of <em>n</em> samples, a new sample is compared to each,
 resulting in <em>n</em> similarity scores. These can be summarized into a single
 value; the median similarity is used by default by the scoring function.</p>
 <p>For this method, the computational methods are fairly taxing for large data
@@ -195,6 +210,11 @@ object sizes may become large.</p>
 <p>By default, the computations are run in parallel using <em>all possible
 cores</em>. To change this, call the <code>setThreadOptions</code> function in the
 <code>RcppParallel</code> package.</p>
+    
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p>Leach, A. and Gillet V. (2007). <em>An Introduction to
+Chemoinformatics</em>. Springer, New York</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -205,11 +225,12 @@ cores</em>. To change this, call the <code>setThreadOptions</code> function in t
 <span class='no'>jacc_sim</span>
 
 <span class='co'># plot the empirical cumulative distribution function (ECDF) for the training set:</span>
-<span class='fu'>autoplot</span>(<span class='no'>jacc_sim</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>jacc_sim</span>)
 
 <span class='co'># Example calculations for two samples:</span>
 <span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
-<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_unk</span>[<span class='fl'>7</span>,])
+<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
 <span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
 <span class='no'>xtab</span>
 
@@ -223,8 +244,8 @@ cores</em>. To change this, call the <code>setThreadOptions</code> function in t
 ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)
 
 <span class='co'># Summarize across all training set similarities</span>
-<span class='no'>median_sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>jacc_sim</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>binary_unk</span>[<span class='fl'>7</span>,])
-<span class='no'>median_sim</span>
+<span class='no'>mean_sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>jacc_sim</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>binary_unk</span>)
+<span class='no'>mean_sim</span>
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -235,6 +256,8 @@ cores</em>. To change this, call the <code>setThreadOptions</code> function in t
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#references">References</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
