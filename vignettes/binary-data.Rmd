@@ -68,7 +68,7 @@ jacc_sim
 
 As we can see below, this is a fairly diverse training set:
 
-```{r jac-plot, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
+```{r jac-plot, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center'}
 library(ggplot2)
 
 # Plot the empirical cumulative distribution function for the training set
