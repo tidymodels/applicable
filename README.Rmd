@@ -26,7 +26,6 @@ options(rlang__backtrace_on_error = "reminder")
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
-
 [![Travis build status](https://travis-ci.org/tidymodels/applicable.svg?branch=master)](https://travis-ci.org/tidymodels/applicable)
 <!-- badges: end -->
 
@@ -40,7 +39,7 @@ You can install the development version of applicable from [GitHub](https://gith
 
 ``` r
 # install.packages("devtools")
-#devtools::install_github("tidymodels/applicable")
+devtools::install_github("tidymodels/applicable")
 ```
 
 ## Vignettes
