@@ -10,6 +10,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
 
+[![Travis build status](https://travis-ci.org/tidymodels/applicable.svg?branch=master)](https://travis-ci.org/tidymodels/applicable)
 <!-- badges: end -->
 
 ## Introduction
