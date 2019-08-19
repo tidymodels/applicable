@@ -48,7 +48,7 @@
       <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -80,7 +80,6 @@
 <!--/.navbar -->
 
       
-
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -97,7 +96,7 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(applicable)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(applicable)</span></code></pre></div>
 <p><code>applicable</code> provides the following methods to analyze the applicability domain of your model:</p>
 <ul>
 <li>Principal component analysis</li>
@@ -108,8 +107,8 @@
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>We will use the Ames IA housing data for our example.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(AmesHousing)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">ames &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/AmesHousing/man/make_ames.html">make_ames</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(AmesHousing)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>ames &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/AmesHousing/topics/make_ames">make_ames</a></span>()</span></code></pre></div>
 <p>There are 2,930 properties in the data.</p>
 <p>The Sale Price was recorded along with 81 predictors, including:</p>
 <ul>
@@ -121,32 +120,32 @@
 <p>More details can be found in <a href="http://ww2.amstat.org/publications/jse/v19n3/decock.pdf">De Cock (2011, Journal of Statistics Education)</a>.</p>
 <p>The raw data are at <a href="http://bit.ly/2whgsQM"><code>http://bit.ly/2whgsQM</code></a> but we will use a processed version found in the <a href="https://github.com/topepo/AmesHousing"><code>AmesHousing</code></a> package. <code>applicable</code> also contains an update for these data for three new properties (although fewer fields were collected on these).</p>
 <p>To pre-process the training set, we will use the <em>recipes</em> package. We first tell the recipes that there is an additional value for the neighborhood in these data, then direct it to create dummy variables for all categorical predictors. In cases where there are no levels observed for a factor, we eliminate predictors with a single unique value, then estimate a transformation that will make the predictor distributions more symmetric. After these, the data are centered and scaled. These same transformations will be applied to the new data points using the statistics estimated from the training set.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(recipes)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">ames_cols &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(ames_new)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">training_data &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span>ames <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="co"># For consistency, only analyze the data on new properties</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">one_of</a></span>(ames_cols)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">    <span class="co"># There is a new neighborhood in ames_new</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">    <span class="dt">Neighborhood =</span> <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(Neighborhood),</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">    <span class="dt">Neighborhood =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(Neighborhood, <span class="dt">levels =</span> <span class="kw"><a href="https://rdrr.io/r/base/levels.html">levels</a></span>(ames_new<span class="op">$</span>Neighborhood))</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">  )</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">training_recipe &lt;-</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/recipe.html">recipe</a></span>( <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> training_data) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/step_dummy.html">step_dummy</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/has_role.html">all_nominal</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="st">  </span><span class="co"># Remove variables that have the same value for every data point.</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/step_zv.html">step_zv</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/has_role.html">all_predictors</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="st">  </span><span class="co"># Transform variables to be distributed as Gaussian-like as possible.</span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/step_YeoJohnson.html">step_YeoJohnson</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/has_role.html">all_numeric</a></span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="co"># Normalize numeric data to have a mean of zero and</span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="st">  </span><span class="co"># standard deviation of one.</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/step_normalize.html">step_normalize</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/has_role.html">all_numeric</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(recipes)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>ames_cols &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(ames_new)</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a>training_data &lt;-<span class="st"> </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">  </span>ames <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="st">  </span><span class="co"># For consistency, only analyze the data on new properties</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">one_of</a></span>(ames_cols)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="co"># There is a new neighborhood in ames_new</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="dt">Neighborhood =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(Neighborhood),</span>
+<span id="cb3-13"><a href="#cb3-13"></a>    <span class="dt">Neighborhood =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/factor">factor</a></span>(Neighborhood, <span class="dt">levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/levels">levels</a></span>(ames_new<span class="op">$</span>Neighborhood))</span>
+<span id="cb3-14"><a href="#cb3-14"></a>  )</span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a></span>
+<span id="cb3-17"><a href="#cb3-17"></a>training_recipe &lt;-</span>
+<span id="cb3-18"><a href="#cb3-18"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/recipe">recipe</a></span>( <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> training_data) <span class="op">%&gt;%</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/step_dummy">step_dummy</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/has_role">all_nominal</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-20"><a href="#cb3-20"></a><span class="st">  </span><span class="co"># Remove variables that have the same value for every data point.</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/step_zv">step_zv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/has_role">all_predictors</a></span>()) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="st">  </span><span class="co"># Transform variables to be distributed as Gaussian-like as possible.</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/step_YeoJohnson">step_YeoJohnson</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/has_role">all_numeric</a></span>()) <span class="op">%&gt;%</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a><span class="st">  </span><span class="co"># Normalize numeric data to have a mean of zero and</span></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="st">  </span><span class="co"># standard deviation of one.</span></span>
+<span id="cb3-26"><a href="#cb3-26"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/step_normalize">step_normalize</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/has_role">all_numeric</a></span>())</span></code></pre></div>
 <div id="principal-component-analysis" class="section level3">
 <h3 class="hasAnchor">
 <a href="#principal-component-analysis" class="anchor"></a>Principal Component Analysis</h3>
@@ -160,48 +159,48 @@
 <code>score</code>: calculates the principal components of the new data and their percentiles as compared to the training data. The number of principal components computed depends on the <code>threshold</code> given at fit time. It also computes the multivariate distance between each principal component and its mean.</li>
 </ul>
 <p>Let us apply <code>apd_pca</code> modeling function to our data:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">ames_pca</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; # Predictors:</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;    50</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; # Principal Components:</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;    118 components were needed</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;    to capture at least 95% of the</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;    total variation in the predictors.</span></a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data)</span>
+<span id="cb4-2"><a href="#cb4-2"></a>ames_pca</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; # Predictors:</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt;    50</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; # Principal Components:</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;    118 components were needed</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;    to capture at least 95% of the</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt;    total variation in the predictors.</span></span></code></pre></div>
 <p>Since no <code>threshold</code> was provided, the function computed the number of principal components that accounted for at most 95% of the total variance.</p>
 <p>For illustration, setting <code>threshold = 0.25</code> or 25%, we now need only 10 principal components:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data, <span class="dt">threshold =</span> <span class="fl">0.25</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">ames_pca</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; # Predictors:</span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;    50</span></a>
-<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="co">#&gt; # Principal Components:</span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt;    10 components were needed</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;    to capture at least 25% of the</span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;    total variation in the predictors.</span></a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data, <span class="dt">threshold =</span> <span class="fl">0.25</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a>ames_pca</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">#&gt; # Predictors:</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">#&gt;    50</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">#&gt; # Principal Components:</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="co">#&gt;    10 components were needed</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="co">#&gt;    to capture at least 25% of the</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co">#&gt;    total variation in the predictors.</span></span></code></pre></div>
 <p>Plotting the distribution function for the PCA scores is also helpful:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(ames_pca)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(ames_pca)</span></code></pre></div>
 <p><img src="continuous-data_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;"></p>
 <p>You can use regular expressions to plot a smaller subset of the pca statistics:</p>
 <p><img src="continuous-data_files/figure-html/unnamed-chunk-6-1.png" width="768"><img src="continuous-data_files/figure-html/unnamed-chunk-6-2.png" width="768"></p>
 <p>The <code>score</code> function compares the training data to new samples. Let’s go back to the case where we capture 95% of the variation in the predictors and score the new samples. Since we used the recipe interface, we can give the score function the original data:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">pca_score &lt;-<span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(ames_pca, ames_new)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">pca_score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">matches</a></span>(<span class="st">"PC00[1-3]"</span>), <span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">contains</a></span>(<span class="st">"distance"</span>))</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; # A tibble: 3 x 8</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;   PC001 PC002  PC003 PC001_pctl PC002_pctl PC003_pctl distance distance_pctl</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 1 -4.86 0.870 -0.457       87.0       17.7       26.1     6.33          1.85</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 2 -2.85 0.913  0.360       51.7       19.0       21.0     7.64         17.9 </span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 3 -4.63 0.572 -1.21        84.8       11.7       56.5     7.58         17.1</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>ames_pca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_pca.html">apd_pca</a></span>(training_recipe, training_data)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>pca_score &lt;-<span class="st"> </span><span class="kw"><a href="../reference/score.html">score</a></span>(ames_pca, ames_new)</span>
+<span id="cb7-3"><a href="#cb7-3"></a>pca_score <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">matches</a></span>(<span class="st">"PC00[1-3]"</span>), <span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">contains</a></span>(<span class="st">"distance"</span>))</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="co">#&gt; # A tibble: 3 x 8</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="co">#&gt;   PC001 PC002  PC003 PC001_pctl PC002_pctl PC003_pctl distance distance_pctl</span></span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;         &lt;dbl&gt;</span></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="co">#&gt; 1 -4.86 0.870 -0.457       87.0       17.7       26.1     6.33          1.85</span></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="co">#&gt; 2 -2.85 0.913  0.360       51.7       19.0       21.0     7.64         17.9 </span></span>
+<span id="cb7-9"><a href="#cb7-9"></a><span class="co">#&gt; 3 -4.63 0.572 -1.21        84.8       11.7       56.5     7.58         17.1</span></span></code></pre></div>
 <p>Notice how the samples, displayed in red, are fairly disimilar to the training set in the first component:</p>
 <p><img src="continuous-data_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
 <p>What is driving the first component? We can look at which predictors have the largest values in the rotation matrix (i.e. the values that define the linear combinations in the PC scores). The top five are:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># `ames_pca$pcs` is the output of `prcomp()`</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">comp_one &lt;-<span class="st"> </span>ames_pca<span class="op">$</span>pcs<span class="op">$</span>rotation[, <span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">comp_one[<span class="kw"><a href="https://rdrr.io/r/base/order.html">order</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span>(comp_one), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt;       Year_Built      Garage_Cars Foundation_PConc   Year_Remod_Add      Garage_Area </span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;       -0.2537606       -0.2176448       -0.2100323       -0.2050218       -0.2019180</span></a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># `ames_pca$pcs` is the output of `prcomp()`</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>comp_one &lt;-<span class="st"> </span>ames_pca<span class="op">$</span>pcs<span class="op">$</span>rotation[, <span class="dv">1</span>]</span>
+<span id="cb8-3"><a href="#cb8-3"></a>comp_one[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/MathFun">abs</a></span>(comp_one), <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)] <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="dv">5</span>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">#&gt;       Year_Built      Garage_Cars Foundation_PConc   Year_Remod_Add      Garage_Area </span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="co">#&gt;       -0.2537606       -0.2176448       -0.2100323       -0.2050218       -0.2019180</span></span></code></pre></div>
 <p>These three houses are extreme in the most influential variable (year built) since they were new homes. The also tend to have fairly large garages:</p>
 <p><img src="continuous-data_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
 <p>This may be what is driving the first component.</p>
@@ -212,7 +211,7 @@
 <a href="#hat-values" class="anchor"></a>Hat Values</h3>
 <p>The <a href="https://en.wikipedia.org/wiki/Leverage_(statistics)">Hat or leverage values</a> are based on the numerics of linear regression. The measure the distance of a data point to the center of the training set distribution. For example, if the numeric training set matrix was <span class="math inline">\(X_{n \times p}\)</span>, the <em>hat matrix</em> for the training set would be computed using</p>
 <p><span class="math display">\[H = X'(X'X)^{-1}X\]</span></p>
-<p>The corresponding hat values for the training would be the diagonals of <span class="math inline">\(H\)</span>. These values can be computed using <code><a href="https://rdrr.io/r/stats/influence.measures.html">stats::hatvalues(lm_model)</a></code> but only for an <code>lm</code> model object. Also, it cannot compute the values for new samples.</p>
+<p>The corresponding hat values for the training would be the diagonals of <span class="math inline">\(H\)</span>. These values can be computed using <code><a href="https://www.rdocumentation.org/packages/stats/topics/influence.measures">stats::hatvalues(lm_model)</a></code> but only for an <code>lm</code> model object. Also, it cannot compute the values for new samples.</p>
 <p>Suppose that we had a new, unknown sample (as a <span class="math inline">\(p \times 1\)</span> data vector <span class="math inline">\(u\)</span>). The hat value for this sample would be</p>
 <p><span class="math display">\[h = u'(X'X)^{-1}u\]</span>.</p>
 <p>The following functions in <code>applicable</code> are used to compute the hat values of your model:</p>
@@ -224,16 +223,16 @@
 </ul>
 <p>Two caveats for using the hat values:</p>
 <ol style="list-style-type: decimal">
-<li><p>The numerical methods are less tolerant than PCA. For example, extremely correlated predictors will degrade the ability of the hat values to be effectively used. Also, since an inverse is used, there cannot be an linear dependencies within <span class="math inline">\(X\)</span>. To resolve this the former example, the recipe step <code><a href="https://rdrr.io/pkg/recipes/man/step_corr.html">recipes::step_corr()</a></code> can be used to reduce correlation. For the latter issue, <code>recipes::step_lincomp()</code> will idnetify and remove linear dependencies in the data (as shown below).</p></li>
-<li><p>When using a linear or logistic model, the model adds an intercept columns of ones to <span class="math inline">\(X\)</span>. For equivalent computations, you should add a vector or ones to the data or use <code><a href="https://rdrr.io/pkg/recipes/man/step_intercept.html">recipes::step_intercept()</a></code>.</p></li>
+<li><p>The numerical methods are less tolerant than PCA. For example, extremely correlated predictors will degrade the ability of the hat values to be effectively used. Also, since an inverse is used, there cannot be an linear dependencies within <span class="math inline">\(X\)</span>. To resolve this the former example, the recipe step <code><a href="https://www.rdocumentation.org/packages/recipes/topics/step_corr">recipes::step_corr()</a></code> can be used to reduce correlation. For the latter issue, <code>recipes::step_lincomp()</code> will idnetify and remove linear dependencies in the data (as shown below).</p></li>
+<li><p>When using a linear or logistic model, the model adds an intercept columns of ones to <span class="math inline">\(X\)</span>. For equivalent computations, you should add a vector or ones to the data or use <code><a href="https://www.rdocumentation.org/packages/recipes/topics/step_intercept">recipes::step_intercept()</a></code>.</p></li>
 </ol>
 <p>Let us apply <code>apd_hat_values</code> modeling function to our data (while ensuring that there are no linear dependencies):</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">non_singular_recipe &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span>training_recipe <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/recipes/man/step_lincomb.html">step_lincomb</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/recipes/man/has_role.html">all_predictors</a></span>())</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co"># Recipe interface</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">ames_hat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_hat_values.html">apd_hat_values</a></span>(non_singular_recipe, training_data)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>non_singular_recipe &lt;-<span class="st"> </span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="st">  </span>training_recipe <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/step_lincomb">step_lincomb</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/recipes/topics/has_role">all_predictors</a></span>())</span>
+<span id="cb9-4"><a href="#cb9-4"></a></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="co"># Recipe interface</span></span>
+<span id="cb9-6"><a href="#cb9-6"></a>ames_hat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/apd_hat_values.html">apd_hat_values</a></span>(non_singular_recipe, training_data)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -252,7 +251,6 @@
 </div>
 
 
-
       <footer><div class="tidyverse">
   <p><code>applicable</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
 </div>
@@ -263,12 +261,10 @@
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
-
       </footer>
 </div>
 
   
-
 
   </body>
 </html>

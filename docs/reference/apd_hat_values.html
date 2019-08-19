@@ -55,7 +55,6 @@
 
  gtag('config', 'UA-115082821-1');
 </script>
-
   </head>
 
   <body>
@@ -83,7 +82,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -113,7 +112,6 @@
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -156,7 +154,7 @@
 <li><p>A <strong>data frame</strong> of predictors.</p></li>
 <li><p>A <strong>matrix</strong> of predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
+created from <code><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -191,7 +189,7 @@ side. No outcome should be specified.</p></td>
 <span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
 
 <span class='co'># Recipes interface</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
@@ -201,8 +199,8 @@ side. No outcome should be specified.</p></td>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
-<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_log.html'>step_log</a></span>(<span class='no'>rec</span>, <span class='no'>disp</span>)
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
+<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/step_log'>step_log</a></span>(<span class='no'>rec</span>, <span class='no'>disp</span>)
 <span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>rec</span>, <span class='no'>mtcars</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -218,7 +216,6 @@ side. No outcome should be specified.</p></td>
   </div>
 </div>
 
-
       <footer>
       <div class="tidyverse">
   <p><code>applicable</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -230,14 +227,11 @@ side. No outcome should be specified.</p></td>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 

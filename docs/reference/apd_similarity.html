@@ -57,7 +57,6 @@ one)." />
 
  gtag('config', 'UA-115082821-1');
 </script>
-
   </head>
 
   <body>
@@ -85,7 +84,7 @@ one)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -115,7 +114,6 @@ one)." />
 </div><!--/.navbar -->
 
       
-
       </header>
 
 <div class="row">
@@ -160,12 +158,12 @@ one).</p>
 <li><p>A <strong>data frame</strong> of binary predictors.</p></li>
 <li><p>A <strong>matrix</strong> of binary predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
+created from <code><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Options to pass to <code><a href='https://rdrr.io/pkg/proxyC/man/simil.html'>proxyC::simil()</a></code>, such as <code>method</code>. If no
+      <td><p>Options to pass to <code><a href='https://www.rdocumentation.org/packages/proxyC/topics/simil'>proxyC::simil()</a></code>, such as <code>method</code>. If no
 options are specified, <code>method = "jaccard"</code> is used.</p></td>
     </tr>
     <tr>
@@ -219,29 +217,29 @@ Chemoinformatics</em>. Springer, New York</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>qsar_binary</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>qsar_binary</span>)
 
 <span class='no'>jacc_sim</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_similarity</span>(<span class='no'>binary_tr</span>)
 <span class='no'>jacc_sim</span>
 
 <span class='co'># plot the empirical cumulative distribution function (ECDF) for the training set:</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>jacc_sim</span>)
 
 <span class='co'># Example calculations for two samples:</span>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
-<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
-<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
+<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
+<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
+<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
 <span class='no'>xtab</span>
 
 <span class='co'># Jaccard statistic</span>
 <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] / (<span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>])
 
 <span class='co'># Hamman statistic</span>
-( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)
+( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
 
 <span class='co'># Faith statistic</span>
-( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)
+( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
 
 <span class='co'># Summarize across all training set similarities</span>
 <span class='no'>mean_sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>jacc_sim</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>binary_unk</span>)
@@ -265,7 +263,6 @@ Chemoinformatics</em>. Springer, New York</p>
   </div>
 </div>
 
-
       <footer>
       <div class="tidyverse">
   <p><code>applicable</code> is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.</p>
@@ -277,14 +274,11 @@ Chemoinformatics</em>. Springer, New York</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
-
       </footer>
    </div>
 
   
 
-
   </body>
 </html>
-
 
