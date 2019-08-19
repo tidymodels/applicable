@@ -14,7 +14,7 @@ r:
 - 3.5
 - 3.4
 - 3.3
-- 3.2
+#- 3.2 Fails because ‘RcppArmadillo’ is not available for R version 3.2.5
 
 after_success:
   - Rscript -e 'covr::codecov()'
