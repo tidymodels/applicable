@@ -35,5 +35,6 @@ Suggests:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Remotes:
-    tidymodels/recipes
+    tidymodels/recipes,
+    tidymodels/hardhat
 VignetteBuilder: knitr
