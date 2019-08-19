@@ -40,5 +40,33 @@ NULL
 #' str(okc_binary_train)
 NULL
 
+#' Recent Ames Iowa Houses
+#'
+#' More data related to the set described by De Cock (2011) where data where
+#' data were recored for 2,930 properties in Ames IA.
+#'
+#' This data sets includes three more properties added since the original
+#' reference. There are less fields in this data set; only those that could be
+#' transcribed from the assessor's office were included.
+#'
+#' @name ames_new
+#' @aliases ames_new
+#' @docType data
+#' @return \item{ames_new}{a tibble}
+#' @details
+#'
+#'
+#' @source De Cock, D. (2011). "Ames, Iowa: Alternative to the Boston Housing
+#' Data as an End of Semester Regression Project," \emph{Journal of Statistics
+#' Education},  Volume 19, Number 3.
+#'
+#' \url{https://www.cityofames.org/government/departments-divisions-a-h/city-assessor}
+#'
+#' \url{https://ww2.amstat.org/publications/jse/v19n3/decock/DataDocumentation.txt}
+#'
+#' \url{http://ww2.amstat.org/publications/jse/v19n3/decock.pdf}
+#'
+#' @keywords datasets
+NULL
 
 
