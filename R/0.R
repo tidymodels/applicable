@@ -28,7 +28,7 @@
 #' @importFrom hardhat forge
 #' @importFrom hardhat mold
 #' @importFrom hardhat new_model
-#' @importFrom ggplot2 ggplot geom_step xlab ylab aes
+#' @importFrom ggplot2 ggplot geom_step xlab ylab aes autoplot
 #' @importFrom Matrix Matrix colSums
 #' @importFrom tidyselect vars_select
 #' @importFrom tidyr gather
