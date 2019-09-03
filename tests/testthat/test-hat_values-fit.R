@@ -142,3 +142,8 @@ test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
     fixed = TRUE
   )
 })
+
+test_that("`get_inv` behaves correctly when the input is not a matrix", {
+  X <- c(1:5)
+  expect_error(get_inv(X), NA)
+})
