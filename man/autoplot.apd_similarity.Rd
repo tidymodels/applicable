@@ -4,7 +4,7 @@
 \alias{autoplot.apd_similarity}
 \title{Plot the cumulative distribution function for similarity metrics}
 \usage{
-autoplot.apd_similarity(object, ...)
+\method{autoplot}{apd_similarity}(object, ...)
 }
 \arguments{
 \item{object}{An object produced by \code{apd_similarity}.}
