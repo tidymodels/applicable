@@ -5,7 +5,6 @@ library(magrittr)
 
 # templates
 source("templates/sidebar.R")
-#source("templates/navbar.R")
 source("templates/header.R")
 source("templates/footer.R")
 
@@ -22,7 +21,6 @@ shiny::shinyApp(
     author = "Marly Cormar & Max Kuhn",
     description = "Applicability Domain Methods Using `applicable`",
     sidebar = argonSidebar,
-    #navbar = argonNav,
     header = argonHeader,
     body = argonDashBody(
       argonTabItems(
