@@ -6,7 +6,7 @@ upload_tab <- argonTabItem(
   argonRow(
     argonColumn(
       width = 12,
-      fileInput("train_data", "Choose a data file",
+      fileInput("uploaded_data", "Choose a data file",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
