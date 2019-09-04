@@ -32,6 +32,7 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
+    # Reactive uploaded data
     train_data <- reactive({
       infile <- input$uploaded_data
 
@@ -41,6 +42,7 @@ shiny::shinyApp(
       read.csv(infile$datapath, header = TRUE, sep = ",")
     })
 
+    # Observe the change in column selection
     observe({
       updateSelectInput(
         session,
@@ -50,13 +52,11 @@ shiny::shinyApp(
       )
     })
 
+    # Show a subset of the data based on the columns observed
     output$dataOverview <- renderDataTable({
       if(!is.null(train_data()))
         train_data() [, input$train_data_cols]
     })
-
-
-
 
     # output$dataSummary <- renderTable({
     #   req(input$train_data)
@@ -64,6 +64,4 @@ shiny::shinyApp(
     #   return(head(df))
     #   }, options = list(scrollX = FALSE)
     # )
-
-
   })
