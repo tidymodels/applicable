@@ -24,6 +24,7 @@ upload_tab <- argonTabItem(
         hover_shadow = TRUE,
         title = "Model Training Data",
         #argonColumn(tableOutput("dataSummary"))
+        selectInput("train_data_cols", "Select columns to display", choices = "", multiple = TRUE),
         argonColumn(dataTableOutput("dataOverview"))
       )
     ),

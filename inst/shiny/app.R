@@ -30,7 +30,7 @@ shiny::shinyApp(
     ),
     footer = argonFooter
   ),
-  server = function(input, output) {
+  server = function(input, output, session) {
 
     train_data <- reactive({
       infile <- input$uploaded_data
@@ -41,9 +41,22 @@ shiny::shinyApp(
       read.csv(infile$datapath, header = TRUE, sep = ",")
     })
 
-    output$dataOverview <- renderDataTable({
-      head(train_data())
+    observe({
+      updateSelectInput(
+        session,
+        "train_data_cols",
+        choices = names(train_data()),
+        selected = names(train_data())
+      )
     })
+
+    output$dataOverview <- renderDataTable({
+      if(!is.null(train_data()))
+        train_data() [, input$train_data_cols]
+    })
+
+
+
 
     # output$dataSummary <- renderTable({
     #   req(input$train_data)
