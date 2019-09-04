@@ -1,4 +1,4 @@
-source("elements/pca.R")
+source("models/pca.R")
 
 models_tab <- argonTabItem(
   tabName = "models",
@@ -19,18 +19,16 @@ models_tab <- argonTabItem(
         iconList = lapply(X = 1:3, FUN = argonIcon, name = "atom"),
         argonTab(
           tabName = "PCA",
-          active = FALSE,
-          tabPCA
+          active = TRUE,
+          tabPCA('curDataSummary')
         ),
         argonTab(
           tabName = "Similarity Statistics",
-          active = TRUE,
-          tabPCA
+          active = FALSE
         ),
         argonTab(
           tabName = "Hat Values",
-          active = FALSE,
-          tabPCA
+          active = FALSE
         )
       )
     )

@@ -58,6 +58,21 @@ shiny::shinyApp(
         train_data() [, input$train_data_cols]
     })
 
+    # Show a subset of the data based on the columns observed
+    output$curDataSummary <- renderText({
+      if(!is.null(train_data())){
+        curData <- train_data() [, input$train_data_cols]
+        outputString <- c(paste0("Predictors: ", ncol(curData)),
+                          paste0("Samples: ", nrow(curData)),
+                          paste0("Columns: ", colnames(curData))
+        )
+        outputString
+      }
+      else{
+        "Something"
+      }
+    })
+
     # output$dataSummary <- renderTable({
     #   req(input$train_data)
     #   df <- read.csv(input$train_data$datapath)
