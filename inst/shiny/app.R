@@ -58,18 +58,29 @@ shiny::shinyApp(
         train_data() [, input$train_data_cols]
     })
 
-    # Show a subset of the data based on the columns observed
-    output$curDataSummary <- renderText({
-      if(!is.null(train_data())){
+
+    # argonTable
+    output$argonTable <- renderUI({
+
+      if(is.null(train_data()))
+         "Please upload your data"
+      else {
         curData <- train_data() [, input$train_data_cols]
-        outputString <- c(paste0("Predictors: ", ncol(curData)),
-                          paste0("Samples: ", nrow(curData)),
-                          paste0("Columns: ", colnames(curData))
+
+        argonTable(
+          cardWrap = FALSE,
+          title = "aljsdf",
+          headTitles = c(
+            "No. Predictors",
+            "No. Samples",
+            "Selected Columns"
+          ),
+          argonTableItems(
+            argonTableItem(dataCell = TRUE, ncol(curData)),
+            argonTableItem(dataCell = TRUE, nrow(curData)),
+            argonTableItem(paste(colnames(curData), collapse = ", "))
+          )
         )
-        outputString
-      }
-      else{
-        "Something"
       }
     })
 

@@ -1,10 +1,19 @@
 source("models/pca.R")
 
+tabsSkeleton <- function(name, outputOptions) {
+  return(
+    argonTab(
+      tabName = name,
+      active = TRUE,
+      tabPCA()
+    )
+  )
+}
+
 models_tab <- argonTabItem(
   tabName = "models",
 
   argonRow(
-
     # Horizontal Tabset
     argonColumn(
       width = 12,
@@ -17,19 +26,14 @@ models_tab <- argonTabItem(
         size = "sm",
         width = 12,
         iconList = lapply(X = 1:3, FUN = argonIcon, name = "atom"),
-        argonTab(
-          tabName = "PCA",
-          active = TRUE,
-          tabPCA('curDataSummary')
-        ),
-        argonTab(
-          tabName = "Similarity Statistics",
-          active = FALSE
-        ),
-        argonTab(
-          tabName = "Hat Values",
-          active = FALSE
-        )
+        tabsSkeleton("PCA"),
+        tabsSkeleton("Hat Values"),
+        tabsSkeleton("Similarity Statistics")
+      ),
+      argonCard(
+        width = 12,
+        title = "Data Summary",
+        uiOutput("argonTable")
       )
     )
   )
