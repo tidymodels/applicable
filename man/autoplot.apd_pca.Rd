@@ -4,7 +4,7 @@
 \alias{autoplot.apd_pca}
 \title{Plot the distribution function for pcas}
 \usage{
-autoplot.apd_pca(object, ...)
+\method{autoplot}{apd_pca}(object, ...)
 }
 \arguments{
 \item{object}{An object produced by \code{apd_pca}.}
