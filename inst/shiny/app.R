@@ -2,6 +2,7 @@ library(shiny)
 library(argonR)
 library(argonDash)
 library(magrittr)
+library(applicable)
 
 # templates
 source("templates/sidebar.R")
@@ -59,7 +60,7 @@ shiny::shinyApp(
     })
 
 
-    # argonTable
+    # ArgonTable
     output$argonTable <- renderUI({
 
       if(is.null(train_data()))
@@ -81,6 +82,33 @@ shiny::shinyApp(
             argonTableItem(paste(colnames(curData), collapse = ", "))
           )
         )
+      }
+    })
+
+    output$pca <- renderUI({
+      if(is.null(train_data()))
+        "Please upload your data"
+      else {
+        curData <- train_data() [, input$train_data_cols]
+        "apd_pca(curData)"
+      }
+    })
+
+    output$hat_values <- renderUI({
+      if(is.null(train_data()))
+        "Please upload your data"
+      else {
+        curData <- train_data() [, input$train_data_cols]
+        "apd_hat_values(curData)"
+      }
+    })
+
+    output$sim <- renderUI({
+      if(is.null(train_data()))
+        "Please upload your data"
+      else {
+        curData <- train_data() [, input$train_data_cols]
+        "apd_similarity(curData)"
       }
     })
 
