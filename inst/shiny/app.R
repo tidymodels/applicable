@@ -32,11 +32,21 @@ shiny::shinyApp(
     footer = argonFooter
   ),
   server = function(input, output) {
-    output$distPlot <- renderPlot({
-      hist(rnorm(input$obs))
+
+    output$dataOverview <- renderDataTable({
+      req(input$train_data)
+      df <- read.csv(input$train_data$datapath)
+      head(df)
     })
 
-    output$plot <- renderPlot({
+    # output$dataSummary <- renderTable({
+    #   req(input$train_data)
+    #   df <- read.csv(input$train_data$datapath)
+    #   return(head(df))
+    #   }, options = list(scrollX = FALSE)
+    # )
+
+    output$plot <- renderUI({
       dist <- switch(
         input$dist,
         norm = rnorm,
