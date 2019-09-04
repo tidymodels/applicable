@@ -13,7 +13,6 @@ source("elements/upload_tab.R")
 source("elements/models_tab.R")
 source("elements/help_tab.R")
 
-
 # App
 shiny::shinyApp(
   ui = argonDashPage(
@@ -45,18 +44,5 @@ shiny::shinyApp(
     #   return(head(df))
     #   }, options = list(scrollX = FALSE)
     # )
-
-    output$plot <- renderUI({
-      dist <- switch(
-        input$dist,
-        norm = rnorm,
-        unif = runif,
-        lnorm = rlnorm,
-        exp = rexp,
-        rnorm
-      )
-
-      hist(dist(500))
-    })
   }
 )
