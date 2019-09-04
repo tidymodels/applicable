@@ -32,10 +32,17 @@ shiny::shinyApp(
   ),
   server = function(input, output) {
 
+    train_data <- reactive({
+      infile <- input$uploaded_data
+
+      if (is.null(infile))
+        return(NULL)
+
+      read.csv(infile$datapath, header = TRUE, sep = ",")
+    })
+
     output$dataOverview <- renderDataTable({
-      req(input$train_data)
-      df <- read.csv(input$train_data$datapath)
-      head(df)
+      head(train_data())
     })
 
     # output$dataSummary <- renderTable({
@@ -44,5 +51,6 @@ shiny::shinyApp(
     #   return(head(df))
     #   }, options = list(scrollX = FALSE)
     # )
-  }
-)
+
+
+  })
