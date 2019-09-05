@@ -4,15 +4,18 @@ library(argonDash)
 library(magrittr)
 library(applicable)
 
-# templates
+# Load templates
 source("templates/sidebar.R")
 source("templates/header.R")
 source("templates/footer.R")
 
-# elements
+# Load elements
 source("elements/upload_tab.R")
 source("elements/models_tab.R")
 source("elements/help_tab.R")
+
+# Load functions
+source("functions/pre_process_data.R")
 
 # App
 shiny::shinyApp(
@@ -33,7 +36,7 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
-    # Reactive uploaded data
+    # Get uploaded data
     train_data <- reactive({
       infile <- input$uploaded_data
 
@@ -60,9 +63,16 @@ shiny::shinyApp(
     })
 
 
+    # Get training recipe
+    train_recipe <- reactive({
+      if (is.null(train_data))
+        return(NULL)
+
+      get_recipe(train_data() [, input$train_data_cols])
+    })
+
     # ArgonTable
     output$argonTable <- renderUI({
-
       if(is.null(train_data()))
          "Please upload your data"
       else {
@@ -90,9 +100,13 @@ shiny::shinyApp(
         "Please upload your data"
       else {
         curData <- train_data() [, input$train_data_cols]
-        "apd_pca(curData)"
+        curData <- tibble::tibble(curData)
+        pca <- apd_pca(curData)
+        capture.output(pca)
       }
     })
+
+
 
     output$hat_values <- renderUI({
       if(is.null(train_data()))
