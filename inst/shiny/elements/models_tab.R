@@ -15,7 +15,7 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
       active = active,
       argonCard(
         width = 12,
-        title = paste0(outputModel, " Output"),
+        title = paste0(name, " Output"),
         verbatimTextOutput(paste(outputModel, "render", sep = "_"))
       ),
       if(name != "Hat Values")
