@@ -5,8 +5,17 @@ upload_tab <- argonTabItem(
 
   argonRow(
     argonColumn(
-      width = 12,
-      fileInput("uploaded_data", "Choose a data file",
+      width = 6,
+      fileInput("uploaded_train_data", "Choose a training set",
+                multiple = FALSE,
+                accept = c("text/csv",
+                           "text/comma-separated-values,text/plain",
+                           ".csv"))
+    ),
+
+    argonColumn(
+      width = 6,
+      fileInput("uploaded_test_data", "Choose a test set",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
@@ -15,7 +24,7 @@ upload_tab <- argonTabItem(
 
     argonRow(
       argonCard(
-        width = 12,
+        width = 6,
         src = NULL,
         icon = icon("cogs"),
         status = "success",
@@ -25,7 +34,20 @@ upload_tab <- argonTabItem(
         title = "Model Training Data",
         #argonColumn(tableOutput("dataSummary"))
         selectInput("train_data_cols", "Select columns", choices = "", multiple = TRUE),
-        argonColumn(dataTableOutput("dataOverview"))
+        argonColumn(dataTableOutput("trainDataOverview"))
+      ),
+      argonCard(
+        width = 6,
+        src = NULL,
+        icon = icon("cogs"),
+        status = "success",
+        shadow = TRUE,
+        border_level = 2,
+        hover_shadow = TRUE,
+        title = "Model Test Data",
+        #argonColumn(tableOutput("dataSummary"))
+        selectInput("test_data_cols", "Select columns", choices = "", multiple = TRUE),
+        argonColumn(dataTableOutput("testDataOverview"))
       )
     ),
     br(), br()

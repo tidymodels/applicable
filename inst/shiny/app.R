@@ -37,9 +37,9 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
-    # Get uploaded data
+    # Get uploaded train data
     train_data <- reactive({
-      infile <- input$uploaded_data
+      infile <- input$uploaded_train_data
 
       if (is.null(infile))
         return(NULL)
@@ -47,7 +47,17 @@ shiny::shinyApp(
       read.csv(infile$datapath, header = TRUE, sep = ",")
     })
 
-    # Observe the change in column selection
+    # Get uploaded test data
+    test_data <- reactive({
+      infile <- input$uploaded_test_data
+
+      if (is.null(infile))
+        return(NULL)
+
+      read.csv(infile$datapath, header = TRUE, sep = ",")
+    })
+
+    # Observe selected columns for train data
     observe({
       updateSelectInput(
         session,
@@ -57,10 +67,26 @@ shiny::shinyApp(
       )
     })
 
+    # Observe selected columns for test data
+    observe({
+      updateSelectInput(
+        session,
+        "test_data_cols",
+        choices = names(test_data()),
+        selected = names(test_data())
+      )
+    })
+
     # Show a subset of the data based on the columns observed
-    output$dataOverview <- renderDataTable({
+    output$trainDataOverview <- renderDataTable({
       if(!is.null(train_data()))
         train_data() [, input$train_data_cols]
+    })
+
+    # Show a subset of the data based on the columns observed
+    output$testDataOverview <- renderDataTable({
+      if(!is.null(test_data()))
+        test_data() [, input$test_data_cols]
     })
 
     # Get training recipe
@@ -115,6 +141,12 @@ shiny::shinyApp(
       }
     })
 
+    output$pca_score <- renderPrint({
+      if(!is.null(pca())){
+        score(pca(), test_data())
+      }
+    })
+
     # Server side for Hat Values
     hat_values <- reactive({
       if(!is.null(train_data())) {
@@ -130,6 +162,12 @@ shiny::shinyApp(
     })
 
     output$hat_values_plot <- renderPlot({
+    })
+
+    output$hat_values_score <- renderPrint({
+      if(!is.null(hat_values())){
+        score(hat_values(), test_data())
+      }
     })
 
     # Server side for Similarity
@@ -149,6 +187,12 @@ shiny::shinyApp(
     output$sim_plot <- renderPlot({
       if(!is.null(sim())){
         autoplot(sim())
+      }
+    })
+
+    output$sim_score <- renderPrint({
+      if(!is.null(sim())){
+        score(sim(), test_data())
       }
     })
 

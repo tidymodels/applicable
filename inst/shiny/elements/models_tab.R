@@ -14,7 +14,8 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
       tabName = name,
       active = active,
       verbatimTextOutput(paste(outputModel, "render", sep = "_")),
-      plotOutput(paste(outputModel, "plot", sep = "_"))
+      plotOutput(paste(outputModel, "plot", sep = "_")),
+      verbatimTextOutput(paste(outputModel, "score", sep = "_"))
     )
   )
 }
