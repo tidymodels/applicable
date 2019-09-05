@@ -1,4 +1,3 @@
-source("models/pca.R")
 
 tabsSkeleton <- function(name, options = NULL, active = FALSE) {
 
@@ -14,7 +13,8 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
     argonTab(
       tabName = name,
       active = active,
-      uiOutput(outputModel)
+      verbatimTextOutput(paste(outputModel, "render", sep = "_")),
+      plotOutput(paste(outputModel, "plot", sep = "_"))
     )
   )
 }

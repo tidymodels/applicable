@@ -3,6 +3,7 @@ library(argonR)
 library(argonDash)
 library(magrittr)
 library(applicable)
+library(ggplot2)
 
 # Load templates
 source("templates/sidebar.R")
@@ -62,7 +63,6 @@ shiny::shinyApp(
         train_data() [, input$train_data_cols]
     })
 
-
     # Get training recipe
     train_recipe <- reactive({
       if (is.null(train_data))
@@ -95,18 +95,34 @@ shiny::shinyApp(
       }
     })
 
-    output$pca <- renderUI({
+    pca <- reactive({
+      if(!is.null(train_data())) {
+        curData <- train_data() [, input$train_data_cols]
+        curData <- tibble::tibble(curData)
+        apd_pca(curData)
+      }
+    })
+
+    output$pca_render <- renderPrint({
+      if(!is.null(pca())){
+        print(pca())
+      }
+    })
+
+    output$pca_plot <- renderPlot({
+      if(!is.null(pca())){
+        autoplot(pca())
+      }
+    })
+
+    output$hat_values <- renderUI({
       if(is.null(train_data()))
         "Please upload your data"
       else {
         curData <- train_data() [, input$train_data_cols]
-        curData <- tibble::tibble(curData)
-        pca <- apd_pca(curData)
-        capture.output(pca)
+        "apd_hat_values(curData)"
       }
     })
-
-
 
     output$hat_values <- renderUI({
       if(is.null(train_data()))
