@@ -13,9 +13,22 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
     argonTab(
       tabName = name,
       active = active,
-      verbatimTextOutput(paste(outputModel, "render", sep = "_")),
-      plotOutput(paste(outputModel, "plot", sep = "_")),
-      verbatimTextOutput(paste(outputModel, "score", sep = "_"))
+      argonCard(
+        width = 12,
+        title = paste0(outputModel, " Output"),
+        verbatimTextOutput(paste(outputModel, "render", sep = "_"))
+      ),
+      if(name != "Hat Values")
+        argonCard(
+          width = 12,
+          title = "Plot Model",
+          plotOutput(paste(outputModel, "plot", sep = "_"))
+        ),
+      argonCard(
+        width = 12,
+        title = "Score output",
+        verbatimTextOutput(paste(outputModel, "score", sep = "_"))
+      )
     )
   )
 }
