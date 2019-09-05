@@ -95,11 +95,11 @@ shiny::shinyApp(
       }
     })
 
+    # Server side for PCA
     pca <- reactive({
       if(!is.null(train_data())) {
         curData <- train_data() [, input$train_data_cols]
-        curData <- tibble::tibble(curData)
-        apd_pca(curData)
+        apd_pca(train_recipe(), curData)
       }
     })
 
@@ -115,11 +115,11 @@ shiny::shinyApp(
       }
     })
 
+    # Server side for Hat Values
     hat_values <- reactive({
       if(!is.null(train_data())) {
         curData <- train_data() [, input$train_data_cols]
-        curData <- tibble::tibble(curData)
-        apd_hat_values(curData)
+        apd_hat_values(train_recipe(), curData)
       }
     })
 
@@ -132,11 +132,11 @@ shiny::shinyApp(
     output$hat_values_plot <- renderPlot({
     })
 
+    # Server side for Similarity
     sim <- reactive({
       if(!is.null(train_data())) {
         curData <- train_data() [, input$train_data_cols]
-        curData <- tibble::tibble(curData)
-        apd_similarity(curData)
+        apd_similarity(train_recipe(), curData)
       }
     })
 
