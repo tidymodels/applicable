@@ -115,30 +115,40 @@ shiny::shinyApp(
       }
     })
 
-    output$hat_values <- renderUI({
-      if(is.null(train_data()))
-        "Please upload your data"
-      else {
+    hat_values <- reactive({
+      if(!is.null(train_data())) {
         curData <- train_data() [, input$train_data_cols]
-        "apd_hat_values(curData)"
+        curData <- tibble::tibble(curData)
+        apd_hat_values(curData)
       }
     })
 
-    output$hat_values <- renderUI({
-      if(is.null(train_data()))
-        "Please upload your data"
-      else {
-        curData <- train_data() [, input$train_data_cols]
-        "apd_hat_values(curData)"
+    output$hat_values_render <- renderPrint({
+      if(!is.null(hat_values())){
+        print(hat_values())
       }
     })
 
-    output$sim <- renderUI({
-      if(is.null(train_data()))
-        "Please upload your data"
-      else {
+    output$hat_values_plot <- renderPlot({
+    })
+
+    sim <- reactive({
+      if(!is.null(train_data())) {
         curData <- train_data() [, input$train_data_cols]
-        "apd_similarity(curData)"
+        curData <- tibble::tibble(curData)
+        apd_similarity(curData)
+      }
+    })
+
+    output$sim_render <- renderPrint({
+      if(!is.null(sim())){
+        print(sim())
+      }
+    })
+
+    output$sim_plot <- renderPlot({
+      if(!is.null(sim())){
+        autoplot(sim())
       }
     })
 
