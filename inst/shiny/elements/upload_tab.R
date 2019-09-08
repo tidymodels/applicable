@@ -29,7 +29,7 @@ upload_tab <- argonTabItem(
 
     argonRow(
       argonCard(
-        width = 6,
+        width = 12,
         src = NULL,
         icon = icon("cogs"),
         status = "success",
@@ -41,7 +41,7 @@ upload_tab <- argonTabItem(
         argonColumn(dataTableOutput("trainDataOverview"))
       ),
       argonCard(
-        width = 6,
+        width = 12,
         src = NULL,
         icon = icon("cogs"),
         status = "success",
