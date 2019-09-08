@@ -22,7 +22,10 @@ upload_tab <- argonTabItem(
                            ".csv"))
     ),
 
-    selectInput("data_cols", "Select columns", choices = "", multiple = TRUE),
+    argonColumn(
+      width = 12,
+      selectInput("data_cols", "Select columns", choices = "", multiple = TRUE)
+    ),
 
     argonRow(
       argonCard(
