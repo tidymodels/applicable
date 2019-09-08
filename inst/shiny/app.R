@@ -67,6 +67,15 @@ shiny::shinyApp(
       )
     })
 
+    output$downloadExampleData <- downloadHandler(
+      filename = function(){
+        paste("mtcars", "zip", sep=".")
+      },
+      content = function(con){
+        file.copy("exampleData/mtcars.zip", con)
+      }
+    )
+
     # Show a subset of the data based on the columns observed
     output$trainDataOverview <- renderDataTable({
       if(!is.null(train_data()))

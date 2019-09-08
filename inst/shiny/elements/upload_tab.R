@@ -23,8 +23,15 @@ upload_tab <- argonTabItem(
     ),
 
     argonColumn(
-      width = 12,
+      width = 6,
       selectInput("data_cols", "Select columns", choices = "", multiple = TRUE)
+    ),
+
+    argonColumn(
+      width = 6,
+      "Download example datasets:",
+      br(),
+      downloadButton("downloadExampleData", "Download Datasets")
     ),
 
     argonRow(
