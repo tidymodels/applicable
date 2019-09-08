@@ -61,32 +61,22 @@ shiny::shinyApp(
     observe({
       updateSelectInput(
         session,
-        "train_data_cols",
+        "data_cols",
         choices = names(train_data()),
         selected = names(train_data())
-      )
-    })
-
-    # Observe selected columns for test data
-    observe({
-      updateSelectInput(
-        session,
-        "test_data_cols",
-        choices = names(test_data()),
-        selected = names(test_data())
       )
     })
 
     # Show a subset of the data based on the columns observed
     output$trainDataOverview <- renderDataTable({
       if(!is.null(train_data()))
-        train_data() [, input$train_data_cols]
+        train_data() [, input$data_cols]
     })
 
     # Show a subset of the data based on the columns observed
     output$testDataOverview <- renderDataTable({
       if(!is.null(test_data()))
-        test_data() [, input$test_data_cols]
+        test_data() [, input$data_cols]
     })
 
     # Get training recipe
@@ -94,7 +84,7 @@ shiny::shinyApp(
       if (is.null(train_data))
         return(NULL)
 
-      get_recipe(train_data() [, input$train_data_cols])
+      get_recipe(train_data() [, input$data_cols])
     })
 
     # ArgonTable
@@ -102,7 +92,7 @@ shiny::shinyApp(
       if(is.null(train_data()))
          "Please upload your data"
       else {
-        curData <- train_data() [, input$train_data_cols]
+        curData <- train_data() [, input$data_cols]
 
         argonTable(
           cardWrap = FALSE,
@@ -124,7 +114,7 @@ shiny::shinyApp(
     # Server side for PCA
     pca <- reactive({
       if(!is.null(train_data())) {
-        curData <- train_data() [, input$train_data_cols]
+        curData <- train_data() [, input$data_cols]
         apd_pca(train_recipe(), curData)
       }
     })
@@ -150,7 +140,7 @@ shiny::shinyApp(
     # Server side for Hat Values
     hat_values <- reactive({
       if(!is.null(train_data())) {
-        curData <- train_data() [, input$train_data_cols]
+        curData <- train_data() [, input$data_cols]
         apd_hat_values(train_recipe(), curData)
       }
     })
@@ -173,7 +163,7 @@ shiny::shinyApp(
     # Server side for Similarity
     sim <- reactive({
       if(!is.null(train_data())) {
-        curData <- train_data() [, input$train_data_cols]
+        curData <- train_data() [, input$data_cols]
         apd_similarity(train_recipe(), curData)
       }
     })

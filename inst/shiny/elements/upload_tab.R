@@ -22,6 +22,8 @@ upload_tab <- argonTabItem(
                            ".csv"))
     ),
 
+    selectInput("data_cols", "Select columns", choices = "", multiple = TRUE),
+
     argonRow(
       argonCard(
         width = 6,
@@ -33,7 +35,6 @@ upload_tab <- argonTabItem(
         hover_shadow = TRUE,
         title = "Model Training Data",
         #argonColumn(tableOutput("dataSummary"))
-        selectInput("train_data_cols", "Select columns", choices = "", multiple = TRUE),
         argonColumn(dataTableOutput("trainDataOverview"))
       ),
       argonCard(
@@ -46,7 +47,6 @@ upload_tab <- argonTabItem(
         hover_shadow = TRUE,
         title = "Model Test Data",
         #argonColumn(tableOutput("dataSummary"))
-        selectInput("test_data_cols", "Select columns", choices = "", multiple = TRUE),
         argonColumn(dataTableOutput("testDataOverview"))
       )
     ),
