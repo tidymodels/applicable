@@ -134,9 +134,15 @@ shiny::shinyApp(
       }
     })
 
-    output$pca_plot <- renderPlot({
+    output$pca_plot_dist <- renderPlot({
       if(!is.null(pca())){
-        autoplot(pca())
+        autoplot(pca(), "distance")
+      }
+    })
+
+    output$pca_plot_pcs <- renderPlot({
+      if(!is.null(pca())){
+        autoplot(pca(), matches("^PC"))
       }
     })
 

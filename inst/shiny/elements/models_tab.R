@@ -18,7 +18,19 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
         title = paste0(name, " Output"),
         verbatimTextOutput(paste(outputModel, "render", sep = "_"))
       ),
-      if(name != "Hat Values")
+      if(name == "PCA")
+        argonCard(
+          width = 12,
+          title = "Distance Metric",
+          plotOutput(paste(outputModel, "plot", "dist", sep = "_"))
+        ),
+      if(name == "PCA")
+        argonCard(
+          width = 12,
+          title = "Principal Components",
+          plotOutput(paste(outputModel, "plot", "pcs", sep = "_"))
+        ),
+      if(name == "Similarity Statistics")
         argonCard(
           width = 12,
           title = "Plot Model",
