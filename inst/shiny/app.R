@@ -146,7 +146,7 @@ shiny::shinyApp(
       }
     })
 
-    output$pca_score <- renderPrint({
+    output$pca_score <- renderDataTable({
       if(!is.null(pca())){
         score(pca(), test_data())
       }
@@ -169,7 +169,7 @@ shiny::shinyApp(
     output$hat_values_plot <- renderPlot({
     })
 
-    output$hat_values_score <- renderPrint({
+    output$hat_values_score <- renderDataTable({
       if(!is.null(hat_values())){
         score(hat_values(), test_data())
       }
@@ -195,7 +195,7 @@ shiny::shinyApp(
       }
     })
 
-    output$sim_score <- renderPrint({
+    output$sim_score <- renderDataTable({
       if(!is.null(sim())){
         score(sim(), test_data())
       }

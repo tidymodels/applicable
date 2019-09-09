@@ -39,7 +39,7 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
       argonCard(
         width = 12,
         title = "Score output",
-        verbatimTextOutput(paste(outputModel, "score", sep = "_"))
+        argonRow(argonColumn(dataTableOutput((paste(outputModel, "score", sep = "_")))))
       )
     )
   )
