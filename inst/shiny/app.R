@@ -148,7 +148,7 @@ shiny::shinyApp(
 
     output$pca_score <- renderDataTable({
       if(!is.null(pca())){
-        score(pca(), test_data())
+        round(score(pca(), test_data()), digits = 1)
       }
     })
 
@@ -171,7 +171,7 @@ shiny::shinyApp(
 
     output$hat_values_score <- renderDataTable({
       if(!is.null(hat_values())){
-        score(hat_values(), test_data())
+        round(score(hat_values(), test_data()), digits = 1)
       }
     })
 
@@ -197,7 +197,7 @@ shiny::shinyApp(
 
     output$sim_score <- renderDataTable({
       if(!is.null(sim())){
-        score(sim(), test_data())
+        round(score(sim(), test_data()), digits = 1)
       }
     })
 
