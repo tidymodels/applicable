@@ -15,7 +15,7 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      fileInput("uploaded_test_data", "Choose a test set",
+      fileInput("uploaded_test_data", "Choose a sample set",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
@@ -29,9 +29,9 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      "Download example datasets:",
+      "Download example data sets:",
       br(),
-      downloadButton("downloadExampleData", "Download Datasets")
+      downloadButton("downloadExampleData", "Download Data Sets")
     ),
 
     argonRow(
@@ -43,7 +43,7 @@ upload_tab <- argonTabItem(
         shadow = TRUE,
         border_level = 2,
         hover_shadow = TRUE,
-        title = "Model Training Data",
+        title = "Training Set",
         #argonColumn(tableOutput("dataSummary"))
         argonColumn(dataTableOutput("trainDataOverview"))
       ),
@@ -55,7 +55,7 @@ upload_tab <- argonTabItem(
         shadow = TRUE,
         border_level = 2,
         hover_shadow = TRUE,
-        title = "Model Test Data",
+        title = "Sample Set",
         #argonColumn(tableOutput("dataSummary"))
         argonColumn(dataTableOutput("testDataOverview"))
       )
