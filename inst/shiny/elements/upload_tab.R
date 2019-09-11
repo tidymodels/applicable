@@ -5,6 +5,14 @@ upload_tab <- argonTabItem(
 
   argonRow(
     argonColumn(
+      width = 12,
+      "Download example data sets:",
+      br(),
+      downloadButton("downloadExampleData", "Download Data Sets"),
+      br(), br()
+    ),
+
+    argonColumn(
       width = 6,
       fileInput("uploaded_train_data", "Choose a training set",
                 multiple = FALSE,
@@ -23,15 +31,8 @@ upload_tab <- argonTabItem(
     ),
 
     argonColumn(
-      width = 6,
-      selectInput("data_cols", "Select columns", choices = "", multiple = TRUE)
-    ),
-
-    argonColumn(
-      width = 6,
-      "Download example data sets:",
-      br(),
-      downloadButton("downloadExampleData", "Download Data Sets")
+      width = 12,
+      selectInput("data_cols", "Select columns", choices = "", multiple = TRUE, width = '100%')
     ),
 
     argonRow(
