@@ -38,6 +38,8 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
+    options(shiny.maxRequestSize=10*1024^2)
+
     # Get uploaded train data
     train_data <- reactive({
       infile <- input$uploaded_train_data
