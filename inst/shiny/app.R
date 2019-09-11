@@ -87,19 +87,19 @@ shiny::shinyApp(
 
     # Show a subset of the data based on the columns observed
     output$trainDataOverview <- renderDataTable({
-      if(!is.null(train_data()))
+      if(!is.null(train_data()) && !is.null(input$data_cols))
         train_data() [, input$data_cols]
     })
 
     # Show a subset of the data based on the columns observed
     output$testDataOverview <- renderDataTable({
-      if(!is.null(test_data()))
+      if(!is.null(test_data()) && !is.null(input$data_cols))
         test_data() [, input$data_cols]
     })
 
     # Get training recipe
     train_recipe <- reactive({
-      if (is.null(train_data))
+      if (is.null(train_data) || is.null(input$data_cols))
         return(NULL)
 
       get_recipe(train_data() [, input$data_cols])
