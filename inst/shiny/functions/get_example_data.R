@@ -14,21 +14,6 @@ save_ames_data <- function(dir_name){
       Neighborhood = factor(Neighborhood, levels = levels(ames_new$Neighborhood))
     )
 
-  training_recipe <-
-    recipe( ~ ., data = training_data) %>%
-    step_dummy(all_nominal()) %>%
-    # Remove variables that have the same value for every data point.
-    step_zv(all_predictors()) %>%
-    # Transform variables to be distributed as Gaussian-like as possible.
-    step_YeoJohnson(all_numeric()) %>%
-    # Normalize numeric data to have a mean of zero and
-    # standard deviation of one.
-    step_normalize(all_numeric())
-
-  prep_train_data <- prep(training_recipe, training = training_data, retain = TRUE)
-  train_data_juiced <- juice(prep_train_data, all_predictors())
-  test_data_baked <- bake(prep_train_data, new_data = ames_new, all_predictors())
-
   train_data_filename <- 'ames_train_data.csv'
   new_samples_filename <- 'ames_new_samples.csv'
   about_filename <- 'Ames_Data_Set.txt'
