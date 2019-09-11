@@ -24,12 +24,17 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
           title = "Distance Metric",
           plotOutput(paste(outputModel, "plot", "dist", sep = "_"))
         ),
-      if(name == "PCA")
+      if(name == "PCA"){
         argonCard(
           width = 12,
           title = "Principal Components",
+          sliderInput("pcs_range",
+                      "Principal Components Range:",
+                      min = 1, max = 1,
+                      value = 1, step = 1),
           plotOutput(paste(outputModel, "plot", "pcs", sep = "_"))
-        ),
+        )
+      },
       if(name == "Similarity Statistics")
         argonCard(
           width = 12,

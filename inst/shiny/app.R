@@ -19,6 +19,7 @@ source("elements/help_tab.R")
 # Load functions
 source("functions/pre_process_data.R")
 source("functions/get_example_data.R")
+source("functions/utils.R")
 
 # App
 shiny::shinyApp(
@@ -131,9 +132,18 @@ shiny::shinyApp(
 
     # Server side for PCA
     pca <- reactive({
-      if(!is.null(train_data())) {
-        curData <- train_data() [, input$data_cols]
-        apd_pca(train_recipe(), curData)
+      if(!is.null(train_data()) && !is.null(input$data_cols)) {
+        curData <- train_data() %>% select(input$data_cols)
+        pca_modeling_function <- apd_pca(train_recipe(), curData)
+
+        pcs_count <- pca_modeling_function$num_comp
+        if(!is.null(pcs_count)){
+          # Update slider options
+          updateSliderInput(session, "pcs_range", value = floor(pcs_count/2),
+                            min = 1, max = pcs_count)
+        }
+
+        pca_modeling_function
       }
     })
 
@@ -150,8 +160,12 @@ shiny::shinyApp(
     })
 
     output$pca_plot_pcs <- renderPlot({
-      if(!is.null(pca())){
-        autoplot(pca(), matches("^PC"))
+      pca_model <- pca()
+      if(!is.null(pca_model)){
+        # Create formatted list of pcs
+        pcs_list <- create_formated_pcs_list(pca_model$num_comp)
+        matches_string <- paste0("^PC", pcs_list[1:input$pcs_range], collapse = "|")
+        autoplot(pca_model, matches(matches_string))
       }
     })
 
