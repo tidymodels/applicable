@@ -165,7 +165,8 @@ shiny::shinyApp(
     hat_values <- reactive({
       if(!is.null(train_data())) {
         curData <- train_data() [, input$data_cols]
-        apd_hat_values(train_recipe(), curData)
+        apd_hat_values(train_recipe() %>% step_lincomb(all_predictors()),
+                       curData)
       }
     })
 
