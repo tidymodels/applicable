@@ -17,6 +17,7 @@ source("elements/help_tab.R")
 
 # Load functions
 source("functions/pre_process_data.R")
+source("functions/get_example_data.R")
 
 # App
 shiny::shinyApp(
@@ -69,11 +70,16 @@ shiny::shinyApp(
 
     output$downloadExampleData <- downloadHandler(
       filename = function(){
-        paste("mtcars", "zip", sep=".")
+        paste("example_data", "zip", sep = ".")
       },
-      content = function(con){
-        file.copy("exampleData/mtcars.zip", con)
-      }
+      content = function(fname) {
+        tmpdir <- tempdir()
+        setwd(tempdir())
+
+        fs <- c(save_ames_data(tmpdir), save_binary_data(tmpdir))
+        zip(zipfile=fname, files=fs)
+      },
+      contentType = "application/zip"
     )
 
     # Show a subset of the data based on the columns observed
@@ -200,11 +206,4 @@ shiny::shinyApp(
         round(score(sim(), test_data()), digits = 1)
       }
     })
-
-    # output$dataSummary <- renderTable({
-    #   req(input$train_data)
-    #   df <- read.csv(input$train_data$datapath)
-    #   return(head(df))
-    #   }, options = list(scrollX = FALSE)
-    # )
   })
