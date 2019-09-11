@@ -188,14 +188,27 @@ shiny::shinyApp(
     # Server side for Similarity
     sim <- reactive({
       if(!is.null(train_data())) {
-        curData <- train_data() [, input$data_cols]
-        apd_similarity(train_recipe(), curData)
+        curData <- train_data() %>% select(input$data_cols)
+        not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
+        if (!any(not_bin)) {
+          apd_similarity(curData)
+        }
       }
     })
 
     output$sim_render <- renderPrint({
       if(!is.null(sim())){
         print(sim())
+      }
+      else{
+        curData <- train_data() %>% select(input$data_cols)
+        not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
+        if (any(not_bin)) {
+          bad_x <- colnames(curData)[not_bin]
+          print(paste0("Unable to compute similarity statistics because ",
+                       "the following variables are not binary: ",
+                       paste0(bad_x, collapse = ", ")))
+        }
       }
     })
 
