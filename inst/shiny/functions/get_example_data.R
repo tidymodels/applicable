@@ -49,8 +49,8 @@ save_ames_data <- function(dir_name){
                  "(https://github.com/topepo/AmesHousing).",
                  sep = " ")
 
-  write.csv(train_data_juiced, paste(dir_name, train_data_filename, sep = "/"))
-  write.csv(test_data_baked, paste(dir_name, new_samples_filename, sep = "/"))
+  write_csv(training_data, paste(dir_name, train_data_filename, sep = "/"))
+  write_csv(ames_new, paste(dir_name, new_samples_filename, sep = "/"))
   write(about, paste(dir_name, about_filename, sep = "/"))
 
   return(c(train_data_filename, new_samples_filename, about_filename))
@@ -72,8 +72,8 @@ save_binary_data <- function(dir_name){
                  "fingerprints are used as predictors.",
                  sep = " ")
 
-  write.csv(binary_tr, paste(dir_name, train_data_filename, sep = "/"))
-  write.csv(binary_unk, paste(dir_name, new_samples_filename, sep = "/"))
+  write_csv(binary_tr, paste(dir_name, train_data_filename, sep = "/"))
+  write_csv(binary_unk, paste(dir_name, new_samples_filename, sep = "/"))
   write(about, paste(dir_name, about_filename, sep = "/"))
 
   return(c(train_data_filename, new_samples_filename, about_filename))

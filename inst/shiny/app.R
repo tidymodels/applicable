@@ -4,6 +4,7 @@ library(argonDash)
 library(magrittr)
 library(applicable)
 library(ggplot2)
+library(readr)
 
 # Load templates
 source("templates/sidebar.R")
@@ -47,7 +48,7 @@ shiny::shinyApp(
       if (is.null(infile))
         return(NULL)
 
-      read.csv(infile$datapath, header = TRUE, sep = ",")
+      read_csv(infile$datapath)
     })
 
     # Get uploaded test data
@@ -57,7 +58,7 @@ shiny::shinyApp(
       if (is.null(infile))
         return(NULL)
 
-      read.csv(infile$datapath, header = TRUE, sep = ",")
+      read_csv(infile$datapath)
     })
 
     # Observe selected columns for train data
