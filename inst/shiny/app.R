@@ -148,14 +148,16 @@ shiny::shinyApp(
     })
 
     output$pca_render <- renderPrint({
-      if(!is.null(pca())){
-        print(pca())
+      pca_model <- pca()
+      if(!is.null(pca_model)){
+        print(pca_model)
       }
     })
 
     output$pca_plot_dist <- renderPlot({
-      if(!is.null(pca())){
-        autoplot(pca(), "distance")
+      pca_model <- pca()
+      if(!is.null(pca_model)){
+        autoplot(pca_model, "distance")
       }
     })
 
