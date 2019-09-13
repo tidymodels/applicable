@@ -1,4 +1,5 @@
 library(shiny)
+library(DT)
 library(argonR)
 library(argonDash)
 library(magrittr)
@@ -87,15 +88,33 @@ shiny::shinyApp(
     )
 
     # Show a subset of the data based on the columns observed
-    output$trainDataOverview <- renderDataTable({
-      if(!is.null(train_data()) && !is.null(input$data_cols))
-        train_data() [, input$data_cols]
+    output$trainDataOverview <- renderDT({
+      datatable(
+        data = {
+          if(!is.null(train_data()) && !is.null(input$data_cols))
+            train_data() [, input$data_cols]
+        },
+        options = list(
+          searching = FALSE,
+          lengthChange= FALSE,
+          scrollX = TRUE
+        )
+      )
     })
 
     # Show a subset of the data based on the columns observed
-    output$testDataOverview <- renderDataTable({
-      if(!is.null(test_data()) && !is.null(input$data_cols))
-        test_data() [, input$data_cols]
+    output$testDataOverview <- renderDT({
+      datatable(
+        data = {
+          if(!is.null(test_data()) && !is.null(input$data_cols))
+            test_data() [, input$data_cols]
+        },
+        options = list(
+          searching = FALSE,
+          lengthChange= FALSE,
+          scrollX = TRUE
+        )
+      )
     })
 
     # Get training recipe

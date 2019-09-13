@@ -44,8 +44,7 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Training Set",
-      #argonColumn(tableOutput("dataSummary"))
-      argonColumn(dataTableOutput("trainDataOverview"))
+      DTOutput("trainDataOverview")
     ),
 
     argonCard(
@@ -58,7 +57,7 @@ upload_tab <- argonTabItem(
       hover_shadow = TRUE,
       title = "Sample Set",
       #argonColumn(tableOutput("dataSummary"))
-      argonColumn(dataTableOutput("testDataOverview"))
+      DTOutput("testDataOverview")
     )
   )
 )
