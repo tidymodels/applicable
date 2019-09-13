@@ -28,10 +28,21 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
         argonCard(
           width = 12,
           title = "Principal Components",
-          sliderInput("pcs_range",
-                      "Principal Components Range:",
-                      min = 1, max = 1,
-                      value = 1, step = 1),
+          argonRow(
+          argonColumn(
+            width = 6,
+            sliderInput("pcs_range",
+                      "PCs Range:",
+                      min = 1, max = 100,
+                      value = 50, step = 1)
+          ),
+          argonColumn(
+            width = 6,
+            sliderInput("pcs_threshold",
+                      "Threshold:",
+                      min = 1, max = 100,
+                      value = 95, step = 1)
+          )),
           plotOutput(paste(outputModel, "plot", "pcs", sep = "_"))
         )
       },

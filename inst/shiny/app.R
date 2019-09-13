@@ -151,11 +151,15 @@ shiny::shinyApp(
       }
     })
 
+    threshold <- reactive({
+      input$pcs_threshold*0.01
+    })
+
     # Server side for PCA
     pca <- reactive({
       if(!is.null(train_data()) && !is.null(input$data_cols)) {
         curData <- train_data() %>% select(input$data_cols)
-        pca_modeling_function <- apd_pca(train_recipe(), curData)
+        pca_modeling_function <- apd_pca(train_recipe(), curData, threshold())
 
         pcs_count <- pca_modeling_function$num_comp
         if(!is.null(pcs_count)){
@@ -227,7 +231,7 @@ shiny::shinyApp(
                                  col = "#5e72e4") +
           facet_matrix(vars(matches("PC00[1-3]$")))
 
-        girafe(ggobj = scat_mat, width_svg = 4, height_svg = 4)
+        girafe(ggobj = scat_mat)
 
       }
     })
