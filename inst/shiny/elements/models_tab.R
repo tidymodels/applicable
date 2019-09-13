@@ -44,7 +44,7 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
       argonCard(
         width = 12,
         title = "Score plot",
-        plotOutput((paste(outputModel, "score", "plot", sep = "_")))
+        ggiraphOutput(paste(outputModel, "score", "plot", sep = "_"))
       ),
       argonCard(
         width = 12,

@@ -5,6 +5,8 @@ library(argonDash)
 library(magrittr)
 library(applicable)
 library(ggplot2)
+library(ggiraph)
+library(ggforce)
 library(readr)
 
 # Load templates
@@ -206,13 +208,27 @@ shiny::shinyApp(
       )
     })
 
-    output$pca_score_plot <- renderPlot({
+    output$pca_score_plot <- renderggiraph({
       pca_model <- pca()
       if(!is.null(pca_model)){
-        # Create formatted list of pcs
-        pcs_list <- create_formated_pcs_list(pca_model$num_comp)
-        matches_string <- paste0("^PC", pcs_list[1:input$pcs_range], collapse = "|")
-        autoplot(pca_model, matches(matches_string))
+        unk_pca <-
+          score(pca_model, test_data()) %>%
+          select(matches("PC00[1-3]$")) %>%
+          mutate(row_num  = row_number())
+
+        tr_pca <-
+          score(pca_model, train_data()) %>%
+          select(matches("PC00[1-3]$"))
+
+        scat_mat <-
+          ggplot(unk_pca) +
+          geom_point(data = tr_pca, aes(x = .panel_x, y = .panel_y), alpha = .1, cex = .1,) +
+          geom_point_interactive(aes(x = .panel_x, y = .panel_y, tooltip = row_num),
+                                 col = "#5e72e4") +
+          facet_matrix(vars(matches("PC00[1-3]$")))
+
+        girafe(ggobj = scat_mat, width_svg = 4, height_svg = 4)
+
       }
     })
 
