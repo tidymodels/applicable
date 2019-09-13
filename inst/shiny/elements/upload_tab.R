@@ -35,32 +35,30 @@ upload_tab <- argonTabItem(
       selectInput("data_cols", "Select columns", choices = "", multiple = TRUE, width = '100%')
     ),
 
-    argonRow(
-      argonCard(
-        width = 12,
-        src = NULL,
-        icon = icon("cogs"),
-        status = "success",
-        shadow = TRUE,
-        border_level = 2,
-        hover_shadow = TRUE,
-        title = "Training Set",
-        #argonColumn(tableOutput("dataSummary"))
-        argonColumn(dataTableOutput("trainDataOverview"))
-      ),
-      argonCard(
-        width = 12,
-        src = NULL,
-        icon = icon("cogs"),
-        status = "success",
-        shadow = TRUE,
-        border_level = 2,
-        hover_shadow = TRUE,
-        title = "Sample Set",
-        #argonColumn(tableOutput("dataSummary"))
-        argonColumn(dataTableOutput("testDataOverview"))
-      )
+    argonCard(
+      width = 12,
+      src = NULL,
+      icon = icon("cogs"),
+      status = "success",
+      shadow = TRUE,
+      border_level = 2,
+      hover_shadow = TRUE,
+      title = "Training Set",
+      #argonColumn(tableOutput("dataSummary"))
+      argonColumn(dataTableOutput("trainDataOverview"))
     ),
-    br(), br()
+
+    argonCard(
+      width = 12,
+      src = NULL,
+      icon = icon("cogs"),
+      status = "success",
+      shadow = TRUE,
+      border_level = 2,
+      hover_shadow = TRUE,
+      title = "Sample Set",
+      #argonColumn(tableOutput("dataSummary"))
+      argonColumn(dataTableOutput("testDataOverview"))
+    )
   )
 )
