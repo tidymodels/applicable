@@ -190,10 +190,20 @@ shiny::shinyApp(
       }
     })
 
-    output$pca_score <- renderDataTable({
-      if(!is.null(pca())){
-        round(score(pca(), test_data()), digits = 1)
-      }
+    output$pca_score <- renderDT({
+      datatable(
+        data = {
+          pca_output <- pca()
+          if(!is.null(pca_output)){
+            round(score(pca_output, test_data()), digits = 1)
+          }
+        },
+        options = list(
+          searching = FALSE,
+          lengthChange= FALSE,
+          scrollX = TRUE
+        )
+      )
     })
 
     # Server side for Hat Values
@@ -214,10 +224,20 @@ shiny::shinyApp(
     output$hat_values_plot <- renderPlot({
     })
 
-    output$hat_values_score <- renderDataTable({
-      if(!is.null(hat_values())){
-        round(score(hat_values(), test_data()), digits = 1)
-      }
+    output$hat_values_score <- renderDT({
+      datatable(
+        data = {
+          hats_output <- hat_values()
+          if(!is.null(hats_output)){
+            round(score(hats_output, test_data()), digits = 1)
+          }
+        },
+        options = list(
+          searching = FALSE,
+          lengthChange= FALSE,
+          scrollX = TRUE
+        )
+      )
     })
 
     # Server side for Similarity
@@ -253,9 +273,19 @@ shiny::shinyApp(
       }
     })
 
-    output$sim_score <- renderDataTable({
-      if(!is.null(sim())){
-        round(score(sim(), test_data()), digits = 1)
-      }
+    output$sim_score <- renderDT({
+      datatable(
+        data = {
+          sim_output <- sim()
+          if(!is.null(sim_output)){
+            round(score(sim_output, test_data()), digits = 1)
+          }
+        },
+        options = list(
+          searching = FALSE,
+          lengthChange= FALSE,
+          scrollX = TRUE
+        )
+      )
     })
   })
