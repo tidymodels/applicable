@@ -206,6 +206,16 @@ shiny::shinyApp(
       )
     })
 
+    output$pca_score_plot <- renderPlot({
+      pca_model <- pca()
+      if(!is.null(pca_model)){
+        # Create formatted list of pcs
+        pcs_list <- create_formated_pcs_list(pca_model$num_comp)
+        matches_string <- paste0("^PC", pcs_list[1:input$pcs_range], collapse = "|")
+        autoplot(pca_model, matches(matches_string))
+      }
+    })
+
     # Server side for Hat Values
     hat_values <- reactive({
       if(!is.null(train_data())) {
@@ -222,6 +232,9 @@ shiny::shinyApp(
     })
 
     output$hat_values_plot <- renderPlot({
+    })
+
+    output$hat_score_plot <- renderPlot({
     })
 
     output$hat_values_score <- renderDT({
@@ -268,6 +281,13 @@ shiny::shinyApp(
     })
 
     output$sim_plot <- renderPlot({
+      sim_output <- sim()
+      if(!is.null(sim_output)){
+        autoplot(sim_output)
+      }
+    })
+
+    output$sim_score_plot <- renderPlot({
       if(!is.null(sim())){
         autoplot(sim())
       }
