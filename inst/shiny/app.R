@@ -151,15 +151,12 @@ shiny::shinyApp(
       }
     })
 
-    threshold <- reactive({
-      input$pcs_threshold*0.01
-    })
-
     # Server side for PCA
     pca <- reactive({
-      if(!is.null(train_data()) && !is.null(input$data_cols)) {
-        curData <- train_data() %>% select(input$data_cols)
-        pca_modeling_function <- apd_pca(train_recipe(), curData, threshold())
+      train_data_val <- train_data()
+      if(!is.null(train_data_val) && !is.null(input$data_cols)) {
+        curData <- train_data_val %>% select(input$data_cols)
+        pca_modeling_function <- apd_pca(train_recipe(), curData, (input$pcs_threshold)*0.01)
 
         pcs_count <- pca_modeling_function$num_comp
         if(!is.null(pcs_count)){
@@ -217,19 +214,23 @@ shiny::shinyApp(
       if(!is.null(pca_model)){
         unk_pca <-
           score(pca_model, test_data()) %>%
-          select(matches("PC00[1-3]$")) %>%
+          select(1:min(pca_model$num_comp, 3)) %>%
+          mutate_all(funs(abs)) %>%
           mutate(row_num  = row_number())
 
         tr_pca <-
           score(pca_model, train_data()) %>%
-          select(matches("PC00[1-3]$"))
+          select(1:min(3, pca_model$num_comp)) %>%
+          mutate_all(funs(abs))
+
+        tr_pca_cols <- colnames(tr_pca)
 
         scat_mat <-
           ggplot(unk_pca) +
           geom_point(data = tr_pca, aes(x = .panel_x, y = .panel_y), alpha = .1, cex = .1,) +
           geom_point_interactive(aes(x = .panel_x, y = .panel_y, tooltip = row_num),
                                  col = "#5e72e4") +
-          facet_matrix(vars(matches("PC00[1-3]$")))
+          facet_matrix(vars(one_of(tr_pca_cols)))
 
         girafe(ggobj = scat_mat)
 
