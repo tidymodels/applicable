@@ -67,6 +67,15 @@ shiny::shinyApp(
       read_csv(infile$datapath)
     })
 
+    observe({
+      if(is.null(input$uploaded_train_data)){
+        disable("uploaded_test_data")
+      }
+      else {
+        enable("uploaded_test_data")
+      }
+    })
+
     # Observe selected columns for train data
     observe({
       updateSelectInput(
