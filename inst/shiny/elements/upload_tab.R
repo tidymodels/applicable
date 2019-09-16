@@ -56,7 +56,6 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Sample Set",
-      #argonColumn(tableOutput("dataSummary"))
       DTOutput("testDataOverview")
     )
   )
