@@ -6,9 +6,9 @@ upload_tab <- argonTabItem(
   argonRow(
     argonColumn(
       width = 12,
-      "Download example data sets:",
+      #"Download example data sets:",
       br(),
-      downloadButton("downloadExampleData", "Download Data Sets"),
+      downloadButton("downloadExampleData", "Download Example Data Sets"),
       br(), br()
     ),
 

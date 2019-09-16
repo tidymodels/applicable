@@ -29,6 +29,7 @@ source("functions/utils.R")
 # App
 shiny::shinyApp(
   ui = argonDashPage(
+    includeCSS("css/styles.css"),
     title = "Applicability Domain Methods",
     author = "Marly Cormar & Max Kuhn",
     description = "Applicability Domain Methods Using `applicable`",
