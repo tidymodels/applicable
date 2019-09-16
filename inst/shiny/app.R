@@ -8,6 +8,8 @@ library(ggplot2)
 library(ggiraph)
 library(ggforce)
 library(readr)
+library(dplyr)
+
 
 # Load templates
 source("templates/sidebar.R")
@@ -230,7 +232,7 @@ shiny::shinyApp(
           geom_point(data = tr_pca, aes(x = .panel_x, y = .panel_y), alpha = .1, cex = .1,) +
           geom_point_interactive(aes(x = .panel_x, y = .panel_y, tooltip = row_num),
                                  col = "#5e72e4") +
-          facet_matrix(vars(one_of(tr_pca_cols)))
+          facet_matrix(vars(dplyr::one_of(tr_pca_cols)))
 
         girafe(ggobj = scat_mat)
 
