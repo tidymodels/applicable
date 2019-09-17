@@ -227,13 +227,11 @@ shiny::shinyApp(
         unk_pca <-
           score(pca_model, test_data()) %>%
           select(1:min(pca_model$num_comp, 3)) %>%
-          mutate_all(funs(abs)) %>%
           mutate(row_num  = row_number())
 
         tr_pca <-
           score(pca_model, train_data()) %>%
-          select(1:min(3, pca_model$num_comp)) %>%
-          mutate_all(funs(abs))
+          select(1:min(3, pca_model$num_comp))
 
         tr_pca_cols <- colnames(tr_pca)
 
