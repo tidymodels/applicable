@@ -44,7 +44,7 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 12,
-      selectInput("data_cols", "Select columns", choices = "", multiple = TRUE, width = '100%')
+      selectInput("data_cols", "Selected columns", choices = "", multiple = TRUE, width = '100%')
     ),
 
     argonCard(
