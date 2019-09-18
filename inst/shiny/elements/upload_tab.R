@@ -3,7 +3,7 @@ upload_tab <- argonTabItem(
 
   argonH1("Upload Data", display = 4),
 
-  h3("Upload your training set and sample data set. You can use the example data sets!"),
+  h3("Upload your training and sample data sets. You can use the example data sets!"),
 
   downloadLink("downloadExampleData", "Download Example Data Sets"),
 
