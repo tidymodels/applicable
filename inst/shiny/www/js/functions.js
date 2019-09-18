@@ -5,5 +5,6 @@ $(document).ready(function(){
       $(".btn-default").css("background-color", "#5e72e4");
       $(".btn-default").css("border-color", "#5e72e4");
       $(".btn-default").css("color", "#fff");
+      $(".disabled span.btn.btn-default.btn-file").css("cursor", "pointer");
     });
 });

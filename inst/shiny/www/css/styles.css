@@ -34,6 +34,10 @@
     color: #c3c6d6;
 }
 
+.disabled span.btn.btn-default.btn-file {
+    cursor: no-drop;
+}
+
 #data_cols ~ .selectize-control .selectize-input {
   max-height: 100px;
   overflow-y: auto;
