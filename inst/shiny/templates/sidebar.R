@@ -6,7 +6,7 @@ argonSidebar <- argonDashSidebar(
   side = "left",
   id = "my_sidebar",
   brand_url = "https://www.github.com/tidymodels/applicable",
-  brand_logo = "https://marlycormar.com/images/logo3.png",
+  brand_logo = "images/logo.png",
   argonSidebarHeader(title = "Main Menu"),
   argonSidebarMenu(
     argonSidebarItem(
