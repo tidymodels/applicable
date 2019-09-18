@@ -31,7 +31,6 @@ source("functions/utils.R")
 # App
 shiny::shinyApp(
   ui = argonDashPage(
-    includeCSS("css/styles.css"),
     title = "Applicability Domain Methods",
     author = "Marly Cormar & Max Kuhn",
     description = "Applicability Domain Methods Using `applicable`",
@@ -39,6 +38,10 @@ shiny::shinyApp(
     header = argonHeader,
     body = argonDashBody(
       useShinyjs(),
+      tags$head(
+        tags$script(src="js/functions.js"),
+        tags$link(rel = "stylesheet", type = "text/css", href = "css/styles.css")
+      ),
       argonTabItems(
         upload_tab,
         models_tab,
