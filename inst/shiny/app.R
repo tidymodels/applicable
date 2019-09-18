@@ -10,7 +10,7 @@ library(ggplot2)
 library(ggiraph)
 library(ggforce)
 library(readr)
-library(dplyr)
+library(shinyjs)
 
 
 # Load templates
@@ -38,6 +38,7 @@ shiny::shinyApp(
     sidebar = argonSidebar,
     header = argonHeader,
     body = argonDashBody(
+      useShinyjs(),
       argonTabItems(
         upload_tab,
         models_tab,
@@ -72,10 +73,10 @@ shiny::shinyApp(
 
     observe({
       if(is.null(input$uploaded_train_data)){
-        disable("uploaded_test_data")
+        shinyjs::disable("uploaded_test_data")
       }
       else {
-        enable("uploaded_test_data")
+        shinyjs::enable("uploaded_test_data")
       }
     })
 
