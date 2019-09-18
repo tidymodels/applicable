@@ -85,6 +85,8 @@ shiny::shinyApp(
 
     # Observe selected columns for train data
     observe({
+      req(input$uploaded_train_data, input$uploaded_test_data)
+
       updateSelectInput(
         session,
         "data_cols",
