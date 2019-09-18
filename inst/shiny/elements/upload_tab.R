@@ -56,6 +56,7 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Training Set",
+      "Below you will find an overview of your training data set. You can explore it and choose the columns (above) you would like to use as predictors.",
       DTOutput("trainDataOverview")
     ),
 
@@ -68,6 +69,7 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Sample Set",
+      "Below you will find an overview of your samples data set. You can explore it and choose the columns (above) you would like to use as predictors.",
       DTOutput("testDataOverview")
     )
   )
