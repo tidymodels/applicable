@@ -79,7 +79,7 @@ shiny::shinyApp(
       if(col_names != names(output_file)) {
         showModal(modalDialog(
           title = "Mismatching Columns",
-          "The new samples must contain the same columns as the training set. Please try to upload the new samples again.",
+          "The sample set must contain the same columns as the training set. Please try to upload the sample set again.",
           easyClose = TRUE,
           footer = NULL
         ))
