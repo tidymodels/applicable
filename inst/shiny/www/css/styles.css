@@ -16,7 +16,12 @@
 }
 
 .progress {
-  height: 20px;
+    height: 15px;
+    font-size: 10px;
+}
+
+.progress-bar {
+  background-color: #919feb;
 }
 
 .form-control {
@@ -27,4 +32,16 @@
     background-color: #5f6585;
     border-color: gray;
     color: #c3c6d6;
+}
+
+#data_cols ~ .selectize-control .selectize-input {
+  max-height: 100px;
+  overflow-y: auto;
+}
+
+#data_cols ~ .selectize-control .item {
+  background-color: gray;
+  color: white;
+  font-size: .875rem;
+  font-weight: 500;
 }
