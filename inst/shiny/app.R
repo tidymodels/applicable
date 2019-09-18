@@ -66,12 +66,28 @@ shiny::shinyApp(
 
     # Get uploaded test data
     test_data <- reactive({
+      req(input$uploaded_train_data)
+
       infile <- input$uploaded_test_data
 
       if (is.null(infile))
         return(NULL)
 
-      read_csv(infile$datapath)
+      output_file <- read_csv(infile$datapath)
+
+      col_names <- names(train_data())
+      if(col_names != names(output_file)) {
+        showModal(modalDialog(
+          title = "Mismatching Columns",
+          "The new samples must contain the same columns as the training set. Please try to upload the new samples again.",
+          easyClose = TRUE,
+          footer = NULL
+        ))
+        shinyjs::reset('uploaded_test_data')
+        output_file <- NULL
+      }
+
+      output_file
     })
 
     observe({
