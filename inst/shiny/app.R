@@ -127,9 +127,10 @@ shiny::shinyApp(
 
     # Show a subset of the data based on the columns observed
     output$trainDataOverview <- renderDT({
+      req(input$uploaded_train_data, input$uploaded_test_data, input$data_cols)
+
       datatable(
         data = {
-          if(!is.null(train_data()) && !is.null(input$data_cols))
             train_data() [, input$data_cols]
         },
         options = list(
@@ -142,9 +143,10 @@ shiny::shinyApp(
 
     # Show a subset of the data based on the columns observed
     output$testDataOverview <- renderDT({
+      req(input$uploaded_train_data, input$uploaded_test_data, input$data_cols)
+
       datatable(
         data = {
-          if(!is.null(test_data()) && !is.null(input$data_cols))
             test_data() [, input$data_cols]
         },
         options = list(
