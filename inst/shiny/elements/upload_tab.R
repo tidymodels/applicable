@@ -20,7 +20,10 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      fileInput("uploaded_train_data", "Choose a training set",
+      fileInput(inputId = "uploaded_train_data",
+                label = "Choose a training set",
+                buttonLabel = "Browse...",
+                placeholder = "No file selected",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
@@ -29,7 +32,10 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      fileInput("uploaded_test_data", "Choose a sample set",
+      fileInput(inputId = "uploaded_test_data",
+                label = "Choose a sample set",
+                buttonLabel = "Browse...",
+                placeholder = "No file selected",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
