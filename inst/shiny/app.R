@@ -76,7 +76,7 @@ shiny::shinyApp(
       output_file <- read_csv(infile$datapath)
 
       col_names <- names(train_data())
-      if(col_names != names(output_file)) {
+      if(!identical(col_names, names(output_file))) {
         showModal(modalDialog(
           title = "Mismatching Columns",
           "The sample set must contain the same columns as the training set. Please try to upload the sample set again.",
