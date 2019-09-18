@@ -32,14 +32,14 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      fileInput(inputId = "uploaded_test_data",
+      disabled(fileInput(inputId = "uploaded_test_data",
                 label = "Choose a sample set",
                 buttonLabel = "Browse...",
                 placeholder = "No file selected",
                 multiple = FALSE,
                 accept = c("text/csv",
                            "text/comma-separated-values,text/plain",
-                           ".csv"))
+                           ".csv")))
     ),
 
     argonColumn(
