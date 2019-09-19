@@ -152,7 +152,7 @@ shiny::shinyApp(
 
     # Get training recipe
     train_recipe <- reactive({
-      if (is.null(train_data) || is.null(input$data_cols))
+      if (is.null(train_data()) || is.null(input$data_cols))
         return(NULL)
 
       get_recipe(train_data() [, input$data_cols])
