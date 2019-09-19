@@ -52,6 +52,7 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
+    # Increase file upload size to 10MB
     options(shiny.maxRequestSize=10*1024^2)
 
     # Get uploaded train data
