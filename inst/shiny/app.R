@@ -57,23 +57,15 @@ shiny::shinyApp(
 
     # Get uploaded train data
     train_data <- reactive({
+      req(input$uploaded_train_data)
       infile <- input$uploaded_train_data
-
-      if (is.null(infile))
-        return(NULL)
-
       read_csv(infile$datapath)
     })
 
     # Get uploaded test data
     test_data <- reactive({
-      req(input$uploaded_train_data)
-
+      req(input$uploaded_train_data, input$uploaded_test_data)
       infile <- input$uploaded_test_data
-
-      if (is.null(infile))
-        return(NULL)
-
       output_file <- read_csv(infile$datapath)
 
       col_names <- names(train_data())
