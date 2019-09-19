@@ -152,14 +152,15 @@ shiny::shinyApp(
 
     # Get training recipe
     train_recipe <- reactive({
-      if (is.null(train_data()) || is.null(input$data_cols))
-        return(NULL)
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
 
       get_recipe(train_data() [, input$data_cols])
     })
 
     # ArgonTable
     output$argonTable <- renderUI({
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
+
       if(is.null(train_data()))
          "Please upload your data"
       else {
@@ -184,20 +185,20 @@ shiny::shinyApp(
 
     # Server side for PCA
     pca <- reactive({
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
       train_data_val <- train_data()
-      if(!is.null(train_data_val) && !is.null(input$data_cols)) {
-        curData <- train_data_val %>% select(input$data_cols)
-        pca_modeling_function <- apd_pca(train_recipe(), curData, (input$pcs_threshold)*0.01)
+      curData <- train_data_val %>% select(input$data_cols)
+      pca_modeling_function <- apd_pca(train_recipe(), curData, (input$pcs_threshold)*0.01)
 
-        pcs_count <- pca_modeling_function$num_comp
-        if(!is.null(pcs_count)){
-          # Update slider options
-          updateSliderInput(session, "pcs_range", value = floor(pcs_count/2),
-                            min = 1, max = pcs_count)
-        }
-
-        pca_modeling_function
+      pcs_count <- pca_modeling_function$num_comp
+      if(!is.null(pcs_count)){
+        # Update slider options
+        updateSliderInput(session, "pcs_range", value = min(10, pcs_count),
+                          min = 1, max = pcs_count)
       }
+
+      pca_modeling_function
+
     })
 
     output$pca_render <- renderPrint({

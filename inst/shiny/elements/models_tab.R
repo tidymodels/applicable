@@ -34,7 +34,7 @@ tabsSkeleton <- function(name, options = NULL, active = FALSE) {
             sliderInput("pcs_range",
                       "PCs Range:",
                       min = 1, max = 100,
-                      value = 50, step = 1)
+                      value = 10, step = 1)
           ),
           argonColumn(
             width = 6,
