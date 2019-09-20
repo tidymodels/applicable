@@ -8,7 +8,8 @@
 \description{
 A modeling package compiling applicability domain methods in R.
     It combines different methods to measure the amount of extrapolation new
-    samples can have from the training set.
+    samples can have from the training set. See Netzeva et al (2005) 
+    <doi:10.1177/026119290503300209> for an overview of applicability domains.
 }
 \author{
 \strong{Maintainer}: Marly Cormar \email{marlycormar@gmail.com}
@@ -16,6 +17,11 @@ A modeling package compiling applicability domain methods in R.
 Authors:
 \itemize{
   \item Max Kuhn \email{max@rstudio.com}
+}
+
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder]
 }
 
 }

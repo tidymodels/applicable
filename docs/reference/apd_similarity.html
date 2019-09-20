@@ -32,11 +32,11 @@
 
 
 <meta property="og:title" content="Applicability domain methods using binary similarity analysis — apd_similarity" />
-
 <meta property="og:description" content="apd_similarity() is used to analyze samples in terms of similarity scores
 for binary data. All features in the data should be binary (i.e. zero or
 one)." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -57,6 +57,7 @@ one)." />
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -84,7 +85,7 @@ one)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -114,6 +115,7 @@ one)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -125,11 +127,9 @@ one)." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>apd_similarity()</code> is used to analyze samples in terms of similarity scores
 for binary data. All features in the data should be binary (i.e. zero or
 one).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>apd_similarity</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -148,7 +148,7 @@ one).</p>
 
 <span class='co'># S3 method for recipe</span>
 <span class='fu'>apd_similarity</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>quantile</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,12 +158,12 @@ one).</p>
 <li><p>A <strong>data frame</strong> of binary predictors.</p></li>
 <li><p>A <strong>matrix</strong> of binary predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>.</p></li>
+created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Options to pass to <code><a href='https://www.rdocumentation.org/packages/proxyC/topics/simil'>proxyC::simil()</a></code>, such as <code>method</code>. If no
+      <td><p>Options to pass to <code><a href='https://rdrr.io/pkg/proxyC/man/simil.html'>proxyC::simil()</a></code>, such as <code>method</code>. If no
 options are specified, <code>method = "jaccard"</code> is used.</p></td>
     </tr>
     <tr>
@@ -186,17 +186,16 @@ no 1's will be removed (with a warning).</p></li>
 </ul></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>apd_similarity</code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function computes measures of similarity for different samples
 points. For example, suppose samples <code>A</code> and <code>B</code> both contain <em>p</em> binary
 variables. First, a 2x2 table is constructed between <code>A</code> and <code>B</code> <em>across
-their elements</em>. The table will contain <em>p</em> entires across the four cells
+their elements</em>. The table will contain <em>p</em> entries across the four cells
 (see the example below). From this, different measures of likeness are
 computed.</p>
 <p>For a training set of <em>n</em> samples, a new sample is compared to each,
@@ -208,38 +207,36 @@ object sizes may become large.</p>
 <p>By default, the computations are run in parallel using <em>all possible
 cores</em>. To change this, call the <code>setThreadOptions</code> function in the
 <code>RcppParallel</code> package.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Leach, A. and Gillet V. (2007). <em>An Introduction to
 Chemoinformatics</em>. Springer, New York</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>qsar_binary</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>qsar_binary</span>)
 
 <span class='no'>jacc_sim</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_similarity</span>(<span class='no'>binary_tr</span>)
 <span class='no'>jacc_sim</span>
 
 <span class='co'># plot the empirical cumulative distribution function (ECDF) for the training set:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
 <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>jacc_sim</span>)
 
 <span class='co'># Example calculations for two samples:</span>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
-<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
-<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
+<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
+<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
+<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
 <span class='no'>xtab</span>
 
 <span class='co'># Jaccard statistic</span>
 <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] / (<span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>])
 
 <span class='co'># Hamman statistic</span>
-( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
+( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)
 
 <span class='co'># Faith statistic</span>
-( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
+( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)
 
 <span class='co'># Summarize across all training set similarities</span>
 <span class='no'>mean_sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>jacc_sim</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>binary_unk</span>)
@@ -250,18 +247,15 @@ Chemoinformatics</em>. Springer, New York</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -270,15 +264,18 @@ Chemoinformatics</em>. Springer, New York</p>
 
 <div class="author">
   <p>
-    Developed by Max Kuhn, Marly Cormar.
+    Developed by Marly Cormar, Max Kuhn.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

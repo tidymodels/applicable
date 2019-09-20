@@ -32,9 +32,9 @@
 
 
 <meta property="og:title" content="Fit a <code>apd_hat_values</code> — apd_hat_values" />
-
 <meta property="og:description" content="apd_hat_values() fits a model." />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -55,6 +55,7 @@
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -82,7 +83,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,6 +113,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -123,9 +125,7 @@
     </div>
 
     <div class="ref-description">
-    
     <p><code>apd_hat_values()</code> fits a model.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -144,7 +144,7 @@
 
 <span class='co'># S3 method for recipe</span>
 <span class='fu'>apd_hat_values</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -154,7 +154,7 @@
 <li><p>A <strong>data frame</strong> of predictors.</p></li>
 <li><p>A <strong>matrix</strong> of predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>.</p></li>
+created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -173,11 +173,10 @@ side. No outcome should be specified.</p></td>
 </ul></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>apd_hat_values</code> object.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>predictors</span> <span class='kw'>&lt;-</span> <span class='no'>mtcars</span>[, -<span class='fl'>1</span>]
@@ -189,7 +188,7 @@ side. No outcome should be specified.</p></td>
 <span class='no'>mod2</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
 
 <span class='co'># Recipes interface</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>recipes</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: dplyr</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:testthat’:</span>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    matches</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
@@ -199,22 +198,21 @@ side. No outcome should be specified.</p></td>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘recipes’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipe</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
-<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/recipes/topics/step_log'>step_log</a></span>(<span class='no'>rec</span>, <span class='no'>disp</span>)
+#&gt; <span class='message'>    step</span></div><div class='input'><span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipe</a></span>(<span class='no'>mpg</span> ~ <span class='no'>.</span>, <span class='no'>mtcars</span>)
+<span class='no'>rec</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/recipes/man/step_log.html'>step_log</a></span>(<span class='no'>rec</span>, <span class='no'>disp</span>)
 <span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_hat_values</span>(<span class='no'>rec</span>, <span class='no'>mtcars</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -223,15 +221,18 @@ side. No outcome should be specified.</p></td>
 
 <div class="author">
   <p>
-    Developed by Max Kuhn, Marly Cormar.
+    Developed by Marly Cormar, Max Kuhn.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -133,7 +133,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' @details The function computes measures of similarity for different samples
 #'  points. For example, suppose samples `A` and `B` both contain _p_ binary
 #'  variables. First, a 2x2 table is constructed between `A` and `B` _across
-#'  their elements_. The table will contain _p_ entires across the four cells
+#'  their elements_. The table will contain _p_ entries across the four cells
 #'  (see the example below). From this, different measures of likeness are
 #'  computed.
 #'
