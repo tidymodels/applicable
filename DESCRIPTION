@@ -32,7 +32,8 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    AmesHousing
+    AmesHousing,
+    xml2
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Remotes:
