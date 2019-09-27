@@ -1,12 +1,14 @@
 Package: applicable
 Title: A Compilation of Applicability Domain Methods
 Version: 0.0.0.9000
-Authors@R: as.person(c(
-    "Max Kuhn <max@rstudio.com> [aut]",
-    "Marly Cormar <marlycormar@gmail.com> [aut, cre]"))
+Authors@R: c(
+    person(given = "Marly", family = "Cormar", email = "marlycormar@gmail.com", role = c("aut", "cre")),
+    person(given = "Max",   family = "Kuhn",   email = "max@rstudio.com",       role = c("aut"       )),
+    person("RStudio", role = "cph"))
 Description: A modeling package compiling applicability domain methods in R.
     It combines different methods to measure the amount of extrapolation new
-    samples can have from the training set.
+    samples can have from the training set. See Netzeva et al (2005) 
+    <doi:10.1177/026119290503300209> for an overview of applicability domains. 
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
@@ -32,9 +34,11 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    AmesHousing
+    AmesHousing,
+    spelling
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Remotes:
     tidymodels/hardhat@b5df2d6
 VignetteBuilder: knitr
+Language: en-US

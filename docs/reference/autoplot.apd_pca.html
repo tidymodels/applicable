@@ -32,9 +32,9 @@
 
 
 <meta property="og:title" content="Plot the distribution function for pcas — autoplot.apd_pca" />
-
 <meta property="og:description" content="Plot the distribution function for pcas" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -55,6 +55,7 @@
 
  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
   <body>
@@ -82,7 +83,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -112,6 +113,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -123,13 +125,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Plot the distribution function for pcas</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>autoplot.apd_pca</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='co'># S3 method for apd_pca</span>
+<span class='fu'>autoplot</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -144,17 +145,16 @@
 plot.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>ggplot</code> object that shows the distribution function for each
 principal component.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>biomass</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"recipes"</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>biomass</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"recipes"</span>)
 
 <span class='no'>biomass_ad</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apd_pca.html'>apd_pca</a></span>(<span class='no'>biomass</span>[, <span class='fl'>3</span>:<span class='fl'>7</span>])
 
@@ -165,14 +165,13 @@ principal component.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -181,15 +180,18 @@ principal component.</p>
 
 <div class="author">
   <p>
-    Developed by Max Kuhn, Marly Cormar.
+    Developed by Marly Cormar, Max Kuhn.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

@@ -59,7 +59,7 @@ one).
 The function computes measures of similarity for different samples
 points. For example, suppose samples \code{A} and \code{B} both contain \emph{p} binary
 variables. First, a 2x2 table is constructed between \code{A} and \code{B} \emph{across
-their elements}. The table will contain \emph{p} entires across the four cells
+their elements}. The table will contain \emph{p} entries across the four cells
 (see the example below). From this, different measures of likeness are
 computed.
 
