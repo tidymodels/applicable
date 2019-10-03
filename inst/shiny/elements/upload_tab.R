@@ -25,9 +25,7 @@ upload_tab <- argonTabItem(
                 buttonLabel = "Browse...",
                 placeholder = "No file selected",
                 multiple = FALSE,
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv"))
+                accept = c(".csv"))
     ),
 
     argonColumn(
@@ -37,9 +35,7 @@ upload_tab <- argonTabItem(
                 buttonLabel = "Browse...",
                 placeholder = "No file selected",
                 multiple = FALSE,
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv")))
+                accept = c(".csv")))
     ),
 
     argonColumn(
