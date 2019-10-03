@@ -38,6 +38,12 @@
     cursor: no-drop;
 }
 
+#tab-models {
+    background-color: #d0d1d6;
+    color: #ededed;
+    cursor: no-drop;
+}
+
 #data_cols ~ .selectize-control .selectize-input {
   max-height: 100px;
   overflow-y: auto;
