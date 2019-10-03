@@ -39,7 +39,7 @@ shiny::shinyApp(
     body = argonDashBody(
       useShinyjs(),
       tags$head(
-        tags$script(src="js/functions.js"),
+        tags$script(src = "js/functions.js"),
         tags$link(rel = "stylesheet", type = "text/css", href = "css/styles.css")
       ),
       argonTabItems(
@@ -86,8 +86,10 @@ shiny::shinyApp(
     observe({
       if(is.null(input$uploaded_train_data)){
         shinyjs::disable("uploaded_test_data")
+        shinyjs::disable("tab-models")
       }
       else {
+        shinyjs::enable("tab-models")
         shinyjs::enable("uploaded_test_data")
       }
     })
@@ -201,12 +203,12 @@ shiny::shinyApp(
 
     })
 
-    output$pca_render <- renderPrint({
-      pca_model <- pca()
-      if(!is.null(pca_model)){
-        print(pca_model)
-      }
-    })
+    # output$pca_render <- renderPrint({
+    #   pca_model <- pca()
+    #   if(!is.null(pca_model)){
+    #     print(pca_model)
+    #   }
+    # })
 
     output$pca_plot_dist <- renderPlot({
       pca_model <- pca()
@@ -276,11 +278,11 @@ shiny::shinyApp(
       }
     })
 
-    output$hat_values_render <- renderPrint({
-      if(!is.null(hat_values())){
-        print(hat_values())
-      }
-    })
+    # output$hat_values_render <- renderPrint({
+    #   if(!is.null(hat_values())){
+    #     print(hat_values())
+    #   }
+    # })
 
     output$hat_values_plot <- renderPlot({
     })
@@ -315,21 +317,21 @@ shiny::shinyApp(
       }
     })
 
-    output$sim_render <- renderPrint({
-      if(!is.null(sim())){
-        print(sim())
-      }
-      else{
-        curData <- train_data() %>% select(input$data_cols)
-        not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
-        if (any(not_bin)) {
-          bad_x <- colnames(curData)[not_bin]
-          print(paste0("Unable to compute similarity statistics because ",
-                       "the following variables are not binary: ",
-                       paste0(bad_x, collapse = ", ")))
-        }
-      }
-    })
+    # output$sim_render <- renderPrint({
+    #   if(!is.null(sim())){
+    #     print(sim())
+    #   }
+    #   else{
+    #     curData <- train_data() %>% select(input$data_cols)
+    #     not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
+    #     if (any(not_bin)) {
+    #       bad_x <- colnames(curData)[not_bin]
+    #       print(paste0("Unable to compute similarity statistics because ",
+    #                    "the following variables are not binary: ",
+    #                    paste0(bad_x, collapse = ", ")))
+    #     }
+    #   }
+    # })
 
     output$sim_plot <- renderPlot({
       sim_output <- sim()
