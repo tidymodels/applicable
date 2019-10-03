@@ -29,9 +29,9 @@
 }
 
 .disabled .btn-default {
-    background-color: #5f6585;
-    border-color: gray;
-    color: #c3c6d6;
+    background-color: #d0d1d6;
+    border-color: #d0d1d6;
+    color: #ededed;
 }
 
 .disabled span.btn.btn-default.btn-file {
