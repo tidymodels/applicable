@@ -36,7 +36,8 @@ Suggests:
     rmarkdown,
     covr,
     AmesHousing,
-    spelling
+    spelling,
+    xml2
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Remotes:
