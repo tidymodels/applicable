@@ -320,16 +320,9 @@ shiny::shinyApp(
     #   }
     # })
 
-    output$sim_plot <- renderPlot({
-      sim_output <- sim()
-      if(!is.null(sim_output)){
-        autoplot(sim_output)
-      }
-    })
-
-    output$sim_score_plot <- renderPlot({
+    output$sim_score_plot <- renderggiraph({
       if(!is.null(sim())){
-        autoplot(sim())
+        girafe(ggobj = autoplot(sim()))
       }
     })
 
