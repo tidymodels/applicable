@@ -175,11 +175,6 @@ simTab <- function(name, options = NULL, active = FALSE) {
       ),
       argonCard(
         width = 12,
-        title = "Plot Model",
-        plotOutput("sim_plot")
-      ),
-      argonCard(
-        width = 12,
         status = 'warning',
         icon = icon("argon"),
         title = "Score plot - New Samples",

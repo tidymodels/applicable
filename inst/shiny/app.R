@@ -265,7 +265,6 @@ shiny::shinyApp(
           facet_matrix(vars(dplyr::one_of(tr_pca_cols)))
 
         girafe(ggobj = scat_mat)
-
       }
     })
 
@@ -276,18 +275,6 @@ shiny::shinyApp(
         apd_hat_values(train_recipe() %>% step_lincomb(all_predictors()),
                        curData)
       }
-    })
-
-    # output$hat_values_render <- renderPrint({
-    #   if(!is.null(hat_values())){
-    #     print(hat_values())
-    #   }
-    # })
-
-    output$hat_values_plot <- renderPlot({
-    })
-
-    output$hat_score_plot <- renderPlot({
     })
 
     output$hat_values_score <- renderDT({
