@@ -56,7 +56,7 @@
   font-weight: 500;
 }
 
-#trainDataOverview, #testDataOverview, #pca_score {
+#trainDataOverview, #testDataOverview, #pca_score, #hat_values_score {
     font-size: .8rem;
 }
 
