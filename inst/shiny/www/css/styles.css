@@ -56,6 +56,11 @@
   font-weight: 500;
 }
 
-#trainDataOverview, #testDataOverview {
-    font-size: .875rem;
+#trainDataOverview, #testDataOverview, #pca_score {
+    font-size: .8rem;
+}
+
+.control-label {
+    font-weight: bold;
+    font-size: .7rem;
 }
