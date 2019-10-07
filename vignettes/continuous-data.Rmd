@@ -200,12 +200,12 @@ The corresponding hat values for the training would be the diagonals of $H$. The
 
 Suppose that we had a new, unknown sample (as a $p \times 1$ data vector $u$). The hat value for this sample would be 
 
-$$h = u'(X'X)^{-1}u$$.
+$$h = u^\intercal(X^\intercal X)^{-1}u$$.
 
 The following functions in `applicable` are used to compute the hat values of your model:
 
-* `apd_hat_values`:
-* `score`:
+* `apd_hat_values`: computes the matrix $(X^\intercal X)^{-1}$.
+* `score`: calculates the hat values of new samples and their percentiles.
 
 Two caveats for using the hat values:
 
