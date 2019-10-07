@@ -108,19 +108,19 @@ hatsTab <- function(name, options = NULL, active = FALSE) {
         title = "About",
         withMathJax(),
         helpText('
-        Given the training set \\(X\\), the hat values model first computes
-        the matrix
-        \\[
-            (X^\\intercal X)^{-1}
-        \\]
-        and then this matrix is used to calculate the hat values of the new samples.
-        For instance, given a new sample \\(u\\),
-        the hat values of this new sample will be computed by
-        \\[
-            u^\\intercal(X^\\intercal X)^{-1}u.
-        \\]
-        In addition, it calculates the percentiles of the hat values of new samples.'),
-
+          Given the training set \\(X\\), the hat values model first computes
+          the matrix
+          \\[
+              (X^\\intercal X)^{-1}
+          \\]
+          and then this matrix is used to calculate the hat values of the new samples.
+          For instance, given a new sample \\(u\\),
+          the hat values of this new sample will be computed by
+          \\[
+              u^\\intercal(X^\\intercal X)^{-1}u.
+          \\]
+          In addition, it calculates the percentiles of the hat values of new samples.'
+        ),
         argonBadge(
           text = "4",
           src = "https://www.google.com",
