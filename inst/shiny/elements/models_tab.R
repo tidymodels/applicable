@@ -106,56 +106,27 @@ hatsTab <- function(name, options = NULL, active = FALSE) {
       argonCard(
         width = 12,
         title = "About",
-        paste("PCA (Principal Component Analysis) computes the principal components of the training set",
-              "that account for up to either 95% or the provided threshold of variability",
-              sep = " "),
+        withMathJax(),
+        helpText('
+        Given the training set \\(X\\), the hat values model first computes
+        the matrix
+        \\[
+            (X^\\intercal X)^{-1}
+        \\]
+        and then this matrix is used to calculate the hat values of the new samples.
+        For instance, given a new sample \\(u\\),
+        the hat values of this new sample will be computed by
+        \\[
+            u^\\intercal(X^\\intercal X)^{-1}u.
+        \\]
+        In addition, it calculates the percentiles of the hat values of new samples.'),
+
         argonBadge(
           text = "4",
           src = "https://www.google.com",
           pill = TRUE,
           status = "success"
-        ),
-        paste(".",
-              "It also computes the percentiles of the absolute value of the principal",
-              "components",
-              sep = " "),
-        argonBadge(
-          text = "2",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        paste("and the mean of each principal component",
-              sep = " "),
-        argonBadge(
-          text = "1",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        ".",
-        br(),
-        paste("On the new samples, the function computes",
-              "the principal components and their percentiles as compared to the training data.",
-              "The number of principal components computed depends on the threshold choosen.",
-              "It also computes the multivariate distance",
-              "between each principal component and its mean",
-              sep = " "),
-        argonBadge(
-          text = "2",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        "."
-        #verbatimTextOutput(paste(outputModel, "render", sep = "_"))
-      ),
-      argonCard(
-        width = 12,
-        status = 'warning',
-        icon = icon("argon"),
-        title = "Score plot - New Samples",
-        ggiraphOutput("hat_values_score_plot")
+        )
       ),
       argonCard(
         width = 12,
