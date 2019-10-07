@@ -148,49 +148,30 @@ simTab <- function(name, options = NULL, active = FALSE) {
       argonCard(
         width = 12,
         title = "About",
-        paste("PCA (Principal Component Analysis) computes the principal components of the training set",
-              "that account for up to either 95% or the provided threshold of variability",
-              sep = " "),
-        argonBadge(
-          text = "4",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        paste(".",
-              "It also computes the percentiles of the absolute value of the principal",
-              "components",
-              sep = " "),
-        argonBadge(
-          text = "2",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        paste("and the mean of each principal component",
-              sep = " "),
-        argonBadge(
-          text = "1",
-          src = "https://www.google.com",
-          pill = TRUE,
-          status = "success"
-        ),
-        ".",
+        withMathJax(),
+        helpText('
+          The similarity statistic first analyzes samples
+          in terms of similarity scores. For a training set of \\(n\\)
+          samples, a new sample is compared to each, resulting in \\(n\\)
+          similarity scores. These can be summarized into the median
+          similarity.
+        '),
         br(),
-        paste("On the new samples, the function computes",
-              "the principal components and their percentiles as compared to the training data.",
-              "The number of principal components computed depends on the threshold choosen.",
-              "It also computes the multivariate distance",
-              "between each principal component and its mean",
-              sep = " "),
+        helpText('
+          It also plots the cumulative probability against the unique
+          similarity values of the training set.
+        '),
+        br(),
+        helpText('
+          Finally, it estimates the similarity scores of new samples
+          with their percentiles.
+        '),
         argonBadge(
           text = "2",
           src = "https://www.google.com",
           pill = TRUE,
           status = "success"
-        ),
-        "."
-        #verbatimTextOutput(paste(outputModel, "render", sep = "_"))
+        )
       ),
       argonCard(
         width = 12,
