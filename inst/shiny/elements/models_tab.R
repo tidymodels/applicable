@@ -59,14 +59,14 @@ pcaTab <- function(name, options = NULL, active = FALSE) {
           argonColumn(
             width = 6,
             sliderInput("pcs_range",
-                        "Range:",
+                        "Select Range:",
                         min = 1, max = 100,
                         value = 10, step = 1)
           ),
           argonColumn(
             width = 6,
             sliderInput("pcs_threshold",
-                        "Threshold:",
+                        "Select Threshold:",
                         min = 1, max = 100,
                         value = 95, step = 1)
           )),
