@@ -3,7 +3,7 @@ upload_tab <- argonTabItem(
 
   argonH1("Upload Data", display = 4),
 
-  h3("Upload your training set and sample data set. You can use the example data sets!"),
+  h3("Upload your training and sample data sets. You can use the example data sets!"),
 
   downloadLink("downloadExampleData", "Download Example Data Sets"),
 
@@ -20,25 +20,27 @@ upload_tab <- argonTabItem(
 
     argonColumn(
       width = 6,
-      fileInput("uploaded_train_data", "Choose a training set",
+      fileInput(inputId = "uploaded_train_data",
+                label = "Choose a training set",
+                buttonLabel = "Browse...",
+                placeholder = "No file selected",
                 multiple = FALSE,
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv"))
+                accept = c(".csv"))
     ),
 
     argonColumn(
       width = 6,
-      fileInput("uploaded_test_data", "Choose a sample set",
+      disabled(fileInput(inputId = "uploaded_test_data",
+                label = "Choose a sample set",
+                buttonLabel = "Browse...",
+                placeholder = "No file selected",
                 multiple = FALSE,
-                accept = c("text/csv",
-                           "text/comma-separated-values,text/plain",
-                           ".csv"))
+                accept = c(".csv")))
     ),
 
     argonColumn(
       width = 12,
-      selectInput("data_cols", "Select columns", choices = "", multiple = TRUE, width = '100%')
+      selectInput("data_cols", "Selected columns", choices = "", multiple = TRUE, width = '100%')
     ),
 
     argonCard(
@@ -50,6 +52,7 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Training Set",
+      "Below you will find an overview of your training data set. You can explore it and choose the columns (above) you would like to use as predictors.",
       DTOutput("trainDataOverview")
     ),
 
@@ -62,6 +65,7 @@ upload_tab <- argonTabItem(
       border_level = 2,
       hover_shadow = TRUE,
       title = "Sample Set",
+      "Below you will find an overview of your sample data set. You can explore it and choose the columns (above) you would like to use as predictors.",
       DTOutput("testDataOverview")
     )
   )

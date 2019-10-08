@@ -10,7 +10,7 @@ library(ggplot2)
 library(ggiraph)
 library(ggforce)
 library(readr)
-library(dplyr)
+library(shinyjs)
 
 
 # Load templates
@@ -31,13 +31,17 @@ source("functions/utils.R")
 # App
 shiny::shinyApp(
   ui = argonDashPage(
-    includeCSS("css/styles.css"),
     title = "Applicability Domain Methods",
     author = "Marly Cormar & Max Kuhn",
     description = "Applicability Domain Methods Using `applicable`",
     sidebar = argonSidebar,
     header = argonHeader,
     body = argonDashBody(
+      useShinyjs(),
+      tags$head(
+        tags$script(src = "js/functions.js"),
+        tags$link(rel = "stylesheet", type = "text/css", href = "css/styles.css")
+      ),
       argonTabItems(
         upload_tab,
         models_tab,
@@ -48,39 +52,52 @@ shiny::shinyApp(
   ),
   server = function(input, output, session) {
 
+    # Increase file upload size to 10MB
     options(shiny.maxRequestSize=10*1024^2)
 
     # Get uploaded train data
     train_data <- reactive({
+      req(input$uploaded_train_data)
       infile <- input$uploaded_train_data
-
-      if (is.null(infile))
-        return(NULL)
-
       read_csv(infile$datapath)
     })
 
     # Get uploaded test data
     test_data <- reactive({
+      req(input$uploaded_train_data, input$uploaded_test_data)
       infile <- input$uploaded_test_data
+      output_file <- read_csv(infile$datapath)
 
-      if (is.null(infile))
-        return(NULL)
+      col_names <- names(train_data())
+      if(!identical(col_names, names(output_file))) {
+        showModal(modalDialog(
+          title = "Mismatching Columns",
+          "The sample set must contain the same columns as the training set. Please try to upload the sample set again.",
+          easyClose = TRUE,
+          footer = NULL
+        ))
+        shinyjs::reset('uploaded_test_data')
+        output_file <- NULL
+      }
 
-      read_csv(infile$datapath)
+      output_file
     })
 
     observe({
       if(is.null(input$uploaded_train_data)){
-        disable("uploaded_test_data")
+        shinyjs::disable("uploaded_test_data")
+        shinyjs::disable("tab-models")
       }
       else {
-        enable("uploaded_test_data")
+        shinyjs::enable("tab-models")
+        shinyjs::enable("uploaded_test_data")
       }
     })
 
     # Observe selected columns for train data
     observe({
+      req(input$uploaded_train_data, input$uploaded_test_data)
+
       updateSelectInput(
         session,
         "data_cols",
@@ -105,9 +122,10 @@ shiny::shinyApp(
 
     # Show a subset of the data based on the columns observed
     output$trainDataOverview <- renderDT({
+      req(input$uploaded_train_data, input$uploaded_test_data, input$data_cols)
+
       datatable(
         data = {
-          if(!is.null(train_data()) && !is.null(input$data_cols))
             train_data() [, input$data_cols]
         },
         options = list(
@@ -120,9 +138,10 @@ shiny::shinyApp(
 
     # Show a subset of the data based on the columns observed
     output$testDataOverview <- renderDT({
+      req(input$uploaded_train_data, input$uploaded_test_data, input$data_cols)
+
       datatable(
         data = {
-          if(!is.null(test_data()) && !is.null(input$data_cols))
             test_data() [, input$data_cols]
         },
         options = list(
@@ -135,14 +154,15 @@ shiny::shinyApp(
 
     # Get training recipe
     train_recipe <- reactive({
-      if (is.null(train_data) || is.null(input$data_cols))
-        return(NULL)
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
 
       get_recipe(train_data() [, input$data_cols])
     })
 
     # ArgonTable
     output$argonTable <- renderUI({
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
+
       if(is.null(train_data()))
          "Please upload your data"
       else {
@@ -167,28 +187,28 @@ shiny::shinyApp(
 
     # Server side for PCA
     pca <- reactive({
+      req(input$data_cols, input$uploaded_train_data, input$uploaded_test_data)
       train_data_val <- train_data()
-      if(!is.null(train_data_val) && !is.null(input$data_cols)) {
-        curData <- train_data_val %>% select(input$data_cols)
-        pca_modeling_function <- apd_pca(train_recipe(), curData, (input$pcs_threshold)*0.01)
+      curData <- train_data_val %>% select(input$data_cols)
+      pca_modeling_function <- apd_pca(train_recipe(), curData, (input$pcs_threshold)*0.01)
 
-        pcs_count <- pca_modeling_function$num_comp
-        if(!is.null(pcs_count)){
-          # Update slider options
-          updateSliderInput(session, "pcs_range", value = floor(pcs_count/2),
-                            min = 1, max = pcs_count)
-        }
-
-        pca_modeling_function
+      pcs_count <- pca_modeling_function$num_comp
+      if(!is.null(pcs_count)){
+        # Update slider options
+        updateSliderInput(session, "pcs_range", value = min(10, pcs_count),
+                          min = 1, max = pcs_count)
       }
+
+      pca_modeling_function
+
     })
 
-    output$pca_render <- renderPrint({
-      pca_model <- pca()
-      if(!is.null(pca_model)){
-        print(pca_model)
-      }
-    })
+    # output$pca_render <- renderPrint({
+    #   pca_model <- pca()
+    #   if(!is.null(pca_model)){
+    #     print(pca_model)
+    #   }
+    # })
 
     output$pca_plot_dist <- renderPlot({
       pca_model <- pca()
@@ -245,7 +265,6 @@ shiny::shinyApp(
           facet_matrix(vars(dplyr::one_of(tr_pca_cols)))
 
         girafe(ggobj = scat_mat)
-
       }
     })
 
@@ -256,18 +275,6 @@ shiny::shinyApp(
         apd_hat_values(train_recipe() %>% step_lincomb(all_predictors()),
                        curData)
       }
-    })
-
-    output$hat_values_render <- renderPrint({
-      if(!is.null(hat_values())){
-        print(hat_values())
-      }
-    })
-
-    output$hat_values_plot <- renderPlot({
-    })
-
-    output$hat_score_plot <- renderPlot({
     })
 
     output$hat_values_score <- renderDT({
@@ -297,32 +304,25 @@ shiny::shinyApp(
       }
     })
 
-    output$sim_render <- renderPrint({
-      if(!is.null(sim())){
-        print(sim())
-      }
-      else{
-        curData <- train_data() %>% select(input$data_cols)
-        not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
-        if (any(not_bin)) {
-          bad_x <- colnames(curData)[not_bin]
-          print(paste0("Unable to compute similarity statistics because ",
-                       "the following variables are not binary: ",
-                       paste0(bad_x, collapse = ", ")))
-        }
-      }
-    })
+    # output$sim_render <- renderPrint({
+    #   if(!is.null(sim())){
+    #     print(sim())
+    #   }
+    #   else{
+    #     curData <- train_data() %>% select(input$data_cols)
+    #     not_bin <- apply(curData, 2, function(x) any(x != 1 & x != 0))
+    #     if (any(not_bin)) {
+    #       bad_x <- colnames(curData)[not_bin]
+    #       print(paste0("Unable to compute similarity statistics because ",
+    #                    "the following variables are not binary: ",
+    #                    paste0(bad_x, collapse = ", ")))
+    #     }
+    #   }
+    # })
 
-    output$sim_plot <- renderPlot({
-      sim_output <- sim()
-      if(!is.null(sim_output)){
-        autoplot(sim_output)
-      }
-    })
-
-    output$sim_score_plot <- renderPlot({
+    output$sim_score_plot <- renderggiraph({
       if(!is.null(sim())){
-        autoplot(sim())
+        girafe(ggobj = autoplot(sim()))
       }
     })
 
