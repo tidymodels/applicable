@@ -27,6 +27,9 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
 [![Travis build status](https://travis-ci.org/tidymodels/applicable.svg?branch=master)](https://travis-ci.org/tidymodels/applicable)
+[![Azure pipelines build status](https://img.shields.io/azure-devops/build/tidymodels/applicable/2)](https://dev.azure.com/tidymodels/applicable/_build/latest?definitionId=1&branchName=master)
+[![Azure pipelines test status](https://img.shields.io/azure-devops/tests/tidymodels/applicable/2?color=brightgreen&compact_message)](https://dev.azure.com/tidymodels/applicable/_build/latest?definitionId=1&branchName=master)
+[![Azure pipelines coverage status](https://img.shields.io/azure-devops/coverage/tidymodels/applicable/2)](https://dev.azure.com/tidymodels/applicable/_build/latest?definitionId=1&branchName=master)
 <!-- badges: end -->
 
 ## Introduction

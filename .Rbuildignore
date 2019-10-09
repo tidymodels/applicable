@@ -4,6 +4,6 @@
 ^docs$
 ^pkgdown$
 ^README.Rmd$
-
+^azure-pipelines\.yml$
 ^\.travis\.yml$
 ^azure-pipelines\.yml$
