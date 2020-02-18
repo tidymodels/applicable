@@ -52,7 +52,7 @@ A \code{apd_pca} object.
 }
 \details{
 The function computes the principal components that account for
-up to either 95% or the provided \code{threshold} of variability. It also
+up to either 95\% or the provided \code{threshold} of variability. It also
 computes the percentiles of the absolute value of the principal components.
 Additionally, it calculates the mean of each principal component.
 }

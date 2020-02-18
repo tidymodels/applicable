@@ -4,8 +4,7 @@
 \alias{score.apd_similarity}
 \title{Score new samples using similarity methods}
 \usage{
-\method{score}{apd_similarity}(object, new_data, type = "numeric",
-  add_percentile = TRUE, ...)
+\method{score}{apd_similarity}(object, new_data, type = "numeric", add_percentile = TRUE, ...)
 }
 \arguments{
 \item{object}{A \code{apd_similarity} object.}
