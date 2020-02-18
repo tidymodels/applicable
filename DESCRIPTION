@@ -39,7 +39,7 @@ Suggests:
     spelling,
     xml2
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Remotes:
     tidymodels/hardhat@b5df2d6
 VignetteBuilder: knitr
