@@ -23,9 +23,10 @@ Plot the distribution function for pcas
 \examples{
 library(ggplot2)
 library(dplyr)
-data(biomass, package = "recipes")
+library(modeldata)
+data(biomass)
 
-biomass_ad <- apd_pca(biomass[, 3:7])
+biomass_ad <- apd_pca(biomass[, 3:8])
 
 autoplot(biomass_ad)
 # Using selectors in `...`
