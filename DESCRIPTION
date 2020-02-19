@@ -37,7 +37,8 @@ Suggests:
     covr,
     AmesHousing,
     spelling,
-    xml2
+    xml2,
+    modeldata
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 Remotes:
