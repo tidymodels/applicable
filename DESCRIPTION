@@ -2,8 +2,8 @@ Package: applicable
 Title: A Compilation of Applicability Domain Methods
 Version: 0.0.0.9000
 Authors@R: c(
-    person(given = "Marly", family = "Cormar", email = "marlycormar@gmail.com", role = c("aut", "cre")),
-    person(given = "Max",   family = "Kuhn",   email = "max@rstudio.com",       role = c("aut"       )),
+    person(given = "Marly", family = "Gotti", email = "marlygotti@gmail.com", role = c("aut", "cre")),
+    person(given = "Max", family = "Kuhn", email = "max@rstudio.com", role = c("aut")),
     person("RStudio", role = "cph"))
 Description: A modeling package compiling applicability domain methods in R.
     It combines different methods to measure the amount of extrapolation new
