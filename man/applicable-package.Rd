@@ -19,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Marly Cormar \email{marlycormar@gmail.com}
+\strong{Maintainer}: Marly Gotti \email{marlygotti@gmail.com}
 
 Authors:
 \itemize{
