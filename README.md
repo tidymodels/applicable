@@ -9,8 +9,7 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
-[![Travis build
-status](https://travis-ci.org/tidymodels/applicable.svg?branch=master)](https://travis-ci.org/tidymodels/applicable)
+![R-CMD-check](https://github.com/tidymodels/applicable/workflows/R-CMD-check/badge.svg)
 <!-- badges: end -->
 
 ## Introduction
