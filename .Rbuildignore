@@ -4,7 +4,5 @@
 ^docs$
 ^pkgdown$
 ^README.Rmd$
-^\.travis\.yml$
-^azure-pipelines\.yml$
 .github
 ^\.github/workflows/check-full\.yaml$
