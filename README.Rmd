@@ -18,10 +18,9 @@ options(rlang__backtrace_on_error = "reminder")
 
 ```
 
-# applicable
+# applicable <img src="man/figures/logo.png" align="right"/>
 
 <!-- badges: start -->
-
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
