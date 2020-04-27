@@ -156,7 +156,6 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' @references Leach, A. and Gillet V. (2007). _An Introduction to
 #' Chemoinformatics_. Springer, New York
 #' @examples
-#' \dontrun{
 #' data(qsar_binary)
 #'
 #' jacc_sim <- apd_similarity(binary_tr)
@@ -184,7 +183,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' # Summarize across all training set similarities
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#' }
+#'
 #' @export
 apd_similarity <- function(x, ...) {
   UseMethod("apd_similarity")
@@ -325,14 +324,12 @@ get_sim_score_function <- function(type) {
 #' being scored.
 #'
 #' @examples
-#' \dontrun{
 #' data(qsar_binary)
 #'
 #' jacc_sim <- apd_similarity(binary_tr)
 #'
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#' }
 #'
 #' @export
 score.apd_similarity <- function(object, new_data, type = "numeric", add_percentile = TRUE, ...) {
