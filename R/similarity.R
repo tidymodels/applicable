@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprint) {
 
@@ -12,10 +12,9 @@ new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprin
   )
 }
 
-# -------------------------------------------------------------------
-# ----------------- Model function implementation -------------------
-# -------------------------------------------------------------------
-
+# -----------------------------------------------------------------------------
+# ---------------------- Model function implementation ------------------------
+# -----------------------------------------------------------------------------
 
 apd_similarity_impl <- function(predictors, quantile, options) {
 
@@ -40,9 +39,9 @@ apd_similarity_impl <- function(predictors, quantile, options) {
   res
 }
 
-# -------------------------------------------------------------------
-# ------------------- Model function bridge -------------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model function bridge --------------------------------
+# -----------------------------------------------------------------------------
 
 apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   opts <- list(...)
@@ -98,9 +97,10 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   )
 }
 
-# -------------------------------------------------------------------
-# ------------------ Model function interface -----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model function interface -----------------------------
+# -----------------------------------------------------------------------------
+
 #' Applicability domain methods using binary similarity analysis
 #'
 #' `apd_similarity()` is used to analyze samples in terms of similarity scores
@@ -189,7 +189,7 @@ apd_similarity <- function(x, ...) {
   UseMethod("apd_similarity")
 }
 
-
+# Default method
 
 #' @export
 #' @rdname apd_similarity
@@ -239,9 +239,10 @@ apd_similarity.recipe <- function(x, data, quantile = NA_real_, ...) {
   apd_similarity_bridge(processed, quantile = quantile, ...)
 }
 
-# -------------------------------------------------------------------
-# ----------------- Scoring function implementation -----------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function implementation ----------------------
+# -----------------------------------------------------------------------------
+
 score_apd_similarity_numeric <- function(model, predictors, options) {
   predictors <-
     predictors[, colnames(predictors) %in% colnames(model$ref_data), drop = FALSE]
@@ -271,9 +272,10 @@ score_apd_similarity_numeric <- function(model, predictors, options) {
   res
 }
 
-# -------------------------------------------------------------------
-# ------------------- Scoring function bridge -----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function bridge ------------------------------
+# -----------------------------------------------------------------------------
+
 score_apd_similarity_bridge <- function(type, model, predictors) {
 
   score_function <- get_sim_score_function(type)
@@ -293,9 +295,10 @@ get_sim_score_function <- function(type) {
   )
 }
 
-# -------------------------------------------------------------------
-# ------------------ Scoring function interface ---------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function interface ---------------------------
+# -----------------------------------------------------------------------------
+
 #' Score new samples using similarity methods
 #'
 #' @param object A `apd_similarity` object.
@@ -342,6 +345,9 @@ score.apd_similarity <- function(object, new_data, type = "numeric", add_percent
   res
 }
 
+# -----------------------------------------------------------------------------
+# ---------------------- Helper functions -------------------------------------
+# -----------------------------------------------------------------------------
 
 sim_percentile <- function(sims, ref) {
   res <- stats::approx(ref$sim, ref$cumulative, xout = sims)$y

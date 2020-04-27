@@ -110,6 +110,8 @@ apd_hat_values <- function(x, ...) {
   UseMethod("apd_hat_values")
 }
 
+# Default method
+
 #' @export
 #' @rdname apd_hat_values
 apd_hat_values.default <- function(x, ...) {
