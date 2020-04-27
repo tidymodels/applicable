@@ -76,7 +76,6 @@ cores}. To change this, call the \code{setThreadOptions} function in the
 \code{RcppParallel} package.
 }
 \examples{
-\dontrun{
 data(qsar_binary)
 
 jacc_sim <- apd_similarity(binary_tr)
@@ -104,7 +103,7 @@ xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
 # Summarize across all training set similarities
 mean_sim <- score(jacc_sim, new_data = binary_unk)
 mean_sim
-}
+
 }
 \references{
 Leach, A. and Gillet V. (2007). \emph{An Introduction to
