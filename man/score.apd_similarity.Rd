@@ -36,11 +36,12 @@ being scored.
 Score new samples using similarity methods
 }
 \examples{
+\donttest{
 data(qsar_binary)
 
 jacc_sim <- apd_similarity(binary_tr)
 
 mean_sim <- score(jacc_sim, new_data = binary_unk)
 mean_sim
-
+}
 }
