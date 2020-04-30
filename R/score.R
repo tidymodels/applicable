@@ -13,6 +13,10 @@
 #'
 #' @param ... Not currently used, but required for extensibility.
 #'
+#' @return
+#'
+#' A tibble of predictions.
+#'
 #' @export
 score <- function (object, ...) {
   UseMethod("score")
