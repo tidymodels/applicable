@@ -1,3 +1,11 @@
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_pca` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
 #' @export
 print.apd_pca <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
@@ -22,6 +30,14 @@ print.apd_pca <- function(x, ...) {
  invisible(x)
 }
 
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_hat_values` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
 #' @export
 print.apd_hat_values <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
@@ -35,6 +51,14 @@ print.apd_hat_values <- function(x, ...) {
   invisible(x)
 }
 
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_similarity` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
 #' @export
 print.apd_similarity <- function(x, ...) {
   cat("Applicability domain via similarity\n")
