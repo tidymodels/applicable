@@ -17,3 +17,9 @@ None
 \description{
 Print number of predictors and principal components used.
 }
+\examples{
+
+model <- apd_pca(~ Sepal.Length + Sepal.Width, iris)
+print(model)
+
+}

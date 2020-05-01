@@ -17,3 +17,9 @@ None
 \description{
 Print number of predictors and principal components used.
 }
+\examples{
+
+model <- apd_hat_values(~ Sepal.Length + Sepal.Width, iris)
+print(model)
+
+}
