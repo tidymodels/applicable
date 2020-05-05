@@ -10,7 +10,7 @@ Description: A modeling package compiling applicability domain methods in R.
     samples can have from the training set. See Netzeva et al (2005) 
     <doi:10.1177/026119290503300209> for an overview of applicability domains. 
 URL: https://github.com/tidymodels/applicable
-License: GPL-2
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends: 

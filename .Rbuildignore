@@ -6,3 +6,4 @@
 ^README.Rmd$
 .github
 ^\.github/workflows/check-full\.yaml$
+^LICENSE\.md$
