@@ -5,8 +5,7 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
 ![R-CMD-check](https://github.com/tidymodels/applicable/workflows/R-CMD-check/badge.svg)
