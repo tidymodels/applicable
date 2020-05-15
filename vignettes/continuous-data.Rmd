@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-options(width = 100)
+
+prev_options <- options(width = 100)
+
 library(ggplot2)
 theme_set(theme_bw())
 ```
@@ -225,3 +227,9 @@ non_singular_recipe <-
 ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 ```
 
+
+```{r reset_options}
+
+options(prev_options)
+
+```
