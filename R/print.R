@@ -1,3 +1,16 @@
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_pca` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
+#' @examples
+#'
+#' model <- apd_pca(~ Sepal.Length + Sepal.Width, iris)
+#' print(model)
+#'
 #' @export
 print.apd_pca <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
@@ -22,6 +35,19 @@ print.apd_pca <- function(x, ...) {
  invisible(x)
 }
 
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_hat_values` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
+#' @examples
+#'
+#' model <- apd_hat_values(~ Sepal.Length + Sepal.Width, iris)
+#' print(model)
+#'
 #' @export
 print.apd_hat_values <- function(x, ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
@@ -35,6 +61,22 @@ print.apd_hat_values <- function(x, ...) {
   invisible(x)
 }
 
+#' Print number of predictors and principal components used.
+#'
+#' @param x A `apd_similarity` object.
+#'
+#' @param ... Not currently used, but required for extensibility.
+#'
+#' @return None
+#'
+#' @examples
+#'
+#' set.seed(535)
+#' tr_x <- matrix(sample(0:1, size = 20 * 50, prob = rep(.5, 2),
+#'  replace = TRUE), ncol = 20)
+#' model <- apd_similarity(tr_x)
+#' print(model)
+#'
 #' @export
 print.apd_similarity <- function(x, ...) {
   cat("Applicability domain via similarity\n")

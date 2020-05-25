@@ -20,6 +20,9 @@ created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 
 \item{...}{Not currently used, but required for extensibility.}
 }
+\value{
+A tibble of predictions.
+}
 \description{
 A scoring function
 }

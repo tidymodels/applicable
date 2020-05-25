@@ -20,7 +20,7 @@ Education},  Volume 19, Number 3.
 }
 \description{
 More data related to the set described by De Cock (2011) where data where
-data were recored for 2,930 properties in Ames IA.
+data were recorded for 2,930 properties in Ames IA.
 }
 \details{
 This data sets includes three more properties added since the original

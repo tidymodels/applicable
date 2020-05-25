@@ -8,21 +8,35 @@
 
 <title>Applicability domain methods using binary similarity analysis — apd_similarity • applicable</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,34 +46,37 @@
 
 
 <meta property="og:title" content="Applicability domain methods using binary similarity analysis — apd_similarity" />
-
 <meta property="og:description" content="apd_similarity() is used to analyze samples in terms of similarity scores
 for binary data. All features in the data should be binary (i.e. zero or
 one)." />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
+
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
 <script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
+  gtag('config', 'UA-115082821-1');
 </script>
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,9 +91,9 @@ one)." />
 
       <div class="navbar-brand-container">
         <a class="navbar-brand" href="../index.html">applicable</a>
-        <div class="info">
+        <div class="info hidden-xs hidden-sm">
           <span class="partof">part of <a href="https://github.com/tidymodels">tidymodels</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="Unreleased version">0.0.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1</span>
         </div>
       </div>
     </div>
@@ -84,7 +101,7 @@ one)." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +123,12 @@ one)." />
     </li>
   </ul>
 </li>
-        
+        <li>
+  <a href="https://github.com/tidymodels/applicable/">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -114,22 +136,21 @@ one)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Applicability domain methods using binary similarity analysis</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/applicable/blob/master/R/similarity.R'><code>R/similarity.R</code></a></small>
     <div class="hidden name"><code>apd_similarity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
     <p><code>apd_similarity()</code> is used to analyze samples in terms of similarity scores
 for binary data. All features in the data should be binary (i.e. zero or
 one).</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>apd_similarity</span>(<span class='no'>x</span>, <span class='no'>...</span>)
@@ -148,7 +169,7 @@ one).</p>
 
 <span class='co'># S3 method for recipe</span>
 <span class='fu'>apd_similarity</span>(<span class='no'>x</span>, <span class='no'>data</span>, <span class='kw'>quantile</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,12 +179,12 @@ one).</p>
 <li><p>A <strong>data frame</strong> of binary predictors.</p></li>
 <li><p>A <strong>matrix</strong> of binary predictors.</p></li>
 <li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://www.rdocumentation.org/packages/recipes/topics/recipe'>recipes::recipe()</a></code>.</p></li>
+created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
 </ul></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Options to pass to <code><a href='https://www.rdocumentation.org/packages/proxyC/topics/simil'>proxyC::simil()</a></code>, such as <code>method</code>. If no
+      <td><p>Options to pass to <code><a href='https://rdrr.io/pkg/proxyC/man/simil.html'>proxyC::simil()</a></code>, such as <code>method</code>. If no
 options are specified, <code>method = "jaccard"</code> is used.</p></td>
     </tr>
     <tr>
@@ -186,17 +207,16 @@ no 1's will be removed (with a warning).</p></li>
 </ul></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <code>apd_similarity</code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The function computes measures of similarity for different samples
 points. For example, suppose samples <code>A</code> and <code>B</code> both contain <em>p</em> binary
 variables. First, a 2x2 table is constructed between <code>A</code> and <code>B</code> <em>across
-their elements</em>. The table will contain <em>p</em> entires across the four cells
+their elements</em>. The table will contain <em>p</em> entries across the four cells
 (see the example below). From this, different measures of likeness are
 computed.</p>
 <p>For a training set of <em>n</em> samples, a new sample is compared to each,
@@ -208,60 +228,55 @@ object sizes may become large.</p>
 <p>By default, the computations are run in parallel using <em>all possible
 cores</em>. To change this, call the <code>setThreadOptions</code> function in the
 <code>RcppParallel</code> package.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Leach, A. and Gillet V. (2007). <em>An Introduction to
 Chemoinformatics</em>. Springer, New York</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>qsar_binary</span>)
+    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>qsar_binary</span>)
 
 <span class='no'>jacc_sim</span> <span class='kw'>&lt;-</span> <span class='fu'>apd_similarity</span>(<span class='no'>binary_tr</span>)
-<span class='no'>jacc_sim</span>
-
+<span class='no'>jacc_sim</span></div><div class='output co'>#&gt; Applicability domain via similarity
+#&gt; Reference data were 67 variables collected on 4330 data points.
+#&gt; New data summarized using the mean.</div><div class='input'>
 <span class='co'># plot the empirical cumulative distribution function (ECDF) for the training set:</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggplot2</span>)
-<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>jacc_sim</span>)
-
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/autoplot.html'>autoplot</a></span>(<span class='no'>jacc_sim</span>)</div><div class='img'><img src='apd_similarity-1.png' alt='' width='768' height='552' /></div><div class='input'>
 <span class='co'># Example calculations for two samples:</span>
-<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
-<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
-<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/table'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
-<span class='no'>xtab</span>
-
+<span class='no'>A</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>1</span>,])
+<span class='no'>B</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span>(<span class='no'>binary_tr</span>[<span class='fl'>2</span>,])
+<span class='no'>xtab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span>(<span class='no'>A</span>, <span class='no'>B</span>)
+<span class='no'>xtab</span></div><div class='output co'>#&gt;    B
+#&gt; A    0  1
+#&gt;   0 62  0
+#&gt;   1  1  4</div><div class='input'>
 <span class='co'># Jaccard statistic</span>
-<span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] / (<span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>])
-
+<span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] / (<span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>])</div><div class='output co'>#&gt; [1] 0.8</div><div class='input'>
 <span class='co'># Hamman statistic</span>
-( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
-
+( ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>] ) - ( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>2</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>1</span>] ) ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)</div><div class='output co'>#&gt; [1] 0.9701493</div><div class='input'>
 <span class='co'># Faith statistic</span>
-( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sum'>sum</a></span>(<span class='no'>xtab</span>)
-
+( <span class='no'>xtab</span>[<span class='fl'>1</span>, <span class='fl'>1</span>] + <span class='no'>xtab</span>[<span class='fl'>2</span>, <span class='fl'>2</span>]/<span class='fl'>2</span> ) / <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span>(<span class='no'>xtab</span>)</div><div class='output co'>#&gt; [1] 0.9552239</div><div class='input'>
 <span class='co'># Summarize across all training set similarities</span>
 <span class='no'>mean_sim</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='score.html'>score</a></span>(<span class='no'>jacc_sim</span>, <span class='kw'>new_data</span> <span class='kw'>=</span> <span class='no'>binary_unk</span>)
-<span class='no'>mean_sim</span>
-<span class='co'># }</span></pre>
+<span class='no'>mean_sim</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 5 x 2</span><span>
+#&gt;   similarity similarity_pctl
+#&gt;        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>1</span><span>     0.376            49.8 
+#&gt; </span><span style='color: #555555;'>2</span><span>     0.284            13.5 
+#&gt; </span><span style='color: #555555;'>3</span><span>     0.218             6.46
+#&gt; </span><span style='color: #555555;'>4</span><span>     0.452           100   
+#&gt; </span><span style='color: #555555;'>5</span><span>     0.097</span><span style='text-decoration: underline;'>1</span><span>            5.59</div><div class='input'># }
+</div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="tidyverse">
@@ -270,15 +285,18 @@ Chemoinformatics</em>. Springer, New York</p>
 
 <div class="author">
   <p>
-    Developed by Max Kuhn, Marly Cormar.
+    Developed by Marly Gotti, Max Kuhn.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

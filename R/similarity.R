@@ -1,4 +1,4 @@
-# ------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprint) {
 
@@ -12,10 +12,9 @@ new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprin
   )
 }
 
-# -------------------------------------------------------------------
-# ----------------- Model function implementation -------------------
-# -------------------------------------------------------------------
-
+# -----------------------------------------------------------------------------
+# ---------------------- Model function implementation ------------------------
+# -----------------------------------------------------------------------------
 
 apd_similarity_impl <- function(predictors, quantile, options) {
 
@@ -40,9 +39,9 @@ apd_similarity_impl <- function(predictors, quantile, options) {
   res
 }
 
-# -------------------------------------------------------------------
-# ------------------- Model function bridge -------------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model function bridge --------------------------------
+# -----------------------------------------------------------------------------
 
 apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   opts <- list(...)
@@ -98,9 +97,10 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   )
 }
 
-# -------------------------------------------------------------------
-# ------------------ Model function interface -----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model function interface -----------------------------
+# -----------------------------------------------------------------------------
+
 #' Applicability domain methods using binary similarity analysis
 #'
 #' `apd_similarity()` is used to analyze samples in terms of similarity scores
@@ -133,7 +133,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' @details The function computes measures of similarity for different samples
 #'  points. For example, suppose samples `A` and `B` both contain _p_ binary
 #'  variables. First, a 2x2 table is constructed between `A` and `B` _across
-#'  their elements_. The table will contain _p_ entires across the four cells
+#'  their elements_. The table will contain _p_ entries across the four cells
 #'  (see the example below). From this, different measures of likeness are
 #'  computed.
 #'
@@ -156,7 +156,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' @references Leach, A. and Gillet V. (2007). _An Introduction to
 #' Chemoinformatics_. Springer, New York
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(qsar_binary)
 #'
 #' jacc_sim <- apd_similarity(binary_tr)
@@ -184,13 +184,13 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' # Summarize across all training set similarities
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#' }
+#'}
 #' @export
 apd_similarity <- function(x, ...) {
   UseMethod("apd_similarity")
 }
 
-
+# Default method
 
 #' @export
 #' @rdname apd_similarity
@@ -240,9 +240,10 @@ apd_similarity.recipe <- function(x, data, quantile = NA_real_, ...) {
   apd_similarity_bridge(processed, quantile = quantile, ...)
 }
 
-# -------------------------------------------------------------------
-# ----------------- Scoring function implementation -----------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function implementation ----------------------
+# -----------------------------------------------------------------------------
+
 score_apd_similarity_numeric <- function(model, predictors, options) {
   predictors <-
     predictors[, colnames(predictors) %in% colnames(model$ref_data), drop = FALSE]
@@ -272,9 +273,10 @@ score_apd_similarity_numeric <- function(model, predictors, options) {
   res
 }
 
-# -------------------------------------------------------------------
-# ------------------- Scoring function bridge -----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function bridge ------------------------------
+# -----------------------------------------------------------------------------
+
 score_apd_similarity_bridge <- function(type, model, predictors) {
 
   score_function <- get_sim_score_function(type)
@@ -294,9 +296,10 @@ get_sim_score_function <- function(type) {
   )
 }
 
-# -------------------------------------------------------------------
-# ------------------ Scoring function interface ---------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Scoring function interface ---------------------------
+# -----------------------------------------------------------------------------
+
 #' Score new samples using similarity methods
 #'
 #' @param object A `apd_similarity` object.
@@ -325,15 +328,14 @@ get_sim_score_function <- function(type) {
 #' being scored.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' data(qsar_binary)
 #'
 #' jacc_sim <- apd_similarity(binary_tr)
 #'
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#' }
-#'
+#'}
 #' @export
 score.apd_similarity <- function(object, new_data, type = "numeric", add_percentile = TRUE, ...) {
   forged <- hardhat::forge(new_data, object$blueprint)
@@ -345,6 +347,9 @@ score.apd_similarity <- function(object, new_data, type = "numeric", add_percent
   res
 }
 
+# -----------------------------------------------------------------------------
+# ---------------------- Helper functions -------------------------------------
+# -----------------------------------------------------------------------------
 
 sim_percentile <- function(sims, ref) {
   res <- stats::approx(ref$sim, ref$cumulative, xout = sims)$y

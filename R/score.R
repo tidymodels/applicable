@@ -1,6 +1,7 @@
-# -------------------------------------------------------------------
-# ---------------- Model fit generic interface ----------------------
-# -------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+# ---------------------- Model fit generic interface --------------------------
+# -----------------------------------------------------------------------------
+
 #' A scoring function
 #'
 #' @param object Depending on the context:
@@ -11,6 +12,10 @@
 #'     created from [recipes::recipe()].
 #'
 #' @param ... Not currently used, but required for extensibility.
+#'
+#' @return
+#'
+#' A tibble of predictions.
 #'
 #' @export
 score <- function (object, ...) {

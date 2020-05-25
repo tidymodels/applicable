@@ -4,8 +4,7 @@
 \alias{score.apd_similarity}
 \title{Score new samples using similarity methods}
 \usage{
-\method{score}{apd_similarity}(object, new_data, type = "numeric",
-  add_percentile = TRUE, ...)
+\method{score}{apd_similarity}(object, new_data, type = "numeric", add_percentile = TRUE, ...)
 }
 \arguments{
 \item{object}{A \code{apd_similarity} object.}
@@ -37,7 +36,7 @@ being scored.
 Score new samples using similarity methods
 }
 \examples{
-\dontrun{
+\donttest{
 data(qsar_binary)
 
 jacc_sim <- apd_similarity(binary_tr)
@@ -45,5 +44,4 @@ jacc_sim <- apd_similarity(binary_tr)
 mean_sim <- score(jacc_sim, new_data = binary_unk)
 mean_sim
 }
-
 }

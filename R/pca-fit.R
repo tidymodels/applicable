@@ -2,7 +2,7 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_pca <- function(pcs, pca_means, pctls, threshold, num_comp, blueprint) {
+new_apd_pca <- function(pcs, pca_means, pctls, threshold, num_comp, blueprint){
   hardhat::new_model(
     pcs = pcs,
     pca_means = pca_means,
@@ -135,6 +135,8 @@ apd_pca_bridge <- function(processed, threshold, ...) {
 apd_pca <- function(x, ...) {
   UseMethod("apd_pca")
 }
+
+# Default method
 
 #' @export
 #' @rdname apd_pca

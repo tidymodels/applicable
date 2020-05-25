@@ -12,7 +12,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
-options(width = 100)
+
+prev_options <- options(width = 100)
+
 library(ggplot2)
 theme_set(theme_bw())
 ```
@@ -131,7 +133,8 @@ ames_pca
 
 Plotting the distribution function for the PCA scores is also helpful:
 
-```{r, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center', dev = 'svg', dev.args = list(bg = "transparent")}
+```{r autoplot, fig.align='center'}
+
 library(ggplot2)
 autoplot(ames_pca)
 ```
@@ -154,7 +157,7 @@ pca_score <- score(ames_pca, ames_new)
 pca_score %>% select(matches("PC00[1-3]"), contains("distance"))
 ```
 
-Notice how the samples, displayed in red, are fairly disimilar to the training
+Notice how the samples, displayed in red, are fairly dissimilar to the training
 set in the first component:
 
 ```{r, echo = FALSE}
@@ -200,16 +203,16 @@ The corresponding hat values for the training would be the diagonals of $H$. The
 
 Suppose that we had a new, unknown sample (as a $p \times 1$ data vector $u$). The hat value for this sample would be 
 
-$$h = u'(X'X)^{-1}u$$.
+$$h = u^\intercal(X^\intercal X)^{-1}u$$.
 
 The following functions in `applicable` are used to compute the hat values of your model:
 
-* `apd_hat_values`:
-* `score`:
+* `apd_hat_values`: computes the matrix $(X^\intercal X)^{-1}$.
+* `score`: calculates the hat values of new samples and their percentiles.
 
 Two caveats for using the hat values:
 
- 1. The numerical methods are less tolerant than PCA. For example, extremely correlated predictors will degrade the ability of the hat values to be effectively used. Also, since an inverse is used, there cannot be an linear dependencies within $X$. To resolve this the former example, the recipe step `recipes::step_corr()` can be used to reduce correlation. For the latter issue, `recipes::step_lincomp()` will idnetify and remove linear dependencies in the data (as shown below). 
+ 1. The numerical methods are less tolerant than PCA. For example, extremely correlated predictors will degrade the ability of the hat values to be effectively used. Also, since an inverse is used, there cannot be an linear dependencies within $X$. To resolve this the former example, the recipe step `recipes::step_corr()` can be used to reduce correlation. For the latter issue, `recipes::step_lincomp()` will identify and remove linear dependencies in the data (as shown below). 
  
  1. When using a linear or logistic model, the model adds an intercept columns of ones to $X$. For equivalent computations, you should add a vector or ones to the data or use `recipes::step_intercept()`. 
 
@@ -224,3 +227,9 @@ non_singular_recipe <-
 ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 ```
 
+
+```{r reset_options}
+
+options(prev_options)
+
+```

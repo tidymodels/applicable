@@ -32,6 +32,7 @@
 #' @importFrom Matrix Matrix colSums
 #' @importFrom tidyselect vars_select
 #' @importFrom tidyr gather
+#' @importFrom proxyC simil
 
 # ------------------------------------------------------------------------------
 # nocov
