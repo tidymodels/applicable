@@ -20,4 +20,4 @@ old <- options(width = 100)
 ...
 options(old)
 
-On the continuous-data.Rmd vignette, reset the custom width. 
+On the `continuous-data.Rmd` vignette, reset the options width to its original value.
