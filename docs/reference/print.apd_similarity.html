@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A scoring function — score • applicable</title>
+<title>Print number of predictors and principal components used. — print.apd_similarity • applicable</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,8 +41,8 @@
 
 
 
-<meta property="og:title" content="A scoring function — score" />
-<meta property="og:description" content="A scoring function" />
+<meta property="og:title" content="Print number of predictors and principal components used. — print.apd_similarity" />
+<meta property="og:description" content="Print number of predictors and principal components used." />
 <meta property="og:image" content="https://applicable.tidymodels.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -128,31 +128,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A scoring function</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidymodels/applicable/blob/master/R/score.R'><code>R/score.R</code></a></small>
-    <div class="hidden name"><code>score.Rd</code></div>
+    <h1>Print number of predictors and principal components used.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidymodels/applicable/blob/master/R/print.R'><code>R/print.R</code></a></small>
+    <div class="hidden name"><code>print.apd_similarity.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A scoring function</p>
+    <p>Print number of predictors and principal components used.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>score</span>(<span class='no'>object</span>, <span class='no'>...</span>)
-
-<span class='co'># S3 method for default</span>
-<span class='fu'>score</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for apd_similarity</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>object</th>
-      <td><p>Depending on the context:</p><ul>
-<li><p>A <strong>data frame</strong> of predictors.</p></li>
-<li><p>A <strong>matrix</strong> of predictors.</p></li>
-<li><p>A <strong>recipe</strong> specifying a set of preprocessing steps
-created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes::recipe()</a></code>.</p></li>
-</ul></td>
+      <th>x</th>
+      <td><p>A <code>apd_similarity</code> object.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -162,8 +155,18 @@ created from <code><a href='https://rdrr.io/pkg/recipes/man/recipe.html'>recipes
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble of predictions.</p>
+    <p>None</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>535</span>)
+<span class='no'>tr_x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>0</span>:<span class='fl'>1</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>20</span> * <span class='fl'>50</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>.5</span>, <span class='fl'>2</span>),
+ <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>20</span>)
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apd_similarity.html'>apd_similarity</a></span>(<span class='no'>tr_x</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; Applicability domain via similarity
+#&gt; Reference data were 20 variables collected on 50 data points.
+#&gt; New data summarized using the mean.</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
