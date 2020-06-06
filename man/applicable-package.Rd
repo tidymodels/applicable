@@ -17,6 +17,8 @@ A modeling package compiling applicability domain methods in R.
 Useful links:
 \itemize{
   \item \url{https://github.com/tidymodels/applicable}
+  \item \url{https://applicable.tidymodels.org}
+  \item Report bugs at \url{https://github.com/tidymodels/applicable/issues}
 }
 
 }
