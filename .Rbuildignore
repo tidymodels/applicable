@@ -7,3 +7,5 @@
 .github
 ^\.github/workflows/check-full\.yaml$
 ^LICENSE\.md$
+^cran-comments\.md$
+^NEWS\.md$
