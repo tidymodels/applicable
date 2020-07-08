@@ -1,3 +1,9 @@
-# applicable 0.0.1
+applicable 0.0.1.1
+==================
 
-* First CRAN version
+Minor patch release: fixed failing units tests due to recent package updates.
+
+applicable 0.0.1
+==================
+
+* First CRAN version.

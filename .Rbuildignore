@@ -7,4 +7,6 @@
 .github
 ^\.github/workflows/check-full\.yaml$
 ^LICENSE\.md$
+^cran-comments\.md$
+^NEWS\.md$
 ^CODE_OF_CONDUCT\.md$

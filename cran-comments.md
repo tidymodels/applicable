@@ -1,4 +1,3 @@
-
 ## Test environments
 * local OS X install, R 3.6.3
 * ubuntu 16.04, macOS, win-builder (on GitHub Actions), R 3.6, 3.5, 3.4, 3.3
@@ -7,17 +6,23 @@
 
 0 errors | 0 warnings | 0 note
 
-* This is a new release.
+## 0.0.1.1 Submission
 
-## 0.0.1 Submission
+This release fixes failing unit tests.
 
-### Review - 2020-05-13
+### Review - 2020-06-14
 
-> Please always make sure to reset to user's options(), working directory 
-or par() after you changed it in examples and vignettes and demos.
-e.g.: vignette
-old <- options(width = 100)
-...
-options(old)
+Fix the following unit tests:
 
-On the `continuous-data.Rmd` vignette, reset the options width to its original value.
+  >
+  ── 1. Failure: `score_apd_pca_numeric` pcs output matches `stats::predict` output
+  `actual_output` not equivalent to `expected`.
+  current is not list-like
+  > 
+  ── 2. Failure: `score` pcs output matches `stats::predict` output
+  `actual_output` not equivalent to `expected`.
+  current is not list-like
+  >
+  ── 3. Failure: `score_apd_pca_bridge` output is correct
+  `actual_output` not equivalent to `expected`.
+  current is not list-like
