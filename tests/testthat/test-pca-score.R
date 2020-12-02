@@ -86,3 +86,10 @@ test_that("`score_apd_pca_bridge` output is correct", {
     expected
   )
 })
+
+test_that("off-scale results are 100", {
+  car_pca <- apd_pca(mtcars)
+
+  big_vals <- dplyr::summarize_all(mtcars, max)
+  expect_equal(score(car_pca, big_vals)$distance_pctl, 100)
+})
