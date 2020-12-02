@@ -36,11 +36,10 @@ Suggests:
     knitr,
     rmarkdown,
     covr,
-    AmesHousing,
     spelling,
     xml2,
     modeldata
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1.9000
 VignetteBuilder: knitr
 Language: en-US
