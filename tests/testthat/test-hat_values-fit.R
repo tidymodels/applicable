@@ -130,6 +130,7 @@ test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
   bad_data <- matrix(
     rep(0, 6), nrow = 3
   )
+  colnames(bad_data) <- paste0("x", 1:2)
 
   message <- paste("Unable to compute the hat values of the matrix X of",
                    "predictors because the matrix resulting from multiplying",
