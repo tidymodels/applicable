@@ -20,3 +20,5 @@ tibble
 X'X
 intercal
 CMD
+reprex
+tidymodels

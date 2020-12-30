@@ -35,8 +35,8 @@ library(applicable)
 We will use the Ames IA housing data for our example.
 
 ```{r ames_data, message=FALSE}
-library(AmesHousing)
-ames <- make_ames()
+library(modeldata)
+data(ames)
 ```
 
 There are `r format(nrow(ames), big.mark = ",")` properties in the data.
@@ -69,7 +69,7 @@ the statistics estimated from the training set.
 library(recipes)
 library(dplyr)
 
-ames_cols <- names(ames_new)
+ames_cols <- intersect(names(ames), names(ames_new))
 
 training_data <- 
   ames %>% 
