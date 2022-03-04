@@ -48,9 +48,9 @@ The Sale Price was recorded along with `r ncol(ames)` predictors, including:
 * General assessments such as overall quality and condition.
 * Number of bedrooms, baths, and so on.
 
-More details can be found in [De Cock (2011, Journal of Statistics Education)](http://ww2.amstat.org/publications/jse/v19n3/decock.pdf).
+More details can be found in [De Cock (2011, Journal of Statistics Education)](http://jse.amstat.org/v19n3/decock.pdf).
 
-The raw data are at [`http://bit.ly/2whgsQM`](http://bit.ly/2whgsQM) but we 
+The raw data are at [`http://jse.amstat.org/v19n3/decock/AmesHousing.txt`](http://jse.amstat.org/v19n3/decock/AmesHousing.txt) but we 
 will use a processed version found in the 
 [`AmesHousing`](https://github.com/topepo/AmesHousing) package. `applicable` 
 also contains an update for these data for three new properties (although fewer 
