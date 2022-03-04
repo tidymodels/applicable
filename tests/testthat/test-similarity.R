@@ -1,5 +1,3 @@
-context("similarity tests")
-
 library(proxyC)
 library(Matrix)
 library(recipes)
@@ -116,17 +114,21 @@ test_that("matrix method - quantile similarity", {
 # ------------------------------------------------------------------------------
 
 test_that("bad args", {
-  expect_error(apd_similarity(tr_x, quantile = 2))
-  expect_error(apd_similarity(tr_x_sp))
+  expect_snapshot(error = TRUE,
+    apd_similarity(tr_x, quantile = 2)
+  )
+  expect_snapshot(error = TRUE,
+    apd_similarity(tr_x_sp)
+  )
 })
 
 # ------------------------------------------------------------------------------
 
 test_that("printed output", {
-  expect_output(print(apd_similarity(tr_x)), "Applicability domain via similarity")
-  expect_output(print(apd_similarity(tr_x)), "Reference data were")
-  expect_output(print(apd_similarity(tr_x)), "New data summarized using the mean")
-  expect_output(print(apd_similarity(tr_x, quantile = .13)), "New data summarized using the 13th percentile.")
+  expect_snapshot(print(apd_similarity(tr_x)))
+  expect_snapshot(print(apd_similarity(tr_x)))
+  expect_snapshot(print(apd_similarity(tr_x)))
+  expect_snapshot(print(apd_similarity(tr_x, quantile = .13)))
 })
 # ------------------------------------------------------------------------------
 
@@ -141,24 +143,17 @@ test_that("plot output", {
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 1]", {
-  message <- "The `quantile` argument should be NA or a single numeric value in [0, 1]."
 
-  expect_error(
-    apd_similarity(tr_x, quantile = -1),
-    message,
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    apd_similarity(tr_x, quantile = -1)
   )
 
-  expect_error(
-    apd_similarity(tr_x, quantile = 3),
-    message,
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    apd_similarity(tr_x, quantile = 3)
   )
 
-  expect_error(
-    apd_similarity(tr_x, quantile = "la"),
-    message,
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    apd_similarity(tr_x, quantile = "la")
   )
 })
 
@@ -172,12 +167,9 @@ test_that("apd_similarity outputs warning with zero variance variables ", {
     "d" = c(0, 0)
   )
   bad_data <- as.data.frame(bad_data)
-  message <- "The following variables had zero variance and were removed: a, b, and d"
 
-  expect_warning(
-    apd_similarity(bad_data),
-    message,
-    fixed = TRUE
+  expect_snapshot(
+    apd_similarity(bad_data)
   )
 })
 
@@ -190,12 +182,9 @@ test_that("apd_similarity fails when all the variables have zero variance", {
     "d" = c(0, 0)
   )
   bad_data <- as.data.frame(bad_data)
-  message <- "All variables have a single unique value."
 
-  expect_error(
-    apd_similarity(bad_data),
-    message,
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    apd_similarity(bad_data)
   )
 })
 
@@ -209,11 +198,8 @@ test_that("apd_similarity fails data is not binary", {
     "d" = c(2, 0)
   )
   bad_data <- as.data.frame(bad_data)
-  message <- "The following variables are not binary: b, and d"
 
-  expect_error(
-    apd_similarity(bad_data),
-    message,
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    apd_similarity(bad_data)
   )
 })

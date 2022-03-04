@@ -1,5 +1,3 @@
-context("pca fit tests")
-
 test_that("`new_apd_pca` arguments are assigned correctly", {
   x <- new_apd_pca(
     "pcs",
@@ -20,18 +18,14 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
 })
 
 test_that("pcs is provided", {
-  expect_error(
-    new_apd_pca(blueprint = hardhat::default_xy_blueprint()),
-    'argument "pcs" is missing, with no default',
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    new_apd_pca(blueprint = hardhat::default_xy_blueprint())
   )
 })
 
 test_that("`new_apd_pca` fails when blueprint is numeric", {
-  expect_error(
-    new_apd_pca(pcs = 1, blueprint = 1),
-    "blueprint should be a blueprint, not a numeric.",
-    fixed = TRUE
+  expect_snapshot(error = TRUE,
+    new_apd_pca(pcs = 1, blueprint = 1)
   )
 })
 
@@ -45,18 +39,18 @@ test_that("`new_apd_pca` returned blueprint is of class hardhat_blueprint", {
     blueprint = hardhat::default_xy_blueprint()
   )
 
-  expect_is(x$blueprint, "hardhat_blueprint")
+  expect_s3_class(x$blueprint, "hardhat_blueprint")
 })
 
 
 test_that("`apd_pca` fails when model is not of class apd_pca", {
   model <- apd_pca(~ Sepal.Length + Species, iris)
-  expect_is(model, "apd_pca")
+  expect_s3_class(model, "apd_pca")
 })
 
 test_that("`apd_pca` fails when model is not of class hardhat_model", {
   model <- apd_pca(~ Sepal.Length + Species, iris)
-  expect_is(model, "hardhat_model")
+  expect_s3_class(model, "hardhat_model")
 })
 
 test_that("pcs matches `prcomp` output for the data frame method", {
@@ -64,7 +58,7 @@ test_that("pcs matches `prcomp` output for the data frame method", {
   expected$x <- NULL
 
   # Data frame method
-  expect_equivalent(
+  expect_equal(ignore_attr = TRUE,
     apd_pca(mtcars)$pcs,
     expected
   )
@@ -75,7 +69,7 @@ test_that("pcs matches `prcomp` output for the formula method", {
   expected$x <- NULL
 
   # Formula method
-  expect_equivalent(
+  expect_equal(ignore_attr = TRUE,
     apd_pca(~., mtcars)$pcs,
     expected
   )
@@ -87,7 +81,7 @@ test_that("pcs matches `prcomp` output for the recipe method", {
 
   # Recipe method
   rec <- recipes::recipe(~., mtcars)
-  expect_equivalent(
+  expect_equal(ignore_attr = TRUE,
     apd_pca(rec, data = mtcars)$pcs,
     expected
   )
@@ -98,7 +92,7 @@ test_that("pcs matches `prcomp` output for the matrix method", {
   expected$x <- NULL
 
   # Matrix method
-  expect_equivalent(
+  expect_equal(ignore_attr = TRUE,
     apd_pca(as.matrix(mtcars))$pcs,
     expected
   )

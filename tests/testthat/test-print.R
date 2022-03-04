@@ -1,18 +1,14 @@
-context("testing print functions")
-
 test_that("print wording for `apd_pca` is correct", {
   x1 <- apd_pca(~Sepal.Length, iris)
 
-  expect_known_output(
-    print(x1),
-    test_path("out/print-apd_pca-one-comp.txt")
+  expect_snapshot(
+    print(x1)
   )
 
   x2 <- apd_pca(~ Sepal.Length + Sepal.Width, iris)
 
-  expect_known_output(
-    print(x2),
-    test_path("out/print-apd_pca-more-comp.txt")
+  expect_snapshot(
+    print(x2)
   )
 })
 
@@ -37,8 +33,7 @@ test_that("print for `apd_pca` displays correct threshold", {
 test_that("print for apd_hat_values work as expected", {
   x <- apd_hat_values(mtcars)
 
-  expect_known_output(
-    print(x),
-    test_path("out/print-apd_hat_values.txt")
+  expect_snapshot(
+    print(x)
   )
 })
