@@ -2,44 +2,48 @@ Package: applicable
 Title: A Compilation of Applicability Domain Methods
 Version: 0.0.1.1
 Authors@R: c(
-    person(given = "Marly", family = "Gotti", email = "marlygotti@gmail.com", role = c("aut", "cre")),
-    person(given = "Max", family = "Kuhn", email = "max@rstudio.com", role = c("aut")),
-    person("RStudio", role = "cph"))
-Description: A modeling package compiling applicability domain methods in R.
-    It combines different methods to measure the amount of extrapolation new
-    samples can have from the training set. See Netzeva et al (2005) 
-    <doi:10.1177/026119290503300209> for an overview of applicability domains. 
-URL: https://github.com/tidymodels/applicable, https://applicable.tidymodels.org
-BugReports: https://github.com/tidymodels/applicable/issues
+    person("Marly", "Gotti", , "marlygotti@gmail.com", role = c("aut", "cre")),
+    person("Max", "Kuhn", , "max@rstudio.com", role = "aut"),
+    person("RStudio", role = "cph")
+  )
+Description: A modeling package compiling applicability domain methods in
+    R.  It combines different methods to measure the amount of
+    extrapolation new samples can have from the training set. See Netzeva
+    et al (2005) <doi:10.1177/026119290503300209> for an overview of
+    applicability domains.
 License: MIT + file LICENSE
-Encoding: UTF-8
-LazyData: true
+URL: https://github.com/tidymodels/applicable,
+    https://applicable.tidymodels.org
+BugReports: https://github.com/tidymodels/applicable/issues
 Depends: 
-    R (>= 3.3),
-    ggplot2
+    ggplot2,
+    R (>= 3.3)
 Imports: 
+    dplyr,
+    glue,
     hardhat (>= 0.1.2),
+    Matrix,
+    proxyC,
+    purrr,
     rlang,
     stats,
-    glue,
     tibble,
-    proxyC,
-    Matrix,
-    dplyr,
-    utils,
-    purrr,
+    tidyr,
     tidyselect,
-    tidyr
+    utils
 Suggests: 
-    recipes (>= 0.1.7),
-    testthat (>= 2.1.0),
-    knitr,
-    rmarkdown,
     covr,
+    knitr,
+    modeldata,
+    recipes (>= 0.1.7),
+    rmarkdown,
     spelling,
-    xml2,
-    modeldata
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1.9000
-VignetteBuilder: knitr
+    testthat (>= 2.1.0),
+    xml2
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
 Language: en-US
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2

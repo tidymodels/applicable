@@ -2,7 +2,7 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_pca <- function(pcs, pca_means, pctls, threshold, num_comp, blueprint){
+new_apd_pca <- function(pcs, pca_means, pctls, threshold, num_comp, blueprint) {
   hardhat::new_model(
     pcs = pcs,
     pca_means = pca_means,
@@ -24,15 +24,15 @@ apd_pca_impl <- function(predictors, threshold) {
     center = TRUE,
     scale. = TRUE,
     retx = TRUE
-    )
+  )
 
   # TODO: verify threshold \in (0, 1]
   eigs <- pcs$sdev^2
-  cum_sum <- cumsum(eigs)/sum(eigs)
+  cum_sum <- cumsum(eigs) / sum(eigs)
   num_comp <- sum(cum_sum <= threshold) + 1
 
   # Update `pcs` count to `num_comp`
-  pcs$x <- pcs$x[, 1:num_comp, drop=FALSE]
+  pcs$x <- pcs$x[, 1:num_comp, drop = FALSE]
 
   # Find the mean of each principal component
   pca_means <- colMeans(pcs$x)
@@ -130,7 +130,6 @@ apd_pca_bridge <- function(processed, threshold, ...) {
 #' rec <- recipe(mpg ~ ., mtcars)
 #' rec <- step_log(rec, disp)
 #' mod3 <- apd_pca(rec, mtcars)
-#'
 #' @export
 apd_pca <- function(x, ...) {
   UseMethod("apd_pca")

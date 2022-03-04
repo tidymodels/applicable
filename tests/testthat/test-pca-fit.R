@@ -17,7 +17,6 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
   expect_equal(x$threshold, "threshold")
   expect_equal(x$num_comp, "num_comp")
   expect_equal(x$blueprint, hardhat::default_xy_blueprint())
-
 })
 
 test_that("pcs is provided", {
@@ -31,7 +30,7 @@ test_that("pcs is provided", {
 test_that("`new_apd_pca` fails when blueprint is numeric", {
   expect_error(
     new_apd_pca(pcs = 1, blueprint = 1),
-    'blueprint should be a blueprint, not a numeric.',
+    "blueprint should be a blueprint, not a numeric.",
     fixed = TRUE
   )
 })

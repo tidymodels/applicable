@@ -87,8 +87,8 @@ library(ggplot2)
 autoplot(jacc_sim)
 
 # Example calculations for two samples:
-A <- as.matrix(binary_tr[1,])
-B <- as.matrix(binary_tr[2,])
+A <- as.matrix(binary_tr[1, ])
+B <- as.matrix(binary_tr[2, ])
 xtab <- table(A, B)
 xtab
 
@@ -96,10 +96,10 @@ xtab
 xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
 
 # Hamman statistic
-( ( xtab[1, 1] + xtab[2, 2] ) - ( xtab[1, 2] + xtab[2, 1] ) ) / sum(xtab)
+((xtab[1, 1] + xtab[2, 2]) - (xtab[1, 2] + xtab[2, 1])) / sum(xtab)
 
 # Faith statistic
-( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
+(xtab[1, 1] + xtab[2, 2] / 2) / sum(xtab)
 
 # Summarize across all training set similarities
 mean_sim <- score(jacc_sim, new_data = binary_unk)

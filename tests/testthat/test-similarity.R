@@ -27,7 +27,7 @@ un_scores <- simil(tr_x_sp, un_x_sp, method = "jaccard")
 mean_tr <- apply(tr_scores, 1, mean)
 mean_tab <- as.data.frame(table(mean_tr), stringsAsFactors = FALSE)
 mean_tab$mean_tr <- as.numeric(mean_tab$mean_tr)
-mean_tab$cumulative <- cumsum(mean_tab$Freq)/50
+mean_tab$cumulative <- cumsum(mean_tab$Freq) / 50
 
 # ------------------------------------------------------------------------------
 
@@ -91,7 +91,7 @@ test_that("formula method - quantile similarity", {
 
 test_that("recipe method - mean similarity", {
   rec <-
-    recipe(~ ., data = as.data.frame(tr_x)) %>%
+    recipe(~., data = as.data.frame(tr_x)) %>%
     step_zv(all_predictors())
   tmp <- apd_similarity(rec, as.data.frame(tr_x))
   tmp_scores <- score(tmp, as.data.frame(un_x))
@@ -106,7 +106,7 @@ test_that("recipe method - mean similarity", {
 
 test_that("matrix method - quantile similarity", {
   rec <-
-    recipe(~ ., data = as.data.frame(tr_x)) %>%
+    recipe(~., data = as.data.frame(tr_x)) %>%
     step_zv(all_predictors())
   tmp <- apd_similarity(rec, as.data.frame(tr_x), quantile = .1)
   tmp_scores <- score(tmp, as.data.frame(un_x))
@@ -131,11 +131,11 @@ test_that("printed output", {
 # ------------------------------------------------------------------------------
 
 test_that("plot output", {
- ad <- apd_similarity(tr_x)
- ad_plot <- autoplot(ad)
- expect_equal(ad_plot$data, ad$ref_scores)
- expect_equal(ad_plot$labels$x, "mean similarity (training set)")
- expect_equal(ad_plot$labels$y, "Cumulative Probability")
+  ad <- apd_similarity(tr_x)
+  ad_plot <- autoplot(ad)
+  expect_equal(ad_plot$data, ad$ref_scores)
+  expect_equal(ad_plot$labels$x, "mean similarity (training set)")
+  expect_equal(ad_plot$labels$y, "Cumulative Probability")
 })
 
 # ------------------------------------------------------------------------------
@@ -165,12 +165,14 @@ test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity outputs warning with zero variance variables ", {
-  bad_data <- list("a" = c(0, 0),
-                   "b" = c(0, 0),
-                   "c" = c(1, 1),
-                   "d" = c(0, 0))
+  bad_data <- list(
+    "a" = c(0, 0),
+    "b" = c(0, 0),
+    "c" = c(1, 1),
+    "d" = c(0, 0)
+  )
   bad_data <- as.data.frame(bad_data)
-  message <- "The following variables had zero variance and were removed: a, b, d"
+  message <- "The following variables had zero variance and were removed: a, b, and d"
 
   expect_warning(
     apd_similarity(bad_data),
@@ -182,9 +184,11 @@ test_that("apd_similarity outputs warning with zero variance variables ", {
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity fails when all the variables have zero variance", {
-  bad_data <- list("a" = c(0, 0),
-                   "b" = c(0, 0),
-                   "d" = c(0, 0))
+  bad_data <- list(
+    "a" = c(0, 0),
+    "b" = c(0, 0),
+    "d" = c(0, 0)
+  )
   bad_data <- as.data.frame(bad_data)
   message <- "All variables have a single unique value."
 
@@ -198,12 +202,14 @@ test_that("apd_similarity fails when all the variables have zero variance", {
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity fails data is not binary", {
-  bad_data <- list("a" = c(0, 0),
-                   "b" = c(1, 3),
-                   "c" = c(1, 1),
-                   "d" = c(2, 0))
+  bad_data <- list(
+    "a" = c(0, 0),
+    "b" = c(1, 3),
+    "c" = c(1, 1),
+    "d" = c(2, 0)
+  )
   bad_data <- as.data.frame(bad_data)
-  message <- "The following variables are not binary: b, d"
+  message <- "The following variables are not binary: b, and d"
 
   expect_error(
     apd_similarity(bad_data),

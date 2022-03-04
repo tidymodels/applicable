@@ -60,5 +60,4 @@ library(recipes)
 rec <- recipe(mpg ~ ., mtcars)
 rec <- step_log(rec, disp)
 mod3 <- apd_hat_values(rec, mtcars)
-
 }

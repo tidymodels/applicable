@@ -34,7 +34,7 @@ computes the multivariate distance between each principal component and its
 mean.
 }
 \examples{
-train <- mtcars[1:20,]
+train <- mtcars[1:20, ]
 test <- mtcars[21:32, -1]
 
 # Fit
@@ -42,5 +42,4 @@ mod <- apd_pca(mpg ~ cyl + log(drat), train)
 
 # Predict, with preprocessing
 score(mod, test)
-
 }

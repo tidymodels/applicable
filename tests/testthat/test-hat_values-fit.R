@@ -11,7 +11,6 @@ test_that("`new_apd_hat_values` arguments are assigned correctly", {
   expect_equal(x$XtX_inv, "XtX_inv")
   expect_equal(x$pctls, "pctls")
   expect_equal(x$blueprint, hardhat::default_xy_blueprint())
-
 })
 
 test_that("XtX_inv is provided", {
@@ -25,7 +24,7 @@ test_that("XtX_inv is provided", {
 test_that("`new_apd_hat_values` fails when blueprint is numeric", {
   expect_error(
     new_apd_hat_values(XtX_inv = 1, blueprint = 1),
-    'blueprint should be a blueprint, not a numeric.',
+    "blueprint should be a blueprint, not a numeric.",
     fixed = TRUE
   )
 })
@@ -75,7 +74,7 @@ test_that("`apd_hat_values` is defined for formula objects", {
 })
 
 test_that("`apd_hat_values` is defined for recipe objects", {
-  rec <- recipes::recipe(~Sepal.Width + Sepal.Length, iris)
+  rec <- recipes::recipe(~ Sepal.Width + Sepal.Length, iris)
   x <- apd_hat_values(rec, data = iris)
   X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
   XpX <- t(X) %*% X
@@ -115,9 +114,8 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
   bad_data <- mtcars %>%
     slice(1:5)
 
-  message <- paste("The number of columns must be less than",
-                   "the number of rows.",
-                   sep = "\n")
+  message <- "The number of columns must be less than the number of rows."
+
 
   expect_error(
     apd_hat_values(bad_data),
@@ -128,13 +126,17 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
 
 test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
   bad_data <- matrix(
-    rep(0, 6), nrow = 3
+    rep(0, 6),
+    nrow = 3
   )
+  colnames(bad_data) <- c("A", "B")
 
-  message <- paste("Unable to compute the hat values of the matrix X of",
-                   "predictors because the matrix resulting from multiplying",
-                   "the transpose of X by X is singular.",
-                   sep = "\n")
+  message <- paste(
+    "Unable to compute the hat values of the matrix X of",
+    "predictors because the matrix resulting from multiplying",
+    "the transpose of X by X is singular.",
+    sep = "\n"
+  )
 
   expect_error(
     apd_hat_values(bad_data),

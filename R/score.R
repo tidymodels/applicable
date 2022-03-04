@@ -18,7 +18,7 @@
 #' A tibble of predictions.
 #'
 #' @export
-score <- function (object, ...) {
+score <- function(object, ...) {
   UseMethod("score")
 }
 
