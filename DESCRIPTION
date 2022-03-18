@@ -33,6 +33,7 @@ Imports:
     utils
 Suggests: 
     covr,
+    isotree,
     knitr,
     modeldata,
     recipes (>= 0.1.7),
