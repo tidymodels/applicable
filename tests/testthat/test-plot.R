@@ -32,6 +32,6 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "abs(value)")
+  expect_equal(ad_plot$labels$x, "distance to center")
   expect_equal(ad_plot$labels$y, "percentile")
 })
