@@ -3,7 +3,6 @@
 # -----------------------------------------------------------------------------
 
 new_apd_isolation <- function(model, pctls, blueprint) {
-  # TODO add checks here
   hardhat::new_model(
     model = model,
     pctls = pctls,
@@ -17,10 +16,8 @@ new_apd_isolation <- function(model, pctls, blueprint) {
 # -----------------------------------------------------------------------------
 
 apd_isolation_impl <- function(predictors, options) {
-  if (!rlang::is_installed("isotree")) {
-    rlang::abort("The 'isotree' package is required for apd_isolation().")
-  }
-  cl <- rlang::call2("isolation.forest", .ns = "isotree", df = quote(predictors))
+  check_isotree()
+  cl <- rlang::call2("isolation.forest", .ns = "isotree", data = quote(predictors))
   cl <- rlang::call_modify(cl, !!!options)
   model_fit <- rlang::eval_tidy(cl)
 
@@ -67,7 +64,8 @@ apd_isolation_bridge <- function(processed, ...) {
 #' @param x Depending on the context:
 #'
 #'   * A __data frame__ of predictors.
-#'   * A __matrix__ of predictors.
+#'   * A __matrix__ of predictors (see the `categ_cols` argument of
+#'     [isotree::isolation.forest()]).
 #'   * A __recipe__ specifying a set of preprocessing steps
 #'     created from [recipes::recipe()].
 #'
@@ -79,28 +77,43 @@ apd_isolation_bridge <- function(processed, ...) {
 #' side. No outcome should be specified.
 #'
 #' @param ... Options to pass to [isotree::isolation.forest()]. Options should
-#' not include `df`.
+#' not include `data`.
 #'
-#' @details background on isolation forests
+#' @details
+#' In an isolation forest, splits are designed to isolate individual data points.
+#' The tree construction process takes random split locations on randomly
+#' selected predictors. As splits are made in the tree, the algorithm tracks
+#' when data points are isolated as more splits are made. The first points that
+#' are isolated are thought to be outliers or anomalous From these results, an
+#' anomaly score can be constructed.
+#'
+#' This function creates an isolation forest on the training set and measures
+#' the reference distribution of the scores when re-predicting the training set.
+#' When scoring new data, the raw anomaly score is produced along with the
+#' sample's corresponding percentile of the reference distribution.
+#' @references
+#' Liu, Fei Tony, Kai Ming Ting, and Zhi-Hua Zhou. "Isolation forest."
+#' 2008 _Eighth IEEE International Conference on Data Mining. IEEE_, 2008.
+#' Liu, Fei Tony, Kai Ming Ting, and Zhi-Hua Zhou. "Isolation-based anomaly
+#' detection." _ACM Transactions on Knowledge Discovery from Data (TKDD)_ 6.1
+#' (2012): 3.
 #'
 #' @return
 #'
 #' A `apd_isolation` object.
 #'
 #' @examples
-#' predictors <- mtcars[, -1]
+#' if (rlang::is_installed(c("isotree", "modeldata"))) {
+#'   library(dplyr)
 #'
-#' # Data frame interface
-#' mod <- apd_isolation(predictors)
+#'   data(cells, package = "modeldata")
 #'
-#' # Formula interface
-#' mod2 <- apd_isolation(mpg ~ ., mtcars)
+#'   cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
+#'   cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
 #'
-#' # Recipes interface
-#' library(recipes)
-#' rec <- recipe(mpg ~ ., mtcars)
-#' rec <- step_log(rec, disp)
-#' mod3 <- apd_isolation(rec, mtcars)
+#'   if_mod <- apd_isolation(cells_tr)
+#'   if_mod
+#' }
 #' @export
 apd_isolation <- function(x, ...) {
   UseMethod("apd_isolation")
@@ -154,4 +167,20 @@ apd_isolation.formula <- function(formula, data, ...) {
 apd_isolation.recipe <- function(x, data, ...) {
   processed <- hardhat::mold(x, data)
   apd_isolation_bridge(processed, ...)
+}
+
+#' @export
+print.apd_isolation <- function(x, ...) {
+  check_isotree()
+  cat("Applicability domain via isolation forests\n\n")
+  print(x$model)
+  invisible(x)
+}
+
+check_isotree <- function() {
+  if (!rlang::is_installed("isotree")) {
+    rlang::abort("The 'isotree' package is required for apd_isolation().")
+  }
+  loadNamespace("isotree")
+  invisible(NULL)
 }

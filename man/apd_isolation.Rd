@@ -25,13 +25,14 @@ apd_isolation(x, ...)
 \item{x}{Depending on the context:
 \itemize{
 \item A \strong{data frame} of predictors.
-\item A \strong{matrix} of predictors.
+\item A \strong{matrix} of predictors (see the \code{categ_cols} argument of
+\code{\link[isotree:isolation.forest]{isotree::isolation.forest()}}).
 \item A \strong{recipe} specifying a set of preprocessing steps
 created from \code{\link[recipes:recipe]{recipes::recipe()}}.
 }}
 
 \item{...}{Options to pass to \code{\link[isotree:isolation.forest]{isotree::isolation.forest()}}. Options should
-not include \code{df}.}
+not include \code{data}.}
 
 \item{formula}{A formula specifying the predictor terms on the right-hand
 side. No outcome should be specified.}
@@ -48,20 +49,35 @@ A \code{apd_isolation} object.
 \code{apd_isolation()} fits an isolation forest model.
 }
 \details{
-background on isolation forests
+In an isolation forest, splits are designed to isolate individual data points.
+The tree construction process takes random split locations on randomly
+selected predictors. As splits are made in the tree, the algorithm tracks
+when data points are isolated as more splits are made. The first points that
+are isolated are thought to be outliers or anamolous. From these results, an
+anomaly score can be constructed.
+
+This function creates an isolation forest on the training set and measures
+the reference distribution of the scores when re-predicting the training set.
+When scoring new data, the raw anomaly score is produced along with the
+sample's corresponding percentile of the reference distribution.
 }
 \examples{
-predictors <- mtcars[, -1]
+if (rlang::is_installed(c("isotree", "modeldata"))) {
+  library(dplyr)
 
-# Data frame interface
-mod <- apd_isolation(predictors)
+  data(cells, package = "modeldata")
 
-# Formula interface
-mod2 <- apd_isolation(mpg ~ ., mtcars)
+  cells_tr <- cells \%>\% filter(case == "Train") \%>\% select(-case, -class)
+  cells_te <- cells \%>\% filter(case != "Train") \%>\% select(-case, -class)
 
-# Recipes interface
-library(recipes)
-rec <- recipe(mpg ~ ., mtcars)
-rec <- step_log(rec, disp)
-mod3 <- apd_isolation(rec, mtcars)
+  if_mod <- apd_isolation(cells_tr)
+  if_mod
+}
+}
+\references{
+Liu, Fei Tony, Kai Ming Ting, and Zhi-Hua Zhou. "Isolation forest."
+2008 \emph{Eighth IEEE International Conference on Data Mining. IEEE}, 2008.
+Liu, Fei Tony, Kai Ming Ting, and Zhi-Hua Zhou. "Isolation-based anomaly
+detection." \emph{ACM Transactions on Knowledge Discovery from Data (TKDD)} 6.1
+(2012): 3.
 }

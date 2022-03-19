@@ -3,9 +3,9 @@
 # -----------------------------------------------------------------------------
 
 score_apd_isolation <- function(model, predictors) {
-
+  check_isotree()
   predicted_output <- stats::predict(model$model, predictors)
-  predicted_output <- tibble::tibble(score = predicted_output)
+  predicted_output <- tibble::tibble(score = unname(predicted_output))
 
   # Compute percentile of new isotree scores
   new_pctls <- get_new_percentile(
@@ -52,17 +52,25 @@ score_apd_isolation_bridge <- function(type, model, predictors) {
 #' @return
 #'
 #' A tibble of predictions. The number of rows in the tibble is guaranteed
-#' to be the same as the number of rows in `new_data`.
+#' to be the same as the number of rows in `new_data`. The `score` column is the
+#' raw prediction from [isotree::predict.isolation_forest()] while `score_pctl`
+#' compares this value to the reference distribution of the score created by
+#' predicting the training set. A value of _X_ means that _X_ percent of the
+#' training data have scores less than the predicted value.
 #'
+#' @seealso [apd_isolation()]
 #' @examples
-#' train <- mtcars[1:20, ]
-#' test <- mtcars[21:32, -1]
+#' if (rlang::is_installed(c("isotree", "modeldata"))) {
+#'   library(dplyr)
 #'
-#' # Fit
-#' mod <- apd_isolation(mpg ~ cyl + log(drat), train)
+#'   data(cells, package = "modeldata")
 #'
-#' # Predict, with preprocessing
-#' score(mod, test)
+#'   cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
+#'   cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
+#'
+#'   if_mod <- apd_isolation(cells_tr)
+#'   score(if_mod, cells_te)
+#' }
 #' @export
 score.apd_isolation <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)

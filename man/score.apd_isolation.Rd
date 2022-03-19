@@ -21,7 +21,11 @@ Valid options are:
 }
 \value{
 A tibble of predictions. The number of rows in the tibble is guaranteed
-to be the same as the number of rows in \code{new_data}.
+to be the same as the number of rows in \code{new_data}. The \code{score} column is the
+raw prediction from \code{\link[isotree:predict.isolation_forest]{isotree::predict.isolation_forest()}} while \code{score_pctl}
+compares this value to the reference distribution of the score created by
+predicting the training set. A value of \emph{X} means that \emph{X} percent of the
+training data have scores less than the predicted value.
 }
 \description{
 Predict from a \code{apd_isolation}
@@ -30,12 +34,18 @@ Predict from a \code{apd_isolation}
 About the score
 }
 \examples{
-train <- mtcars[1:20, ]
-test <- mtcars[21:32, -1]
+if (rlang::is_installed(c("isotree", "modeldata"))) {
+  library(dplyr)
 
-# Fit
-mod <- apd_isolation(mpg ~ cyl + log(drat), train)
+  data(cells, package = "modeldata")
 
-# Predict, with preprocessing
-score(mod, test)
+  cells_tr <- cells \%>\% filter(case == "Train") \%>\% select(-case, -class)
+  cells_te <- cells \%>\% filter(case != "Train") \%>\% select(-case, -class)
+
+  if_mod <- apd_isolation(cells_tr)
+  score(if_mod, cells_te)
+}
+}
+\seealso{
+\code{\link[=apd_isolation]{apd_isolation()}}
 }
