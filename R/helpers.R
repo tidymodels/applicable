@@ -14,7 +14,7 @@ find_distance_to_pca_means <- function(pcs, pca_means) {
 # Find percentile
 get_ref_percentile <- function(x) {
   res <- stats::ecdf(x)
-  grid = seq(0, 1, length = 101)
+  grid <- seq(0, 1, length = 101)
   res <- stats::quantile(res, grid)
   unname(res)
 }
@@ -34,11 +34,13 @@ get_inv <- function(X) {
 
   if (inherits(XpX_inv, "try-error")) {
     message <- as.character(XpX_inv)
-    if(message == "Error in qr.solve(XpX) : singular matrix 'a' in solve\n"){
-      message <- paste("Unable to compute the hat values of the matrix X of",
-                       "predictors because the matrix resulting from multiplying",
-                       "the transpose of X by X is singular.",
-                       sep = "\n")
+    if (message == "Error in qr.solve(XpX) : singular matrix 'a' in solve\n") {
+      message <- paste(
+        "Unable to compute the hat values of the matrix X of",
+        "predictors because the matrix resulting from multiplying",
+        "the transpose of X by X is singular.",
+        sep = "\n"
+      )
     }
 
     rlang::abort(message = message)

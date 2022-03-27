@@ -3,12 +3,13 @@
 # -----------------------------------------------------------------------------
 
 score_apd_pca_numeric <- function(model, predictors) {
-  if (!("pcs" %in% names(model)))
+  if (!("pcs" %in% names(model))) {
     rlang::abort("The model must contain a pcs argument.")
+  }
 
   # Predict output and subset using `num_comp`
   predicted_output <- stats::predict(model$pcs, predictors)
-  predicted_output <- predicted_output[, 1:model$num_comp, drop=FALSE]
+  predicted_output <- predicted_output[, 1:model$num_comp, drop = FALSE]
 
   # Compute distances between new pca values and the pca means
   dists <- find_distance_to_pca_means(predicted_output, model$pca_means)
@@ -25,7 +26,7 @@ score_apd_pca_numeric <- function(model, predictors) {
     predicted_output %>% mutate_all(abs),
     get_new_percentile,
     grid = model$pctls$percentile
-    ) %>%
+  ) %>%
     dplyr::rename_all(paste0, "_pctl")
 
   tibble::as_tibble(
@@ -80,7 +81,7 @@ score_apd_pca_bridge <- function(type, model, predictors) {
 #' to be the same as the number of rows in `new_data`.
 #'
 #' @examples
-#' train <- mtcars[1:20,]
+#' train <- mtcars[1:20, ]
 #' test <- mtcars[21:32, -1]
 #'
 #' # Fit
@@ -88,7 +89,6 @@ score_apd_pca_bridge <- function(type, model, predictors) {
 #'
 #' # Predict, with preprocessing
 #' score(mod, test)
-#'
 #' @export
 score.apd_pca <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)
@@ -101,8 +101,7 @@ score.apd_pca <- function(object, new_data, type = "numeric", ...) {
 # -----------------------------------------------------------------------------
 
 get_pca_score_function <- function(type) {
-  switch(
-    type,
+  switch(type,
     numeric = score_apd_pca_numeric
   )
 }

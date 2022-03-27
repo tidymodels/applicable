@@ -21,7 +21,6 @@
 #' # Using selectors in `...`
 #' autoplot(biomass_ad, distance) + scale_x_log10()
 #' autoplot(biomass_ad, matches("PC[1-2]"))
-#'
 #' @export autoplot.apd_pca
 #' @export
 autoplot.apd_pca <- function(object, ...) {
@@ -38,7 +37,7 @@ autoplot.apd_pca <- function(object, ...) {
     tidyr::gather(component, value, -percentile) %>%
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv") +
-    ggplot2::facet_wrap(~ component) +
+    ggplot2::facet_wrap(~component) +
     xlab("abs(value)")
 }
 
@@ -55,10 +54,11 @@ autoplot.apd_pca <- function(object, ...) {
 #'
 #' @examples
 #' set.seed(535)
-#' tr_x <- matrix(sample(0:1, size = 20 * 50, prob = rep(.5, 2),
-#'  replace = TRUE), ncol = 20)
+#' tr_x <- matrix(
+#'   sample(0:1, size = 20 * 50, prob = rep(.5, 2), replace = TRUE),
+#'   ncol = 20
+#' )
 #' model <- apd_similarity(tr_x)
-#'
 #' @export autoplot.apd_similarity
 #' @export
 autoplot.apd_similarity <- function(object, ...) {

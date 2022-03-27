@@ -16,7 +16,6 @@ new_apd_hat_values <- function(XtX_inv, pctls, blueprint) {
 # -----------------------------------------------------------------------------
 
 apd_hat_values_impl <- function(predictors) {
-
   X <- as.matrix(predictors)
   dimnames(X) <- NULL
 
@@ -46,11 +45,8 @@ apd_hat_values_impl <- function(predictors) {
 apd_hat_values_bridge <- function(processed, ...) {
   predictors <- processed$predictors
 
-  if(ncol(predictors) >= nrow(predictors)){
-    message <- paste("The number of columns must be less than",
-                     "the number of rows.",
-                     sep = "\n")
-    stop(message, call. = FALSE)
+  if (ncol(predictors) >= nrow(predictors)) {
+    rlang::abort("The number of columns must be less than the number of rows.")
   }
 
   fit <- apd_hat_values_impl(predictors)
@@ -104,7 +100,6 @@ apd_hat_values_bridge <- function(processed, ...) {
 #' rec <- recipe(mpg ~ ., mtcars)
 #' rec <- step_log(rec, disp)
 #' mod3 <- apd_hat_values(rec, mtcars)
-#'
 #' @export
 apd_hat_values <- function(x, ...) {
   UseMethod("apd_hat_values")

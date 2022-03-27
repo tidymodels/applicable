@@ -1,7 +1,6 @@
 # -----------------------------------------------------------------------------
 
 new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprint) {
-
   hardhat::new_model(
     quantile = quantile,
     ref_data = ref_data,
@@ -17,24 +16,23 @@ new_apd_similarity <- function(quantile, ref_data, options, ref_scores, blueprin
 # -----------------------------------------------------------------------------
 
 apd_similarity_impl <- function(predictors, quantile, options) {
-
   if (!any("method" == names(options))) {
     options$method <- "jaccard"
   }
 
-  res <- list(quantile = quantile, ref_data  = predictors, options = options)
+  res <- list(quantile = quantile, ref_data = predictors, options = options)
 
   p <- nrow(predictors)
   keep_n <- min(p, 5000)
   sampling <- sample.int(p, keep_n)
   ref_scores <-
     tibble::tibble(
-      sim = score_apd_similarity_numeric(res, predictors[sampling,,drop = FALSE], options)
+      sim = score_apd_similarity_numeric(res, predictors[sampling, , drop = FALSE], options)
     ) %>%
     dplyr::group_by(sim) %>%
     dplyr::count() %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(cumulative = cumsum(n)/sum(n))
+    dplyr::mutate(cumulative = cumsum(n) / sum(n))
   res$ref_scores <- ref_scores
   res
 }
@@ -48,10 +46,10 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 
   msg <- "The `quantile` argument should be NA or a single numeric value in [0, 1]."
   if (!is.na(quantile) && (!is.numeric(quantile) || length(quantile) != 1)) {
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
   if (!is.na(quantile) && (quantile < 0 | quantile > 1)) {
-    stop(msg, call. = FALSE)
+    rlang::abort(msg)
   }
 
   predictors <- processed$predictors
@@ -62,9 +60,12 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   not_bin <- apply(predictors, 2, function(x) any(x != 1 & x != 0))
   if (any(not_bin)) {
     bad_x <- colnames(predictors)[not_bin]
-    stop("The following variables are not binary: ",
-         paste0(bad_x, collapse = ", "),
-         call. = FALSE)
+    bad_x <- glue::glue_collapse(bad_x, sep = ", ", last = ", and ")
+    rlang::abort(
+      glue(
+        "The following variables are not binary: {bad_x}"
+      )
+    )
   }
 
   if (!inherits(predictors, "dgCMatrix")) {
@@ -75,13 +76,16 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 
   zv <- Matrix::colSums(predictors)
   if (all(zv == 0)) {
-    stop("All variables have a single unique value.", call. = FALSE)
+    rlang::abort("All variables have a single unique value.")
   } else {
     if (any(zv == 0)) {
       bad_x <- colnames(predictors)[zv == 0]
-      warning("The following variables had zero variance and were removed: ",
-              paste0(bad_x, collapse = ", "),
-              call. = FALSE)
+      bad_x <- glue::glue_collapse(bad_x, sep = ", ", last = ", and ")
+      rlang::warn(
+        glue(
+          "The following variables had zero variance and were removed: {bad_x}"
+        )
+      )
       predictors <- predictors[, zv > 0, drop = FALSE]
     }
   }
@@ -167,8 +171,8 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' autoplot(jacc_sim)
 #'
 #' # Example calculations for two samples:
-#' A <- as.matrix(binary_tr[1,])
-#' B <- as.matrix(binary_tr[2,])
+#' A <- as.matrix(binary_tr[1, ])
+#' B <- as.matrix(binary_tr[2, ])
 #' xtab <- table(A, B)
 #' xtab
 #'
@@ -176,15 +180,15 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 #' xtab[2, 2] / (xtab[1, 2] + xtab[2, 1] + xtab[2, 2])
 #'
 #' # Hamman statistic
-#' ( ( xtab[1, 1] + xtab[2, 2] ) - ( xtab[1, 2] + xtab[2, 1] ) ) / sum(xtab)
+#' ((xtab[1, 1] + xtab[2, 2]) - (xtab[1, 2] + xtab[2, 1])) / sum(xtab)
 #'
 #' # Faith statistic
-#' ( xtab[1, 1] + xtab[2, 2]/2 ) / sum(xtab)
+#' (xtab[1, 1] + xtab[2, 2] / 2) / sum(xtab)
 #'
 #' # Summarize across all training set similarities
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#'}
+#' }
 #' @export
 apd_similarity <- function(x, ...) {
   UseMethod("apd_similarity")
@@ -278,7 +282,6 @@ score_apd_similarity_numeric <- function(model, predictors, options) {
 # -----------------------------------------------------------------------------
 
 score_apd_similarity_bridge <- function(type, model, predictors) {
-
   score_function <- get_sim_score_function(type)
 
   predictions <- score_function(model, predictors, options)
@@ -290,8 +293,7 @@ score_apd_similarity_bridge <- function(type, model, predictors) {
 }
 
 get_sim_score_function <- function(type) {
-  switch(
-    type,
+  switch(type,
     numeric = score_apd_similarity_numeric
   )
 }
@@ -335,7 +337,7 @@ get_sim_score_function <- function(type) {
 #'
 #' mean_sim <- score(jacc_sim, new_data = binary_unk)
 #' mean_sim
-#'}
+#' }
 #' @export
 score.apd_similarity <- function(object, new_data, type = "numeric", add_percentile = TRUE, ...) {
   forged <- hardhat::forge(new_data, object$blueprint)

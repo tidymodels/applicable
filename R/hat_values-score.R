@@ -3,8 +3,9 @@
 # -----------------------------------------------------------------------------
 
 score_apd_hat_values_numeric <- function(model, predictors) {
-  if(!("XtX_inv" %in% names(model)))
+  if (!("XtX_inv" %in% names(model))) {
     rlang::abort("The model must contain an XtX_inv argument.")
+  }
 
   proj_matrix <- predictors %*% model$XtX_inv %*% t(predictors)
   hat_values <- diag(proj_matrix)
@@ -39,8 +40,7 @@ score_apd_hat_values_bridge <- function(type, model, predictors) {
 }
 
 get_hat_values_score_function <- function(type) {
-  switch(
-    type,
+  switch(type,
     numeric = score_apd_hat_values_numeric
   )
 }
@@ -73,14 +73,13 @@ get_hat_values_score_function <- function(type) {
 #' samples had smaller values than the sample being scored.
 #'
 #' @examples
-#' train_data <- mtcars[1:20,]
-#' test_data <- mtcars[21:32,]
+#' train_data <- mtcars[1:20, ]
+#' test_data <- mtcars[21:32, ]
 #'
 #' hat_values_model <- apd_hat_values(train_data)
 #'
 #' hat_values_scoring <- score(hat_values_model, new_data = test_data)
 #' hat_values_scoring
-#'
 #' @export
 score.apd_hat_values <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)

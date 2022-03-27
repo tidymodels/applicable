@@ -1,6 +1,0 @@
-# Predictors:
-   1
-# Principal Components:
-   1 component was needed
-   to capture at least 95% of the
-   total variation in the predictors.
