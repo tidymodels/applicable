@@ -30,7 +30,7 @@ print.apd_pca <- function(x, ...) {
       total variation in the predictors."
   )
 
-  cat(print_output, "\n")
+  cat(print_output)
 
   invisible(x)
 }
@@ -55,7 +55,7 @@ print.apd_hat_values <- function(x, ...) {
     "# Predictors:
         {predictors_count}"
   )
-  cat(print_output, "\n")
+  cat(print_output)
 
   invisible(x)
 }
