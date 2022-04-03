@@ -10,3 +10,5 @@
 ^cran-comments\.md$
 ^NEWS\.md$
 ^CODE_OF_CONDUCT\.md$
+^\.github$
+^codecov\.yml$

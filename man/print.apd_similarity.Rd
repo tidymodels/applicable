@@ -20,9 +20,10 @@ Print number of predictors and principal components used.
 \examples{
 
 set.seed(535)
-tr_x <- matrix(sample(0:1, size = 20 * 50, prob = rep(.5, 2),
- replace = TRUE), ncol = 20)
+tr_x <- matrix(
+  sample(0:1, size = 20 * 50, prob = rep(.5, 2), replace = TRUE),
+  ncol = 20
+ )
 model <- apd_similarity(tr_x)
 print(model)
-
 }

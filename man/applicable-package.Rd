@@ -8,10 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-A modeling package compiling applicability domain methods in R.
-    It combines different methods to measure the amount of extrapolation new
-    samples can have from the training set. See Netzeva et al (2005) 
-    <doi:10.1177/026119290503300209> for an overview of applicability domains.
+A modeling package compiling applicability domain methods in R. It combines different methods to measure the amount of extrapolation new samples can have from the training set. See Netzeva et al (2005) <doi:10.1177/026119290503300209> for an overview of applicability domains.
 }
 \seealso{
 Useful links:
