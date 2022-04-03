@@ -69,14 +69,10 @@ the statistics estimated from the training set.
 library(recipes)
 library(dplyr)
 
-<<<<<<< HEAD
 # Load custom houses from applicable.
 data(ames_new, package = "applicable")
 
-ames_cols <- names(ames_new)
-=======
 ames_cols <- intersect(names(ames), names(ames_new))
->>>>>>> main
 
 training_data <- 
   ames %>% 
