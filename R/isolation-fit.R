@@ -84,7 +84,7 @@ apd_isolation_bridge <- function(processed, ...) {
 #' The tree construction process takes random split locations on randomly
 #' selected predictors. As splits are made in the tree, the algorithm tracks
 #' when data points are isolated as more splits are made. The first points that
-#' are isolated are thought to be outliers or anomalous From these results, an
+#' are isolated are thought to be outliers or anomalous. From these results, an
 #' anomaly score can be constructed.
 #'
 #' This function creates an isolation forest on the training set and measures
