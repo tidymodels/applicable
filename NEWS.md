@@ -1,4 +1,4 @@
-applicable (development version)
+applicable 0.0.2
 ==================
 
 Added isolation forest methods via the isotree package in the function `apd_isolation()`.
