@@ -1,4 +1,5 @@
 ACM
+AOA
 Ames
 CMD
 CRC
@@ -14,6 +15,7 @@ Lifecycle
 Liu
 Netzeva
 OkCupid
+Pebesma
 QSAR
 Springer
 TKDD
@@ -32,4 +34,4 @@ pre
 reprex
 tibble
 tidymodels
-Codecov
+vip

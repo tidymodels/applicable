@@ -95,3 +95,42 @@ print.apd_similarity <- function(x, ...) {
   }
   invisible(x)
 }
+
+#' Print number of predictors and area-of-applicability threshold
+#'
+#' @param x A `apd_aoa` object.
+#'
+#' @param digits The number of digits to print, used when rounding the AOA threshold.
+#'
+#' @inheritParams rlang::args_dots_empty
+#'
+#'
+#' @examplesIf rlang::is_installed("vip")
+#' library(vip)
+#' trn <- gen_friedman(500, seed = 101)  # ?vip::gen_friedman
+#' pp <- ppr(y ~ ., data = trn, nterms = 11)
+#' importance <- vi_permute(
+#'   pp,
+#'   target = "y",
+#'   metric = "rsquared",
+#'   pred_wrapper = predict
+#' )
+#'
+#' apd_aoa(trn[2:11], importance = importance)
+#'
+#' @export
+print.apd_aoa <- function(x, digits = getOption("digits"), ...) {
+  predictors_count <- ncol(x$blueprint$ptypes$predictors)
+  aoa_threshold <- round(x$aoa_threshold, digits)
+
+  print_output <- glue::glue(
+    "# Predictors:
+      {predictors_count}
+   Area-of-applicability threshold:
+      {aoa_threshold}"
+  )
+
+  cat(print_output)
+
+  invisible(x)
+}
