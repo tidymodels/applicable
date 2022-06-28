@@ -82,7 +82,7 @@ calculate_dk <- function(training, validation) {
         }
         if (row_n != nrow_training) {
           i <- row_n
-          j <- seq.int(row_n, nrow_training, 1)
+          j <- seq.int(row_n + 1, nrow_training, 1)
           higher_distances <- distances[nrow_training*(i-1) - i*(i-1)/2 + j-i]
         }
         min(c(lower_distances, higher_distances))
