@@ -98,7 +98,7 @@ print.apd_similarity <- function(x, ...) {
 
 #' Print number of predictors and area-of-applicability threshold
 #'
-#' @param x A `apd_aoa` object.
+#' @param x A `apd_di` object.
 #'
 #' @param digits The number of digits to print, used when rounding the AOA threshold.
 #'
@@ -116,10 +116,10 @@ print.apd_similarity <- function(x, ...) {
 #'   pred_wrapper = predict
 #' )
 #'
-#' apd_aoa(trn[2:11], importance = importance)
+#' apd_di(trn[2:11], importance = importance)
 #'
 #' @export
-print.apd_aoa <- function(x, digits = getOption("digits"), ...) {
+print.apd_di <- function(x, digits = getOption("digits"), ...) {
   predictors_count <- ncol(x$blueprint$ptypes$predictors)
   aoa_threshold <- round(x$aoa_threshold, digits)
 

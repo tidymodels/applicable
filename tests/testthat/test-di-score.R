@@ -1,6 +1,6 @@
-test_that("`score_apd_aoa_numeric` fails when model has no pcs argument", {
+test_that("`score_apd_di_numeric` fails when model has no pcs argument", {
   expect_snapshot(error = TRUE,
-                  score_apd_aoa_numeric(mtcars, mtcars)
+                  score_apd_di_numeric(mtcars, mtcars)
   )
 })
 
@@ -16,7 +16,7 @@ importance <- vip::vi_permute(
   metric = "rsquared",
   pred_wrapper = predict
 )
-aoa <- apd_aoa(y ~ ., train, test, importance)
+aoa <- apd_di(y ~ ., train, test, importance)
 
 test_that("normal use", {
 

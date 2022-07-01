@@ -2,7 +2,7 @@
 # ---------------------- Model Constructor ------------------------------------
 # -----------------------------------------------------------------------------
 
-new_apd_aoa <- function(training, importance, sds, means, d_bar, aoa_threshold, blueprint) {
+new_apd_di <- function(training, importance, sds, means, d_bar, aoa_threshold, blueprint) {
   hardhat::new_model(
     training = training,
     importance = importance,
@@ -11,7 +11,7 @@ new_apd_aoa <- function(training, importance, sds, means, d_bar, aoa_threshold, 
     d_bar = d_bar,
     aoa_threshold = aoa_threshold,
     blueprint = blueprint,
-    class = "apd_aoa"
+    class = "apd_di"
   )
 }
 
@@ -19,7 +19,7 @@ new_apd_aoa <- function(training, importance, sds, means, d_bar, aoa_threshold, 
 # ---------------------- Model function implementation ------------------------
 # -----------------------------------------------------------------------------
 
-apd_aoa_impl <- function(training, validation, importance, ...) {
+apd_di_impl <- function(training, validation, importance, ...) {
 
   # 2.1 Standardization of predictor variables
   sds <- purrr::map_dbl(training, stats::sd)
@@ -106,7 +106,7 @@ calculate_dk <- function(training, validation) {
 # ------------------------ Model function bridge ------------------------------
 # -----------------------------------------------------------------------------
 
-apd_aoa_bridge <- function(training, validation, importance, ...) {
+apd_di_bridge <- function(training, validation, importance, ...) {
   blueprint <- training$blueprint
   training <- training$predictors
   all_numeric <- purrr::map_lgl(training, is.numeric)
@@ -134,9 +134,9 @@ apd_aoa_bridge <- function(training, validation, importance, ...) {
     )
   }
 
-  fit <- apd_aoa_impl(training, validation, importance, ...)
+  fit <- apd_di_impl(training, validation, importance, ...)
 
-  new_apd_aoa(
+  new_apd_di(
     training = fit$training,
     importance = fit$importance,
     sds = fit$sds,
@@ -151,9 +151,9 @@ apd_aoa_bridge <- function(training, validation, importance, ...) {
 # ----------------------- Model function interface ----------------------------
 # -----------------------------------------------------------------------------
 
-#' Fit a `apd_aoa`
+#' Fit a `apd_di`
 #'
-#' `apd_aoa()` fits a model.
+#' `apd_di()` fits a model.
 #'
 #' @param x,y Depending on the context:
 #'
@@ -192,7 +192,7 @@ apd_aoa_bridge <- function(training, validation, importance, ...) {
 #'
 #' @return
 #'
-#' A `apd_aoa` object.
+#' A `apd_di` object.
 #'
 #' @examplesIf rlang::is_installed("vip")
 #' library(vip)
@@ -207,7 +207,7 @@ apd_aoa_bridge <- function(training, validation, importance, ...) {
 #'   pred_wrapper = predict
 #' )
 #'
-#' apd_aoa(y ~ ., train, test, importance = importance)
+#' apd_di(y ~ ., train, test, importance = importance)
 #'
 #' @references
 #' H. Meyer and E. Pebesma. 2021. "Predicting into unknown space? Estimating
@@ -215,15 +215,15 @@ apd_aoa_bridge <- function(training, validation, importance, ...) {
 #' and Evolution 12(9), pp 1620 - 1633, doi: 10.1111/2041-210X.13650.
 #'
 #' @export
-apd_aoa <- function(x, ...) {
-  UseMethod("apd_aoa")
+apd_di <- function(x, ...) {
+  UseMethod("apd_di")
 }
 
 # Default method
 
 #' @export
-#' @rdname apd_aoa
-apd_aoa.default <- function(x, ...) {
+#' @rdname apd_di
+apd_di.default <- function(x, ...) {
   cls <- class(x)[1]
   message <-
     "`x` is not of a recognized type.
@@ -236,41 +236,41 @@ apd_aoa.default <- function(x, ...) {
 # Data frame method
 
 #' @export
-#' @rdname apd_aoa
-apd_aoa.data.frame <- function(x, y = NULL, importance, ...) {
+#' @rdname apd_di
+apd_di.data.frame <- function(x, y = NULL, importance, ...) {
   training <- hardhat::mold(x, NA_real_)
   validation <- NULL
   if (!is.null(y)) validation <- hardhat::mold(y, NA_real_)
-  apd_aoa_bridge(training, validation, importance, ...)
+  apd_di_bridge(training, validation, importance, ...)
 }
 
 # Matrix method
 
 #' @export
-#' @rdname apd_aoa
-apd_aoa.matrix <- function(x, y = NULL, importance, ...) {
+#' @rdname apd_di
+apd_di.matrix <- function(x, y = NULL, importance, ...) {
   training <- hardhat::mold(x, NA_real_)
   validation <- NULL
   if (!is.null(y)) validation <- hardhat::mold(y, NA_real_)
-  apd_aoa_bridge(training, validation, importance, ...)
+  apd_di_bridge(training, validation, importance, ...)
 }
 
 # Formula method
 
 #' @export
-#' @rdname apd_aoa
-apd_aoa.formula <- function(formula, data, validation = NULL, importance, ...) {
+#' @rdname apd_di
+apd_di.formula <- function(formula, data, validation = NULL, importance, ...) {
   training <- hardhat::mold(formula, data)
   if (!is.null(validation)) validation <- hardhat::mold(formula, validation)
-  apd_aoa_bridge(training, validation, importance, ...)
+  apd_di_bridge(training, validation, importance, ...)
 }
 
 # Recipe method
 
 #' @export
-#' @rdname apd_aoa
-apd_aoa.recipe <- function(x, data, validation = NULL, importance, ...) {
+#' @rdname apd_di
+apd_di.recipe <- function(x, data, validation = NULL, importance, ...) {
   training <- hardhat::mold(x, data)
   if (!is.null(validation)) validation <- hardhat::mold(x, validation)
-  apd_aoa_bridge(training, validation, importance, ...)
+  apd_di_bridge(training, validation, importance, ...)
 }

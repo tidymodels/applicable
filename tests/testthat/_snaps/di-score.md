@@ -1,9 +1,9 @@
-# `score_apd_aoa_numeric` fails when model has no pcs argument
+# `score_apd_di_numeric` fails when model has no pcs argument
 
     Code
-      score_apd_aoa_numeric(mtcars, mtcars)
+      score_apd_di_numeric(mtcars, mtcars)
     Error <rlang_error>
-      `model` must be an `apd_aoa` object
+      `model` must be an `apd_di` object
 
 # normal use
 

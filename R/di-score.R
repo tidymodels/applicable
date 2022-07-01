@@ -2,11 +2,11 @@
 # ---------------------- Model function implementation ------------------------
 # -----------------------------------------------------------------------------
 
-score_apd_aoa_numeric <- function(model, predictors) {
+score_apd_di_numeric <- function(model, predictors) {
 
-  if (!("apd_aoa" %in% class(model))) {
+  if (!("apd_di" %in% class(model))) {
     rlang::abort(
-      "`model` must be an `apd_aoa` object",
+      "`model` must be an `apd_di` object",
       call = rlang::caller_env()
     )
   }
@@ -27,7 +27,7 @@ score_apd_aoa_numeric <- function(model, predictors) {
 # ------------------------ Model function bridge ------------------------------
 # -----------------------------------------------------------------------------
 
-score_apd_aoa_bridge <- function(type, model, predictors) {
+score_apd_di_bridge <- function(type, model, predictors) {
   predictors <- as.matrix(predictors)
 
   score_function <- get_aoa_score_function(type)
@@ -42,9 +42,9 @@ score_apd_aoa_bridge <- function(type, model, predictors) {
 # ----------------------- Model function interface ----------------------------
 # -----------------------------------------------------------------------------
 
-#' Predict from a `apd_aoa`
+#' Predict from a `apd_di`
 #'
-#' @param object A `apd_aoa` object.
+#' @param object A `apd_di` object.
 #'
 #' @param new_data A data frame or matrix of new samples.
 #'
@@ -76,14 +76,14 @@ score_apd_aoa_bridge <- function(type, model, predictors) {
 #'   pred_wrapper = predict
 #' )
 #'
-#' aoa <- apd_aoa(y ~ ., train, test, importance = importance)
+#' aoa <- apd_di(y ~ ., train, test, importance = importance)
 #' score(aoa, test)
 #'
 #' @export
-score.apd_aoa <- function(object, new_data, type = "numeric", ...) {
+score.apd_di <- function(object, new_data, type = "numeric", ...) {
   forged <- hardhat::forge(new_data, object$blueprint)
   rlang::arg_match(type, valid_predict_types())
-  score_apd_aoa_bridge(type, object, forged$predictors)
+  score_apd_di_bridge(type, object, forged$predictors)
 }
 
 # -----------------------------------------------------------------------------
@@ -92,7 +92,7 @@ score.apd_aoa <- function(object, new_data, type = "numeric", ...) {
 
 get_aoa_score_function <- function(type) {
   switch(type,
-    numeric = score_apd_aoa_numeric
+         numeric = score_apd_di_numeric
   )
 }
 
