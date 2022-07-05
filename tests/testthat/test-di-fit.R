@@ -79,7 +79,7 @@ test_that("`apd_di` is not defined for vectors", {
 
 test_that("`apd_di` finds 0 distance between identical data", {
 
-  expect_identical(
+  expect_equal(
     apd_di(y ~ ., train, train, importance)$aoa_threshold,
     0
   )
@@ -116,6 +116,20 @@ test_that("`apd_di` methods are equivalent", {
   expect_identical(
     methods[[2]]$aoa_threshold,
     methods[[3]]$aoa_threshold
+  )
+
+})
+
+test_that("`apd_di` can handle different column orders", {
+
+  expect_identical(
+    apd_di(train[2:11], test[2:11], importance)$aoa_threshold,
+    apd_di(train[2:11], test[11:2], importance)$aoa_threshold
+  )
+
+  expect_identical(
+    apd_di(train[2:11], test[2:11], importance)$aoa_threshold,
+    apd_di(train[11:2], test[2:11], importance)$aoa_threshold
   )
 
 })

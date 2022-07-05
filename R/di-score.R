@@ -11,7 +11,7 @@ score_apd_di_numeric <- function(model, predictors) {
     )
   }
 
-  predictors <- sweep(predictors, 2, model$means) / sweep(predictors, 2, model$sds, "/")
+  predictors <- center_and_scale(predictors, model$sds, model$means)
   predictors <- sweep(predictors, 2, model$importance, "*")
   dk <- calculate_dk(model$training, predictors)
   di <- dk / model$d_bar
@@ -28,6 +28,13 @@ score_apd_di_numeric <- function(model, predictors) {
 # -----------------------------------------------------------------------------
 
 score_apd_di_bridge <- function(type, model, predictors) {
+  if (!all(names(model$training) %in% names(predictors))) {
+    rlang::abort(
+      "Some variables used to calculate the DI are missing from `new_data`",
+      call = rlang::caller_env()
+    )
+  }
+  predictors <- predictors[names(model$training)]
   predictors <- as.matrix(predictors)
 
   score_function <- get_aoa_score_function(type)

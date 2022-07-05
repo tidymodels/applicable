@@ -21,17 +21,22 @@ new_apd_di <- function(training, importance, sds, means, d_bar, aoa_threshold, b
 
 apd_di_impl <- function(training, validation, importance, ...) {
 
+  # Comments reference section numbers from Meyer and Pebesma 2021
+  # (doi: 10.1111/2041-210X.13650)
+
   # 2.1 Standardization of predictor variables
-  sds <- purrr::map_dbl(training, stats::sd)
-  means <- purrr::map_dbl(training, mean)
 
-  training <- sweep(training, 2, means) / sweep(training, 2, sds, "/")
-
-  if (!is.null(validation)) {
-    validation <- sweep(validation, 2, means) / sweep(validation, 2, sds, "/")
-  }
+  # Store standard deviations and means of all predictors from training
+  # We'll save these to standardize `validation` and any data passed to `score`
+  # Then scale & center `training`
+  sds <- purrr::map_dbl(training, stats::sd, na.rm = TRUE)
+  means <- purrr::map_dbl(training, mean, na.rm = TRUE)
+  training <- center_and_scale(training, sds, means)
 
   # 2.2 Weighting of variables
+
+  # Re-order `importance`'s rows
+  # so they match the column order of `training` and `validation`
   importance_order <- purrr::map_dbl(
     names(training),
     ~ which(importance[["Variable"]] == .x)
@@ -39,20 +44,36 @@ apd_di_impl <- function(training, validation, importance, ...) {
   importance <- importance[importance_order, ][["Importance"]]
   training <- sweep(training, 2, importance, "*")
 
+  # Now apply all the above to the validation set, if provided
   if (!is.null(validation)) {
-    validation <- validation[names(training)]
+    # `validation` was re-ordered to match `training` back in the bridge function
+    # so we can scale, center, and weight without needing to worry about
+    # column order
+    validation <- center_and_scale(validation, sds, means)
     validation <- sweep(validation, 2, importance, "*")
   }
 
   # 2.3 Multivariate distance calculation
+
+  # Calculates the distance between each point in the `validation` set
+  # (or `training`, if `validation` is `NULL`)
+  # to the closest point in the training set
   dk <- calculate_dk(training, validation)
 
   # 2.4 Dissimilarity index
-  d_bar <- mean(stats::dist(training))
+
+  # Find the mean nearest neighbor distance between training points:
+  d_bar <- proxyC::dist(as.matrix(training))
+  diag(d_bar) <- NA
+  d_bar <- Matrix::mean(d_bar, na.rm = TRUE)
+
+  # Use it to rescale dk from 2.3
   di <- dk / d_bar
 
   # 2.5 Deriving the area of applicability
-  aoa_threshold <- as.vector(quantile(di, 0.75) + (1.5 * stats::IQR(di)))
+  aoa_threshold <- as.vector(
+    quantile(di, 0.75, na.rm = TRUE) + (1.5 * stats::IQR(di, na.rm = TRUE))
+  )
 
   res <- list(
     training = training,
@@ -65,41 +86,25 @@ apd_di_impl <- function(training, validation, importance, ...) {
   res
 }
 
-calculate_dk <- function(training, validation) {
-  nrow_training <- nrow(training)
-  distances <- rbind(training, validation)
-  distances <- stats::dist(distances)
+center_and_scale <- function(x, sds, means) {
+  sweep(x, 2, means, "-") / sweep(x, 2, sds, "/")
+}
+
+# Calculate minimum distances from each validation point to the training data
+#
+# If `validation` is `NULL`, then find the smallest distances between each
+# point in `training` and the rest of the training data
+calculate_dk <- function(training, validation = NULL) {
+
   if (is.null(validation)) {
-    purrr::map_dbl(
-      seq_len(nrow_training),
-      function(row_n) {
-        lower_distances <- Inf
-        higher_distances <- Inf
-        if (row_n != 1) {
-          i <- seq_len(row_n)
-          j <- row_n
-          lower_distances <- distances[nrow_training*(i-1) - i*(i-1)/2 + j-i]
-        }
-        if (row_n != nrow_training) {
-          i <- row_n
-          j <- seq.int(row_n + 1, nrow_training, 1)
-          higher_distances <- distances[nrow_training*(i-1) - i*(i-1)/2 + j-i]
-        }
-        min(c(lower_distances, higher_distances))
-      }
-    )
+    distances <- proxyC::dist(as.matrix(training))
+    diag(distances) <- NA
   } else {
-    nrow_validation <- nrow(validation)
-    nrow_total <- nrow_validation + nrow_training
-    purrr::map_dbl(
-      seq_len(nrow_validation) + nrow_training,
-      function(row_n) {
-        i <- seq_len(nrow_training)
-        j <- row_n
-        min(distances[nrow_total*(i-1) - i*(i-1)/2 + j-i])
-      }
-    )
+    distances <- proxyC::dist(as.matrix(validation), as.matrix(training))
   }
+
+  apply(distances, 1, min, na.rm = TRUE)
+
 }
 
 # -----------------------------------------------------------------------------
@@ -107,32 +112,14 @@ calculate_dk <- function(training, validation) {
 # -----------------------------------------------------------------------------
 
 apd_di_bridge <- function(training, validation, importance, ...) {
+
   blueprint <- training$blueprint
   training <- training$predictors
-  all_numeric <- purrr::map_lgl(training, is.numeric)
 
-  if (!is.null(validation)) {
-    validation <- validation$predictors
-    all_numeric <- c(all_numeric, purrr::map_lgl(validation, is.numeric))
-  }
+  validation <- check_di_validation(training, validation)
 
-  all_numeric <- all(all_numeric)
-
-  if (!all_numeric) {
-    rlang::abort(
-      "All predictors must be numeric",
-      call = rlang::caller_env()
-    )
-  }
-
-  all_importance <- all(names(training) %in% importance[["Variable"]])
-
-  if (!all_importance) {
-    rlang::abort(
-      "All predictors must have an importance value in `importance`",
-      call = rlang::caller_env()
-    )
-  }
+  check_di_importance(training, importance)
+  check_di_columns_numeric(training, validation)
 
   fit <- apd_di_impl(training, validation, importance, ...)
 
@@ -145,6 +132,59 @@ apd_di_bridge <- function(training, validation, importance, ...) {
     aoa_threshold = fit$aoa_threshold,
     blueprint = blueprint
   )
+}
+
+check_di_validation <- function(training, validation) {
+
+  # If NULL, nothing to validate or re-order, so just return NULL
+  if (is.null(validation)) return(NULL)
+
+  # Make sure that the validation set has the same columns, in the same order,
+  # as the original training data
+  validation <- validation$predictors
+
+  if (
+    !all(names(training)   %in% names(validation)) ||
+    !all(names(validation) %in% names(training))
+  ) {
+    rlang::abort(
+      "`training` and `validation` must contain all the same columns"
+    )
+  }
+  # Re-order validation so that its columns are guaranteed to be in the
+  # same order as those in `training`
+  validation[names(training)]
+
+}
+
+check_di_importance <- function(training, importance) {
+  # Make sure that all training variables have importance values
+  #
+  # Because we've already called check_di_validation, this also means all
+  # predictors in `validation` have importance values
+
+  all_importance <- all(names(training) %in% importance[["Variable"]])
+
+  if (!all_importance) {
+    rlang::abort(
+      "All predictors must have an importance value in `importance`",
+      call = rlang::caller_env()
+    )
+  }
+}
+
+check_di_columns_numeric <- function(training, validation) {
+  col_is_numeric <- c(
+    purrr::map_lgl(training, is.numeric),
+    purrr::map_lgl(validation, is.numeric)
+  )
+
+  if (!all(col_is_numeric)) {
+    rlang::abort(
+      "All predictors must be numeric",
+      call = rlang::caller_env()
+    )
+  }
 }
 
 # -----------------------------------------------------------------------------

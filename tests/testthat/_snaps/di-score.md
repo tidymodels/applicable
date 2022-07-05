@@ -31,17 +31,17 @@
       score(aoa, train)
     Output
       # A tibble: 700 x 2
-            di aoa  
-         <dbl> <lgl>
-       1     0 TRUE 
-       2     0 TRUE 
-       3     0 TRUE 
-       4     0 TRUE 
-       5     0 TRUE 
-       6     0 TRUE 
-       7     0 TRUE 
-       8     0 TRUE 
-       9     0 TRUE 
-      10     0 TRUE 
+               di aoa  
+            <dbl> <lgl>
+       1 0        TRUE 
+       2 0        TRUE 
+       3 0        TRUE 
+       4 0        TRUE 
+       5 0        TRUE 
+       6 0        TRUE 
+       7 0        TRUE 
+       8 1.15e- 9 TRUE 
+       9 2.04e-10 TRUE 
+      10 1.63e- 9 TRUE 
       # ... with 690 more rows
 
