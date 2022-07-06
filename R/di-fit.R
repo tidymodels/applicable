@@ -175,6 +175,13 @@ check_di_importance <- function(training, importance) {
     )
   }
 
+  all_variables <- all(importance[["term"]] %in% names(training))
+  if (!all_variables) {
+    rlang::abort(
+      "All variables with an importance value in `importance` must be included as predictors"
+    )
+  }
+
   importance
 }
 
