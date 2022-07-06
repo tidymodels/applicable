@@ -231,6 +231,13 @@ check_di_columns_numeric <- function(training, validation) {
 #' this method focused on spatial models, there is nothing inherently spatial
 #' about the method; it can be used with any type of data.
 #'
+#' Predictions made on points "inside" the area of applicability should be as
+#' accurate as predictions made on the data provided to `y` or `validation`.
+#' That means that generally `y` or `validation` should be your final hold-out
+#' set, or the assessment set of a cross-validation fold, so that predictions
+#' on points inside the area of applicability are accurately described by your
+#' reported model metrics.
+#'
 #' The `importance` argument is structured to work with objects returned by the
 #' vip package, using functions such as [vip::vi_permute].
 #'

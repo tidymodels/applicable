@@ -67,6 +67,13 @@ introduced by Meyer and Pebesma (2021). While the initial paper introducing
 this method focused on spatial models, there is nothing inherently spatial
 about the method; it can be used with any type of data.
 
+Predictions made on points "inside" the area of applicability should be as
+accurate as predictions made on the data provided to \code{y} or \code{validation}.
+That means that generally \code{y} or \code{validation} should be your final hold-out
+set, or the assessment set of a cross-validation fold, so that predictions
+on points inside the area of applicability are accurately described by your
+reported model metrics.
+
 The \code{importance} argument is structured to work with objects returned by the
 vip package, using functions such as \link[vip:vi_permute]{vip::vi_permute}.
 }
