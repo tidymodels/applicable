@@ -39,9 +39,9 @@ apd_di_impl <- function(training, validation, importance, ...) {
   # so they match the column order of `training` and `validation`
   importance_order <- purrr::map_dbl(
     names(training),
-    ~ which(importance[["Variable"]] == .x)
+    ~ which(importance[["term"]] == .x)
   )
-  importance <- importance[importance_order, ][["Importance"]]
+  importance <- importance[importance_order, ][["estimate"]]
   training <- sweep(training, 2, importance, "*")
 
   # Now apply all the above to the validation set, if provided
@@ -118,7 +118,7 @@ apd_di_bridge <- function(training, validation, importance, ...) {
 
   validation <- check_di_validation(training, validation)
 
-  check_di_importance(training, importance)
+  importance <- check_di_importance(training, importance)
   check_di_columns_numeric(training, validation)
 
   fit <- apd_di_impl(training, validation, importance, ...)
@@ -158,12 +158,15 @@ check_di_validation <- function(training, validation) {
 }
 
 check_di_importance <- function(training, importance) {
+
+  importance <- tidy_importance(importance)
+
   # Make sure that all training variables have importance values
   #
   # Because we've already called check_di_validation, this also means all
   # predictors in `validation` have importance values
 
-  all_importance <- all(names(training) %in% importance[["Variable"]])
+  all_importance <- all(names(training) %in% importance[["term"]])
 
   if (!all_importance) {
     rlang::abort(
@@ -171,6 +174,8 @@ check_di_importance <- function(training, importance) {
       call = rlang::caller_env()
     )
   }
+
+  importance
 }
 
 check_di_columns_numeric <- function(training, validation) {
@@ -216,10 +221,16 @@ check_di_columns_numeric <- function(training, validation) {
 #'  with the result that too many points are classed as "inside" the area of
 #'  applicability.
 #'
-#' @param importance A data.frame with two columns: `Variable`, containing
-#' the names of each variable in the training and validation data, and
-#' `Importance`, containing the (raw or scaled) feature importance for each
-#' variable.
+#' @param importance Either:
+#'
+#'   * A data.frame with two columns: `term`, containing the names of each
+#'     variable in the training and validation data, and `estimate`, containing
+#'     the (raw or scaled) feature importance for each variable.
+#'   * An object of class `vi` with at least two columns, `Variable` and `Importance`.
+#'
+#' All variables in the training data (`x` or `data`, depending on the context)
+#' must have a matching importance estimate, and all terms with importance
+#' estimates must be in the training data.
 #'
 #' @param formula A formula specifying the predictor terms on the right-hand
 #' side.
@@ -237,6 +248,11 @@ check_di_columns_numeric <- function(training, validation) {
 #' set, or the assessment set of a cross-validation fold, so that predictions
 #' on points inside the area of applicability are accurately described by your
 #' reported model metrics.
+#'
+#' This method assumes your model was fit using dummy variables in the place of
+#' any non-numeric predictor, and that you have one importance score per
+#' dummy variable. Having non-numeric predictors will cause this function to
+#' fail.
 #'
 #' The `importance` argument is structured to work with objects returned by the
 #' vip package, using functions such as [vip::vi_permute].
@@ -324,4 +340,32 @@ apd_di.recipe <- function(x, data, validation = NULL, importance, ...) {
   training <- hardhat::mold(x, data)
   if (!is.null(validation)) validation <- hardhat::mold(x, validation)
   apd_di_bridge(training, validation, importance, ...)
+}
+
+tidy_importance <- function(importance, ...) {
+  UseMethod("tidy_importance")
+}
+
+tidy_importance.vi <- function(importance, ...) {
+  data.frame(
+    term = importance[["Variable"]],
+    estimate = importance[["Importance"]]
+  )
+}
+
+tidy_importance.data.frame <- function(importance, ...) {
+  if (!all(c("term", "estimate") %in% names(importance))) {
+    rlang::abort(
+      "'term' and 'estimate' must be columns in `importance`",
+      call = rlang::caller_env()
+    )
+  }
+  importance
+}
+
+tidy_importance.default <- function(importance, ...) {
+  cls <- class(x)[1]
+  rlang::abort(
+    glue::glue("Can't construct a tidy importance table from an object of class {cls}")
+  )
 }

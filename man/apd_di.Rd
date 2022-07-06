@@ -42,10 +42,17 @@ This may result in the area of applicability threshold being set too high,
 with the result that too many points are classed as "inside" the area of
 applicability.}
 
-\item{importance}{A data.frame with two columns: \code{Variable}, containing
-the names of each variable in the training and validation data, and
-\code{Importance}, containing the (raw or scaled) feature importance for each
-variable.}
+\item{importance}{Either:
+\itemize{
+\item A data.frame with two columns: \code{term}, containing the names of each
+variable in the training and validation data, and \code{estimate}, containing
+the (raw or scaled) feature importance for each variable.
+\item An object of class \code{vi} with at least two columns, \code{Variable} and \code{Importance}.
+}
+
+All variables in the training data (\code{x} or \code{data}, depending on the context)
+must have a matching importance estimate, and all terms with importance
+estimates must be in the training data.}
 
 \item{formula}{A formula specifying the predictor terms on the right-hand
 side.}
@@ -73,6 +80,11 @@ That means that generally \code{y} or \code{validation} should be your final hol
 set, or the assessment set of a cross-validation fold, so that predictions
 on points inside the area of applicability are accurately described by your
 reported model metrics.
+
+This method assumes your model was fit using dummy variables in the place of
+any non-numeric predictor, and that you have one importance score per
+dummy variable. Having non-numeric predictors will cause this function to
+fail.
 
 The \code{importance} argument is structured to work with objects returned by the
 vip package, using functions such as \link[vip:vi_permute]{vip::vi_permute}.
