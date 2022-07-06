@@ -28,7 +28,12 @@ apd_di(x, ...)
 \item A \strong{matrix} of predictors used to fit your model.
 \item A \strong{recipe} specifying a set of preprocessing steps
 created from \code{\link[recipes:recipe]{recipes::recipe()}}.
-}}
+}
+
+If \code{x} is a recipe, it should be the same one used to pre-process the data
+used in your model. If the recipe used to build the area of applicability
+doesn't match the one used to build the model, the returned area of
+applicability won't be correct.}
 
 \item{...}{Not currently used, but required for extensibility.}
 

@@ -214,6 +214,11 @@ check_di_columns_numeric <- function(training, validation) {
 #'   * A __recipe__ specifying a set of preprocessing steps
 #'     created from [recipes::recipe()].
 #'
+#' If `x` is a recipe, it should be the same one used to pre-process the data
+#' used in your model. If the recipe used to build the area of applicability
+#' doesn't match the one used to build the model, the returned area of
+#' applicability won't be correct.
+#'
 #' @param data When a __recipe__ or __formula__ is used, `data` is specified as:
 #'
 #'   * A __data frame__ containing the predictors used to fit your model.
