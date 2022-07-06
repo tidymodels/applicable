@@ -90,9 +90,6 @@ This method assumes your model was fit using dummy variables in the place of
 any non-numeric predictor, and that you have one importance score per
 dummy variable. Having non-numeric predictors will cause this function to
 fail.
-
-The \code{importance} argument is structured to work with objects returned by the
-vip package, using functions such as \link[vip:vi_permute]{vip::vi_permute}.
 }
 \examples{
 \dontshow{if (rlang::is_installed("vip")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}

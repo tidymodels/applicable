@@ -266,9 +266,6 @@ check_di_columns_numeric <- function(training, validation) {
 #' dummy variable. Having non-numeric predictors will cause this function to
 #' fail.
 #'
-#' The `importance` argument is structured to work with objects returned by the
-#' vip package, using functions such as [vip::vi_permute].
-#'
 #' @return
 #'
 #' A `apd_di` object.
