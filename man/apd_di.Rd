@@ -22,18 +22,25 @@ apd_di(x, ...)
 \method{apd_di}{recipe}(x, data, validation = NULL, importance, ...)
 }
 \arguments{
-\item{x, y}{Depending on the context:
+\item{x}{Depending on the context:
 \itemize{
-\item A \strong{data frame} of predictors.
-\item A \strong{matrix} of predictors.
+\item A \strong{data frame} of predictors used to fit your model.
+\item A \strong{matrix} of predictors used to fit your model.
 \item A \strong{recipe} specifying a set of preprocessing steps
 created from \code{\link[recipes:recipe]{recipes::recipe()}}.
-}
-
-If \code{y} is \code{NULL}, then this function will use within-sample distances.
-This may result in too large an area of applicability being calculated.}
+}}
 
 \item{...}{Not currently used, but required for extensibility.}
+
+\item{y, validation}{A data frame or matrix containing the data used to
+validate your model. This should be the same data as used to calculate all
+model accuracy metrics.
+
+If this argument is \code{NULL}, then this function will use the training data
+(from \code{x} or \code{data}) to calculate within-sample distances.
+This may result in the area of applicability threshold being set too high,
+with the result that too many points are classed as "inside" the area of
+applicability.}
 
 \item{importance}{A data.frame with two columns: \code{Variable}, containing
 the names of each variable in the training and validation data, and
@@ -43,13 +50,10 @@ variable.}
 \item{formula}{A formula specifying the predictor terms on the right-hand
 side.}
 
-\item{data, validation}{When a \strong{recipe} or \strong{formula} is used, \code{data} is specified as:
+\item{data}{When a \strong{recipe} or \strong{formula} is used, \code{data} is specified as:
 \itemize{
-\item A \strong{data frame} containing the predictors.
-}
-
-If \code{validation} is \code{NULL}, then this function will use within-sample distances.
-This may result in too large an area of applicability being calculated.}
+\item A \strong{data frame} containing the predictors used to fit your model.
+}}
 }
 \value{
 A \code{apd_di} object.

@@ -195,22 +195,26 @@ check_di_columns_numeric <- function(training, validation) {
 #'
 #' `apd_di()` fits a model.
 #'
-#' @param x,y Depending on the context:
+#' @param x Depending on the context:
 #'
-#'   * A __data frame__ of predictors.
-#'   * A __matrix__ of predictors.
+#'   * A __data frame__ of predictors used to fit your model.
+#'   * A __matrix__ of predictors used to fit your model.
 #'   * A __recipe__ specifying a set of preprocessing steps
 #'     created from [recipes::recipe()].
 #'
-#'  If `y` is `NULL`, then this function will use within-sample distances.
-#'  This may result in too large an area of applicability being calculated.
+#' @param data When a __recipe__ or __formula__ is used, `data` is specified as:
 #'
-#' @param data,validation When a __recipe__ or __formula__ is used, `data` is specified as:
+#'   * A __data frame__ containing the predictors used to fit your model.
 #'
-#'   * A __data frame__ containing the predictors.
+#' @param y,validation A data frame or matrix containing the data used to
+#'  validate your model. This should be the same data as used to calculate all
+#'  model accuracy metrics.
 #'
-#'  If `validation` is `NULL`, then this function will use within-sample distances.
-#'  This may result in too large an area of applicability being calculated.
+#'  If this argument is `NULL`, then this function will use the training data
+#'  (from `x` or `data`) to calculate within-sample distances.
+#'  This may result in the area of applicability threshold being set too high,
+#'  with the result that too many points are classed as "inside" the area of
+#'  applicability.
 #'
 #' @param importance A data.frame with two columns: `Variable`, containing
 #' the names of each variable in the training and validation data, and
