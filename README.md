@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# applicable <img src="man/figures/logo.png" align="right"/>
+# applicable <img src="man/figures/logo.png" style='float: right'/>
 
 <!-- badges: start -->
 
