@@ -2,7 +2,7 @@
 title: "Applicability domain methods for continuous data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{continuous-data}
+  %\VignetteIndexEntry{Applicability domain methods for continuous data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -146,7 +146,7 @@ autoplot(ames_pca)
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
 ```{r, echo = FALSE, results = "hold"}
-autoplot(ames_pca, matches("PC0[1-5]"))
+autoplot(ames_pca, matches("PC[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
 
