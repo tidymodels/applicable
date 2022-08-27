@@ -59,7 +59,7 @@ score_apd_isolation_bridge <- function(type, model, predictors) {
 #' training data have scores less than the predicted value.
 #'
 #' @seealso [apd_isolation()]
-#' @examples
+#' @examplesIf interactive()
 #' if (rlang::is_installed(c("isotree", "modeldata"))) {
 #'   library(dplyr)
 #'
@@ -68,7 +68,7 @@ score_apd_isolation_bridge <- function(type, model, predictors) {
 #'   cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
 #'   cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
 #'
-#'   if_mod <- apd_isolation(cells_tr)
+#'   if_mod <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
 #'   score(if_mod, cells_te)
 #' }
 #' @export

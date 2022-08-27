@@ -34,6 +34,7 @@ Predict from a \code{apd_isolation}
 About the score
 }
 \examples{
+\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 if (rlang::is_installed(c("isotree", "modeldata"))) {
   library(dplyr)
 
@@ -42,9 +43,10 @@ if (rlang::is_installed(c("isotree", "modeldata"))) {
   cells_tr <- cells \%>\% filter(case == "Train") \%>\% select(-case, -class)
   cells_te <- cells \%>\% filter(case != "Train") \%>\% select(-case, -class)
 
-  if_mod <- apd_isolation(cells_tr)
+  if_mod <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
   score(if_mod, cells_te)
 }
+\dontshow{\}) # examplesIf}
 }
 \seealso{
 \code{\link[=apd_isolation]{apd_isolation()}}

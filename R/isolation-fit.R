@@ -102,7 +102,7 @@ apd_isolation_bridge <- function(processed, ...) {
 #'
 #' A `apd_isolation` object.
 #'
-#' @examples
+#' @examplesIf interactive()
 #' if (rlang::is_installed(c("isotree", "modeldata"))) {
 #'   library(dplyr)
 #'
@@ -111,7 +111,7 @@ apd_isolation_bridge <- function(processed, ...) {
 #'   cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
 #'   cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
 #'
-#'   if_mod <- apd_isolation(cells_tr, nthreads = 1)
+#'   if_mod <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
 #'   if_mod
 #' }
 #' @export
