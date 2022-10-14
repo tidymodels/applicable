@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://applicable.tidymodels.org/CODE_OF_CONDUCT.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/LICENSE-text.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/LICENSE.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/articles/binary-data.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/articles/binary-data.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/articles/continuous-data.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/articles/continuous-data.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/articles/index.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/authors.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/authors.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/index.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/index.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/news/index.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/news/index.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/ames_new.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/ames_new.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/apd_hat_values.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/apd_hat_values.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/apd_pca.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/apd_pca.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/apd_similarity.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/applicable-package.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/applicable-package.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/autoplot.apd_pca.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/autoplot.apd_pca.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/autoplot.apd_similarity.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/autoplot.apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/binary.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/binary.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/index.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/okc_binary.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/okc_binary.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/print.apd_hat_values.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/print.apd_hat_values.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/print.apd_pca.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/print.apd_pca.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/print.apd_similarity.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/print.apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.apd_hat_values.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/score.apd_hat_values.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.apd_pca.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/score.apd_pca.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.apd_similarity.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/score.apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.html</loc>
+    <loc>https://applicable.tidymodels.org/dev/reference/score.html</loc>
   </url>
 </urlset>
