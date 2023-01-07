@@ -78,3 +78,28 @@ test_that("`score_apd_pca_bridge` output is correct", {
     expected
   )
 })
+
+test_that("for score_apd_pca_numeric, missing predictors throws warning", {
+  ames <- modeldata::ames
+  ames_cols <- intersect(names(ames), names(ames_new))
+
+  training_data <-
+    ames %>%
+    dplyr::select(dplyr::one_of(ames_cols)) %>%
+    mutate(
+      Neighborhood = as.character(Neighborhood),
+      Neighborhood = factor(Neighborhood,
+                            levels = levels(ames_new$Neighborhood))
+    )
+
+  training_recipe <-
+    recipes::recipe( ~ ., data = training_data) %>%
+    recipes::step_dummy(recipes::all_nominal()) %>%
+    recipes::step_zv(recipes::all_predictors()) %>%
+    recipes::step_YeoJohnson(recipes::all_numeric()) %>%
+    recipes::step_normalize(recipes::all_numeric())
+
+  ames_pca <- apd_pca(training_recipe, training_data)
+
+  expect_snapshot(pca_score <- score(ames_pca, ames_new))
+})
