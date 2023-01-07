@@ -109,3 +109,11 @@ test_that("`apd_pca` is not defined for vectors", {
     expected_message
   )
 })
+
+test_that ("invalid threshold value throws error", {
+  error_message <- "threshold must be between 0 and 1: \\(0, 1\\]"
+  expect_error(apd_pca(mtcars, threshold = 1.1),
+               error_message)
+  expect_error(apd_pca(mtcars, threshold = 0),
+               error_message)
+})

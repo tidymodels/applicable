@@ -26,7 +26,10 @@ apd_pca_impl <- function(predictors, threshold) {
     retx = TRUE
   )
 
-  # TODO: verify threshold \in (0, 1]
+  if (threshold <= 0 || threshold > 1) {
+    cli::cli_abort("threshold must be between 0 and 1: (0, 1]")
+  }
+
   eigs <- pcs$sdev^2
   cum_sum <- cumsum(eigs) / sum(eigs)
   num_comp <- sum(cum_sum <= threshold) + 1
