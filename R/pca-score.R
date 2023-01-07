@@ -7,8 +7,19 @@ score_apd_pca_numeric <- function(model, predictors) {
     cli::cli_abort("The model must contain a pcs argument.")
   }
 
+  incomplete_rows <- which(!stats::complete.cases(predictors))
+
+  if (length(incomplete_rows) > 0) {
+    cols_with_na <- names(which(colSums(is.na(predictors)) > 0))
+    cli::cli_warn(c("Missing values found in {.code new_data}",
+                    "i" = "This will result in scores of NA",
+                    "i" = "Found missing values in rows: {incomplete_rows}",
+                    "i" = "Found missing values in columns: {cols_with_na}"))
+  }
+
   # Predict output and subset using `num_comp`
   predicted_output <- stats::predict(model$pcs, predictors)
+  cli::cat_print(predicted_output)
   predicted_output <- predicted_output[, 1:model$num_comp, drop = FALSE]
 
   # Compute distances between new pca values and the pca means
