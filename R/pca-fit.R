@@ -143,13 +143,11 @@ apd_pca <- function(x, ...) {
 #' @export
 #' @rdname apd_pca
 apd_pca.default <- function(x, ...) {
-  cls <- class(x)[1]
-  message <-
-    "`x` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified."
-  message <- glue::glue(message)
-  rlang::abort(message = message)
+  cli::cli_abort(c(
+    "`x` is not of a recognized type.",
+    "i", "Only data.frame, matrix, recipe, and formula objects are allowed.",
+    "i", "A {class(x)[1]} was specified."
+  ))
 }
 
 # Data frame method

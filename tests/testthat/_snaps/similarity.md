@@ -3,7 +3,7 @@
     Code
       apd_similarity(tr_x, quantile = 2)
     Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+      `quantile` should be NA or a single numeric value in [0, 1].
 
 ---
 
@@ -11,8 +11,8 @@
       apd_similarity(tr_x_sp)
     Error <rlang_error>
       `x` is not of a recognized type.
-      Only data.frame, matrix, recipe, and formula objects are allowed.
-      A dgCMatrix was specified.
+      i Only data.frame, matrix, recipe, and formula objects are allowed.
+      i A dgCMatrix was specified.
 
 # printed output
 
@@ -55,21 +55,21 @@
     Code
       apd_similarity(tr_x, quantile = -1)
     Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+      `quantile` should be NA or a single numeric value in [0, 1].
 
 ---
 
     Code
       apd_similarity(tr_x, quantile = 3)
     Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+      `quantile` should be NA or a single numeric value in [0, 1].
 
 ---
 
     Code
       apd_similarity(tr_x, quantile = "la")
     Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+      `quantile` should be NA or a single numeric value in [0, 1].
 
 # apd_similarity outputs warning with zero variance variables 
 
@@ -94,5 +94,5 @@
     Code
       apd_similarity(bad_data)
     Error <rlang_error>
-      The following variables are not binary: b, and d
+      The following variables are not binary: b and d
 

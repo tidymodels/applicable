@@ -99,15 +99,7 @@ test_that("pcs matches `prcomp` output for the matrix method", {
 })
 
 test_that("`apd_pca` is not defined for vectors", {
-  cls <- class(mtcars$mpg)[1]
-  expected_message <- glue::glue("`x` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified.")
-
-  expect_condition(
-    apd_pca(mtcars$mpg),
-    expected_message
-  )
+  expect_snapshot(error = TRUE, apd_pca(mtcars$mpg))
 })
 
 test_that ("invalid threshold value throws error", {

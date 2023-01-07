@@ -35,15 +35,12 @@ get_inv <- function(X) {
   if (inherits(XpX_inv, "try-error")) {
     message <- as.character(XpX_inv)
     if (message == "Error in qr.solve(XpX) : singular matrix 'a' in solve\n") {
-      message <- paste(
-        "Unable to compute the hat values of the matrix X of",
-        "predictors because the matrix resulting from multiplying",
-        "the transpose of X by X is singular.",
-        sep = "\n"
-      )
+      cli::cli_abort(c(
+        "Unable to compute the hat values of the matrix X.",
+        "i", "Singular matrix results from multiplying transpose of X by X."
+      ))
     }
-
-    rlang::abort(message = message)
+    cli::cli_abort(message)
   }
 
   dimnames(XpX_inv) <- NULL

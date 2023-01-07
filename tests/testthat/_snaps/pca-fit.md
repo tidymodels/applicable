@@ -12,3 +12,14 @@
     Error <rlang_error>
       blueprint should be a blueprint, not a numeric.
 
+# `apd_pca` is not defined for vectors
+
+    Code
+      apd_pca(mtcars$mpg)
+    Error <rlang_error>
+      `x` is not of a recognized type.
+      i
+      Only data.frame, matrix, recipe, and formula objects are allowed.
+      i
+      A numeric was specified.
+
