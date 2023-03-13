@@ -3,8 +3,8 @@ Title: A Compilation of Applicability Domain Methods
 Version: 0.0.1.1
 Authors@R: c(
     person("Marly", "Gotti", , "marlygotti@gmail.com", role = c("aut", "cre")),
-    person("Max", "Kuhn", , "max@rstudio.com", role = "aut"),
-    person("RStudio", role = "cph")
+    person("Max", "Kuhn", , "max@posit.co", role = "aut"),
+    person(given = "Posit Software, PBC", role = c("cph", "fnd"))
   )
 Description: A modeling package compiling applicability domain methods in
     R.  It combines different methods to measure the amount of
@@ -46,6 +46,6 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
