@@ -18,6 +18,8 @@
       score(object)
     Error <rlang_error>
       `object` is not of a recognized type.
+      i
       Only data.frame, matrix, recipe, and formula objects are allowed.
+      i
       A data.frame was specified.
 

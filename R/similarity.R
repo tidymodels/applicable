@@ -44,12 +44,12 @@ apd_similarity_impl <- function(predictors, quantile, options) {
 apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   opts <- list(...)
 
-  msg <- "The `quantile` argument should be NA or a single numeric value in [0, 1]."
+  msg <- "`quantile` should be NA or a single numeric value in [0, 1]."
   if (!is.na(quantile) && (!is.numeric(quantile) || length(quantile) != 1)) {
-    rlang::abort(msg)
+    cli::cli_abort(msg)
   }
   if (!is.na(quantile) && (quantile < 0 | quantile > 1)) {
-    rlang::abort(msg)
+    cli::cli_abort(msg)
   }
 
   predictors <- processed$predictors
@@ -60,12 +60,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
   not_bin <- apply(predictors, 2, function(x) any(x != 1 & x != 0))
   if (any(not_bin)) {
     bad_x <- colnames(predictors)[not_bin]
-    bad_x <- glue::glue_collapse(bad_x, sep = ", ", last = ", and ")
-    rlang::abort(
-      glue(
-        "The following variables are not binary: {bad_x}"
-      )
-    )
+    cli::cli_abort("The following variables are not binary: {bad_x}")
   }
 
   if (!inherits(predictors, "dgCMatrix")) {
@@ -76,15 +71,12 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
 
   zv <- Matrix::colSums(predictors)
   if (all(zv == 0)) {
-    rlang::abort("All variables have a single unique value.")
+    cli::cli_abort("All variables have a single unique value.")
   } else {
     if (any(zv == 0)) {
       bad_x <- colnames(predictors)[zv == 0]
-      bad_x <- glue::glue_collapse(bad_x, sep = ", ", last = ", and ")
-      rlang::warn(
-        glue(
+      cli::cli_warn(
           "The following variables had zero variance and were removed: {bad_x}"
-        )
       )
       predictors <- predictors[, zv > 0, drop = FALSE]
     }
@@ -199,13 +191,11 @@ apd_similarity <- function(x, ...) {
 #' @export
 #' @rdname apd_similarity
 apd_similarity.default <- function(x, quantile = NA_real_, ...) {
-  cls <- class(x)[1]
-  message <-
-    "`x` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified."
-  message <- glue::glue(message)
-  rlang::abort(message = message)
+  cli::cli_abort(c(
+    "`x` is not of a recognized type.",
+    "i" = "Only data.frame, matrix, recipe, and formula objects are allowed.",
+    "i" = "A {class(x)[1]} was specified.")
+  )
 }
 
 # Data frame method
@@ -294,7 +284,7 @@ score_apd_similarity_bridge <- function(type, model, predictors) {
 
 get_sim_score_function <- function(type) {
   switch(type,
-    numeric = score_apd_similarity_numeric
+         numeric = score_apd_similarity_numeric
   )
 }
 

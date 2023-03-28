@@ -93,15 +93,7 @@ test_that("`apd_hat_values` is defined for matrix objects", {
 })
 
 test_that("`apd_hat_values` is not defined for vectors", {
-  cls <- class(mtcars$mpg)[1]
-  expected_message <- glue::glue("`x` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified.")
-
-  expect_condition(
-    apd_hat_values(mtcars$mpg),
-    expected_message
-  )
+  expect_snapshot(error = TRUE, apd_hat_values(mtcars$mpg))
 })
 
 test_that("`apd_hat_values` fails when matrix has more predictors than samples", {

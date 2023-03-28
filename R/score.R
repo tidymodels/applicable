@@ -26,11 +26,9 @@ score <- function(object, ...) {
 #' @export score.default
 #' @rdname score
 score.default <- function(object, ...) {
-  cls <- class(object)[1]
-  message <-
-    "`object` is not of a recognized type.
-     Only data.frame, matrix, recipe, and formula objects are allowed.
-     A {cls} was specified."
-  message <- glue::glue(message)
-  rlang::abort(message = message)
+  cli::cli_abort(c(
+    "`object` is not of a recognized type.",
+    "i", "Only data.frame, matrix, recipe, and formula objects are allowed.",
+    "i", "A {class(object)[1]} was specified."
+  ))
 }

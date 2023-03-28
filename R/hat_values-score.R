@@ -4,7 +4,7 @@
 
 score_apd_hat_values_numeric <- function(model, predictors) {
   if (!("XtX_inv" %in% names(model))) {
-    rlang::abort("The model must contain an XtX_inv argument.")
+    cli::cli_abort("The model must contain an XtX_inv argument.")
   }
 
   proj_matrix <- predictors %*% model$XtX_inv %*% t(predictors)
