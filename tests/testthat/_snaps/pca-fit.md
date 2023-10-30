@@ -10,5 +10,5 @@
     Code
       new_apd_pca(pcs = 1, blueprint = 1)
     Error <rlang_error>
-      blueprint should be a blueprint, not a numeric.
+      `blueprint` must be a <hardhat_blueprint>, not the number 1.
 

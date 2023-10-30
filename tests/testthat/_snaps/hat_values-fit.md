@@ -10,7 +10,7 @@
     Code
       new_apd_hat_values(XtX_inv = 1, blueprint = 1)
     Error <rlang_error>
-      blueprint should be a blueprint, not a numeric.
+      `blueprint` must be a <hardhat_blueprint>, not the number 1.
 
 # `apd_hat_values` fails when matrix has more predictors than samples
 

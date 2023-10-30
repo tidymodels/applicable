@@ -25,7 +25,7 @@ Imports:
     Matrix,
     proxyC,
     purrr,
-    rlang,
+    rlang (>= 1.1.1),
     stats,
     tibble,
     tidyr,
