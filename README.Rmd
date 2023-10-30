@@ -15,7 +15,6 @@ knitr::opts_chunk$set(
 )
 
 options(rlang__backtrace_on_error = "reminder")
-
 ```
 
 # applicable <img src="man/figures/logo.png" align="right"/>
