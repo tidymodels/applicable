@@ -2,15 +2,17 @@
 
     Code
       apd_similarity(tr_x, quantile = 2)
-    Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! The `quantile` argument should be NA or a single numeric value in [0, 1].
 
 ---
 
     Code
       apd_similarity(tr_x_sp)
-    Error <rlang_error>
-      `x` is not of a recognized type.
+    Condition
+      Error in `apd_similarity()`:
+      ! `x` is not of a recognized type.
       Only data.frame, matrix, recipe, and formula objects are allowed.
       A dgCMatrix was specified.
 
@@ -54,28 +56,32 @@
 
     Code
       apd_similarity(tr_x, quantile = -1)
-    Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! The `quantile` argument should be NA or a single numeric value in [0, 1].
 
 ---
 
     Code
       apd_similarity(tr_x, quantile = 3)
-    Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! The `quantile` argument should be NA or a single numeric value in [0, 1].
 
 ---
 
     Code
       apd_similarity(tr_x, quantile = "la")
-    Error <rlang_error>
-      The `quantile` argument should be NA or a single numeric value in [0, 1].
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! The `quantile` argument should be NA or a single numeric value in [0, 1].
 
 # apd_similarity outputs warning with zero variance variables 
 
     Code
       apd_similarity(bad_data)
-    Warning <rlang_warning>
+    Condition
+      Warning:
       The following variables had zero variance and were removed: a, b, and d
     Output
       Applicability domain via similarity
@@ -86,13 +92,15 @@
 
     Code
       apd_similarity(bad_data)
-    Error <rlang_error>
-      All variables have a single unique value.
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! All variables have a single unique value.
 
 # apd_similarity fails data is not binary
 
     Code
       apd_similarity(bad_data)
-    Error <rlang_error>
-      The following variables are not binary: b, and d
+    Condition
+      Error in `apd_similarity_bridge()`:
+      ! The following variables are not binary: b, and d
 
