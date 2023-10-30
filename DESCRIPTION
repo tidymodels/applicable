@@ -12,8 +12,7 @@ Description: A modeling package compiling applicability domain methods in
     et al (2005) <doi:10.1177/026119290503300209> for an overview of
     applicability domains.
 License: MIT + file LICENSE
-URL: https://github.com/tidymodels/applicable,
-    https://applicable.tidymodels.org
+URL: https://github.com/tidymodels/applicable, https://applicable.tidymodels.org
 BugReports: https://github.com/tidymodels/applicable/issues
 Depends: 
     ggplot2,
