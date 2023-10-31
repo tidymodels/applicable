@@ -114,10 +114,12 @@ test_that("matrix method - quantile similarity", {
 # ------------------------------------------------------------------------------
 
 test_that("bad args", {
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(tr_x, quantile = 2)
   )
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(tr_x_sp)
   )
 })
@@ -143,16 +145,18 @@ test_that("plot output", {
 # ------------------------------------------------------------------------------
 
 test_that("apd_similarity fails when quantile is neither NA nor a number in [0, 1]", {
-
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(tr_x, quantile = -1)
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(tr_x, quantile = 3)
   )
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(tr_x, quantile = "la")
   )
 })
@@ -183,7 +187,8 @@ test_that("apd_similarity fails when all the variables have zero variance", {
   )
   bad_data <- as.data.frame(bad_data)
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(bad_data)
   )
 })
@@ -199,7 +204,8 @@ test_that("apd_similarity fails data is not binary", {
   )
   bad_data <- as.data.frame(bad_data)
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     apd_similarity(bad_data)
   )
 })

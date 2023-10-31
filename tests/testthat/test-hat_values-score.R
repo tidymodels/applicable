@@ -1,12 +1,14 @@
 test_that("`score_apd_hat_values_numeric` fails when model has no pcs argument", {
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     score_apd_hat_values_numeric(mtcars, mtcars)
   )
 })
 
 test_that("`score` fails when predictors only contain factors", {
   model <- apd_hat_values(~., iris)
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     score(model, iris$Species)
   )
 })
@@ -14,7 +16,8 @@ test_that("`score` fails when predictors only contain factors", {
 test_that("`score` fails when predictors are vectors", {
   object <- iris
 
-  expect_snapshot(error = TRUE,
+  expect_snapshot(
+    error = TRUE,
     score(object)
   )
 })
@@ -30,7 +33,8 @@ test_that("`score` calculated hat_values are correct", {
   actual_output <- actual_output$hat_values
 
   # Data frame method
-  expect_equal(ignore_attr = TRUE,
+  expect_equal(
+    ignore_attr = TRUE,
     actual_output,
     expected
   )
