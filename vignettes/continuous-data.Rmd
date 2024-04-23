@@ -138,7 +138,11 @@ ames_pca
 
 Plotting the distribution function for the PCA scores is also helpful:
 
-```{r autoplot, fig.align='center', fig.width=6}
+```{r autoplot}
+#| fig-alt: "Faceted line chart. abs(value) along the x-axis, percentile along the y-axis. The facets are distance, followed by PC 1 through 12. All lines go up fairly fast."
+#| fig.align: 'center'
+#| fig.width: 6
+
 library(ggplot2)
 autoplot(ames_pca)
 ```
@@ -165,6 +169,7 @@ Notice how the samples, displayed in red, are fairly dissimilar to the training
 set in the first component:
 
 ```{r, echo = FALSE}
+#| fig-alt: "Histogram chart. PC001 along the x-axis, count along the y-axis. A vertical red line is placed inside the distribution."
 training_scores <- score(ames_pca, training_data)
 ggplot(training_scores, aes(x = PC01)) + 
   geom_histogram(col = "white", binwidth = .5) + 
@@ -184,8 +189,10 @@ comp_one[order(abs(comp_one), decreasing = TRUE)] %>% head(5)
 These three houses are extreme in the most influential variable (year built) since
 they were new homes. The also tend to have fairly large gross living areas:
 
-```{r, echo = FALSE}
-ggplot(training_data, aes(x = Gr_Liv_Area )) + 
+```{r}
+#| echo: false
+#| fig-alt: "Histogram chart. Gr_Liv_Area along the x-axis, count along the y-axis. Two red vertical lines are places. One on the edge of the distribution, another outside the distribution."
+ggplot(training_data, aes(x = Gr_Liv_Area)) + 
   geom_histogram(col = "white", binwidth = 50) + 
   geom_vline(xintercept = ames_new$Gr_Liv_Area, col = "red")
 ```

@@ -2,9 +2,13 @@ url: https://applicable.tidymodels.org
 
 template:
   package: tidytemplate
-  params:
-    part_of: <a href="https://tidymodels.org">tidymodels</a>
-    footer: applicable is a part of the <strong>tidymodels</strong> ecosystem, a collection of modeling packages designed with common APIs and a shared philosophy.
+  bootstrap: 5
+  bslib:
+    primary: "#CA225E"
+
+  includes:
+      in_header: |
+        <script defer data-domain="applicable.tidymodels.org,all.tidymodels.org" src="https://plausible.io/js/plausible.js"></script>
 
 # https://github.com/tidyverse/tidytemplate for css
 

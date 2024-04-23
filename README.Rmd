@@ -42,8 +42,8 @@ install.packages("applicable")
 Install the development version of applicable from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("tidymodels/applicable")
+# install.packages("pak")
+pak::pak("tidymodels/applicable")
 ```
 
 ## Vignettes
