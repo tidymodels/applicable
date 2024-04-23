@@ -18,6 +18,7 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
 })
 
 test_that("pcs is provided", {
+  skip_if(packageVersion("base") < "4.3.3")
   expect_snapshot(error = TRUE,
     new_apd_pca(blueprint = hardhat::default_xy_blueprint())
   )
