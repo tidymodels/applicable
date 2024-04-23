@@ -21,7 +21,7 @@ test_that("model fitting for isolation forests", {
                             ntrees = 10, nthreads = 1),
     regexp = NA
   )
-  expect_equal(res_1d$model$params$ndim, 1)
+  expect_equal(res_1d$model$params$ndim, 2)
   expect_error(
     res_rec <- apd_isolation(rec, cells_tr, ntrees = 10, nthreads = 1),
     regexp = NA

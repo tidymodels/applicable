@@ -33,7 +33,7 @@ Imports:
     utils
 Suggests: 
     covr,
-    isotree,
+    isotree (>= 0.6.1-1),
     knitr,
     modeldata,
     recipes (>= 0.1.7),
@@ -47,6 +47,6 @@ Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1.9000
+RoxygenNote: 7.3.1
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
