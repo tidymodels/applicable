@@ -18,12 +18,12 @@ test_that("model fitting for isolation forests", {
   )
   expect_error(
     res_1d <- apd_isolation(cells_tr %>% dplyr::select(1),
-                            ntrees = 10, nthreads = 1),
+                            ntrees = 10, nthreads = 1, ndim = 1),
     regexp = NA
   )
   expect_equal(res_1d$model$params$ndim, 1)
   expect_error(
-    res_rec <- apd_isolation(rec, cells_tr, ntrees = 10, nthreads = 1),
+    res_rec <- apd_isolation(rec, cells_tr, ntrees = 10, nthreads = 1, ndim = 2),
     regexp = NA
   )
   expect_equal(res_rec$model$params$ndim, 2)

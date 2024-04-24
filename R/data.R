@@ -30,7 +30,7 @@ NULL
 #' @return \item{okc_binary_train,okc_binary_test}{data frame frames with 61 columns}
 #'
 #' @source
-#' Kim (2015), "OkCupid Data for Introductory Statistics and Data Science Courses", _Journal of Statistics Education_, Volume 23, Number 2. \url{https://www.tandfonline.com/doi/abs/10.1080/10691898.2015.11889737}
+#' Kim (2015), "OkCupid Data for Introductory Statistics and Data Science Courses", _Journal of Statistics Education_, Volume 23, Number 2.
 #'
 #' Kuhn and Johnson (2020), _Feature Engineering and Selection_, Chapman and Hall/CRC . \url{https://bookdown.org/max/FES/} and \url{https://github.com/topepo/FES}
 #'

@@ -1,3 +1,10 @@
+applicable 0.1.1
+==================
+
+- Changes in [apd_isolation()] because [isotree::isolation.forest()] changed their default for the number of dimensions to 1. 
+
+- Updated snapshot unit tests that changed from rlang's changes related to the call/traceback. 
+
 applicable 0.1.0
 ==================
 
