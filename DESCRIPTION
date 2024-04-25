@@ -3,7 +3,7 @@ Title: A Compilation of Applicability Domain Methods
 Version: 0.1.1
 Authors@R: c(
     person("Marly", "Gotti", , "marlygotti@gmail.com", role = c("aut", "cre")),
-    person("Max", "Kuhn", , "max@rstudio.com", role = "aut"),
+    person("Max", "Kuhn", , "max@posit.co", role = "aut"),
     person("RStudio", role = "cph")
   )
 Description: A modeling package compiling applicability domain methods in
@@ -41,8 +41,6 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     xml2
-VignetteBuilder: 
-    knitr
 Config/Needs/website: tidyverse/tidytemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
