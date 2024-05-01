@@ -24,12 +24,12 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Max Kuhn \email{max@rstudio.com}
+  \item Max Kuhn \email{max@posit.co}
 }
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder]
+  \item Posit [copyright holder]
 }
 
 }
