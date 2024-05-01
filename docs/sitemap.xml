@@ -1,13 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://applicable.tidymodels.org/404.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/articles/binary-data.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/articles/continuous-data.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/authors.html</loc>
+  </url>
+  <url>
     <loc>https://applicable.tidymodels.org/index.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/news/index.html</loc>
   </url>
   <url>
     <loc>https://applicable.tidymodels.org/reference/ames_new.html</loc>
   </url>
   <url>
     <loc>https://applicable.tidymodels.org/reference/apd_hat_values.html</loc>
+  </url>
+  <url>
+    <loc>https://applicable.tidymodels.org/reference/apd_isolation.html</loc>
   </url>
   <url>
     <loc>https://applicable.tidymodels.org/reference/apd_pca.html</loc>
@@ -28,6 +58,9 @@
     <loc>https://applicable.tidymodels.org/reference/binary.html</loc>
   </url>
   <url>
+    <loc>https://applicable.tidymodels.org/reference/index.html</loc>
+  </url>
+  <url>
     <loc>https://applicable.tidymodels.org/reference/okc_binary.html</loc>
   </url>
   <url>
@@ -40,10 +73,10 @@
     <loc>https://applicable.tidymodels.org/reference/print.apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.html</loc>
+    <loc>https://applicable.tidymodels.org/reference/score.apd_hat_values.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/reference/score.apd_hat_values.html</loc>
+    <loc>https://applicable.tidymodels.org/reference/score.apd_isolation.html</loc>
   </url>
   <url>
     <loc>https://applicable.tidymodels.org/reference/score.apd_pca.html</loc>
@@ -52,9 +85,6 @@
     <loc>https://applicable.tidymodels.org/reference/score.apd_similarity.html</loc>
   </url>
   <url>
-    <loc>https://applicable.tidymodels.org/articles/binary-data.html</loc>
-  </url>
-  <url>
-    <loc>https://applicable.tidymodels.org/articles/continuous-data.html</loc>
+    <loc>https://applicable.tidymodels.org/reference/score.html</loc>
   </url>
 </urlset>
