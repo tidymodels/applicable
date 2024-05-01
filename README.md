@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# applicable <img src="man/figures/logo.png" style='float: right'/>
+# applicable <a href='https://applicable.tidymodels.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -44,11 +44,11 @@ devtools::install_github("tidymodels/applicable")
 
 To learn about how to use applicable, check out the vignettes:
 
--   `vignette("binary-data", "applicable")`: Learn different methods to
-    analyze binary data.
+- `vignette("binary-data", "applicable")`: Learn different methods to
+  analyze binary data.
 
--   `vignette("continuous-data", "applicable")`: Learn different methods
-    to analyze continuous data.
+- `vignette("continuous-data", "applicable")`: Learn different methods
+  to analyze continuous data.
 
 ## Contributing
 
@@ -56,18 +56,18 @@ This project is released with a [Contributor Code of
 Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
--   For questions and discussions about tidymodels packages, modeling,
-    and machine learning, please [post on RStudio
-    Community](https://forum.posit.co/new-topic?category_id=15&tags=tidymodels,question).
+- For questions and discussions about tidymodels packages, modeling, and
+  machine learning, please [post on Posit
+  Community](https://forum.posit.co/new-topic?category_id=15&tags=tidymodels,question).
 
--   If you think you have encountered a bug, please [submit an
-    issue](https://github.com/tidymodels/applicable/issues).
+- If you think you have encountered a bug, please [submit an
+  issue](https://github.com/tidymodels/applicable/issues).
 
--   Either way, learn how to create and share a
-    [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
-    (a minimal, reproducible example), to clearly communicate about your
-    code.
+- Either way, learn how to create and share a
+  [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+  (a minimal, reproducible example), to clearly communicate about your
+  code.
 
--   Check out further details on [contributing guidelines for tidymodels
-    packages](https://www.tidymodels.org/contribute/) and [how to get
-    help](https://www.tidymodels.org/help/).
+- Check out further details on [contributing guidelines for tidymodels
+  packages](https://www.tidymodels.org/contribute/) and [how to get
+  help](https://www.tidymodels.org/help/).
