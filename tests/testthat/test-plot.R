@@ -1,3 +1,8 @@
+get_labs <- function(x) x$labels
+if ("get_labs" %in% getNamespaceExports("ggplot2")) {
+  get_labs <- ggplot2::get_labs
+}
+
 test_that("output of autoplot.apd_pca is correct when no options are provided", {
   ad <- apd_pca(mtcars)
   ad_plot <- ggplot2::autoplot(ad)
@@ -6,8 +11,9 @@ test_that("output of autoplot.apd_pca is correct when no options are provided", 
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "abs(value)")
-  expect_equal(ad_plot$labels$y, "percentile")
+  labs <- get_labs(ad_plot)
+  expect_equal(labs$x, "abs(value)")
+  expect_equal(labs$y, "percentile")
 })
 
 test_that("output of autoplot.apd_pca is correct when options=matches are provided", {
@@ -19,8 +25,9 @@ test_that("output of autoplot.apd_pca is correct when options=matches are provid
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "abs(value)")
-  expect_equal(ad_plot$labels$y, "percentile")
+  labs <- get_labs(ad_plot)
+  expect_equal(labs$x, "abs(value)")
+  expect_equal(labs$y, "percentile")
 })
 
 test_that("output of autoplot.apd_pca is correct when options=distance are provided", {
@@ -32,6 +39,7 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
     tidyr::gather(component, value, -percentile)
 
   expect_equal(ad_plot$data, pctls)
-  expect_equal(ad_plot$labels$x, "abs(value)")
-  expect_equal(ad_plot$labels$y, "percentile")
+  labs <- get_labs(ad_plot)
+  expect_equal(labs$x, "abs(value)")
+  expect_equal(labs$y, "percentile")
 })
