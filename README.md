@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# applicable <img src="man/figures/logo.png" align="right"/>
+# applicable <a href="https://applicable.tidymodels.org"><img src="man/figures/logo.png" align="right" height="138" alt="applicable website" /></a>
 
 <!-- badges: start -->
 

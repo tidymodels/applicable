@@ -18,7 +18,7 @@ options(rlang__backtrace_on_error = "reminder")
 
 ```
 
-# applicable <img src="man/figures/logo.png" align="right"/>
+# applicable <a href="https://applicable.tidymodels.org"><img src="man/figures/logo.png" align="right" height="138" alt="applicable website" /></a>
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/tidymodels/applicable/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/applicable/actions/workflows/R-CMD-check.yaml)
