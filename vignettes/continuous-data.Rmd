@@ -71,10 +71,10 @@ library(dplyr)
 
 ames_cols <- intersect(names(ames), names(ames_new))
 
-training_data <- 
-  ames %>% 
+training_data <-
+  ames %>%
   # For consistency, only analyze the data on new properties
-  dplyr::select(one_of(ames_cols)) %>% 
+  dplyr::select(one_of(ames_cols)) %>%
   mutate(
     # There is a new neighborhood in ames_new
     Neighborhood = as.character(Neighborhood),
@@ -83,10 +83,10 @@ training_data <-
 
 
 training_recipe <-
-  recipe( ~ ., data = training_data) %>%
-  step_dummy(all_nominal()) %>% 
+  recipe(~., data = training_data) %>%
+  step_dummy(all_nominal()) %>%
   # Remove variables that have the same value for every data point.
-  step_zv(all_predictors()) %>% 
+  step_zv(all_predictors()) %>%
   # Transform variables to be distributed as Gaussian-like as possible.
   step_YeoJohnson(all_numeric()) %>%
   # Normalize numeric data to have a mean of zero and
@@ -163,8 +163,8 @@ set in the first component:
 ```{r, echo = FALSE}
 #| fig-alt: "Histogram chart. PC001 along the x-axis, count along the y-axis. A vertical red line is placed inside the distribution."
 training_scores <- score(ames_pca, training_data)
-ggplot(training_scores, aes(x = PC001)) + 
-  geom_histogram(col = "white", binwidth = .5) + 
+ggplot(training_scores, aes(x = PC001)) +
+  geom_histogram(col = "white", binwidth = .5) +
   geom_vline(xintercept = pca_score$PC001, col = "red")
 ```
 
@@ -183,8 +183,8 @@ they were new homes. The also tend to have fairly large garages:
 
 ```{r, echo = FALSE}
 #| fig-alt: "Histogram chart. Garage_Area along the x-axis, count along the y-axis. Two red vertical lines are places. One on the edge of the distribution, another outside the distribution."
-ggplot(training_data, aes(x = Garage_Area)) + 
-  geom_histogram(col = "white", binwidth = 50) + 
+ggplot(training_data, aes(x = Garage_Area)) +
+  geom_histogram(col = "white", binwidth = 50) +
   geom_vline(xintercept = ames_new$Garage_Area, col = "red")
 ```
 
@@ -221,8 +221,8 @@ Two caveats for using the hat values:
 Let us apply `apd_hat_values` modeling function to our data (while ensuring that there are no linear dependencies):
 
 ```{r}
-non_singular_recipe <- 
-  training_recipe %>% 
+non_singular_recipe <-
+  training_recipe %>%
   step_lincomb(all_predictors())
 
 # Recipe interface
@@ -231,7 +231,5 @@ ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 
 
 ```{r reset_options}
-
 options(prev_options)
-
 ```
