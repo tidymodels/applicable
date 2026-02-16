@@ -1,0 +1,129 @@
+# applicable
+
+## Introduction
+
+There are times when a model’s prediction should be taken with some
+skepticism. For example, if a new data point is substantially different
+from the training set, its predicted value may be suspect. In chemistry,
+it is not uncommon to create an “applicability domain” model that
+measures the amount of potential extrapolation new samples have from the
+training set. applicable contains different methods to measure how much
+a new data point is an extrapolation from the original data (if at all).
+
+## Installation
+
+You can install the released version of applicable from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("applicable")
+```
+
+Install the development version of applicable from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("tidymodels/applicable")
+```
+
+## Vignettes
+
+To learn about how to use applicable, check out the vignettes:
+
+- [`vignette("binary-data", "applicable")`](https://applicable.tidymodels.org/dev/articles/binary-data.md):
+  Learn different methods to analyze binary data.
+
+- [`vignette("continuous-data", "applicable")`](https://applicable.tidymodels.org/dev/articles/continuous-data.md):
+  Learn different methods to analyze continuous data.
+
+## Contributing
+
+This project is released with a [Contributor Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
+
+- For questions and discussions about tidymodels packages, modeling, and
+  machine learning, please [post on Posit
+  Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
+
+- If you think you have encountered a bug, please [submit an
+  issue](https://github.com/tidymodels/applicable/issues).
+
+- Either way, learn how to create and share a
+  [reprex](https://reprex.tidyverse.org/articles/articles/learn-reprex.html)
+  (a minimal, reproducible example), to clearly communicate about your
+  code.
+
+- Check out further details on [contributing guidelines for tidymodels
+  packages](https://www.tidymodels.org/contribute/) and [how to get
+  help](https://www.tidymodels.org/help/).
+
+# Package index
+
+## All functions
+
+- [`ames_new`](https://applicable.tidymodels.org/dev/reference/ames_new.md)
+  : Recent Ames Iowa Houses
+
+- [`apd_hat_values()`](https://applicable.tidymodels.org/dev/reference/apd_hat_values.md)
+  :
+
+  Fit a `apd_hat_values`
+
+- [`apd_pca()`](https://applicable.tidymodels.org/dev/reference/apd_pca.md)
+  :
+
+  Fit a `apd_pca`
+
+- [`apd_similarity()`](https://applicable.tidymodels.org/dev/reference/apd_similarity.md)
+  : Applicability domain methods using binary similarity analysis
+
+- [`autoplot(`*`<apd_pca>`*`)`](https://applicable.tidymodels.org/dev/reference/autoplot.apd_pca.md)
+  : Plot the distribution function for pcas
+
+- [`autoplot(`*`<apd_similarity>`*`)`](https://applicable.tidymodels.org/dev/reference/autoplot.apd_similarity.md)
+  : Plot the cumulative distribution function for similarity metrics
+
+- [`binary`](https://applicable.tidymodels.org/dev/reference/binary.md)
+  [`qsar_binary`](https://applicable.tidymodels.org/dev/reference/binary.md)
+  [`binary_tr`](https://applicable.tidymodels.org/dev/reference/binary.md)
+  [`binary_unk`](https://applicable.tidymodels.org/dev/reference/binary.md)
+  : Binary QSAR Data
+
+- [`okc_binary`](https://applicable.tidymodels.org/dev/reference/okc_binary.md)
+  [`okc_binary_train`](https://applicable.tidymodels.org/dev/reference/okc_binary.md)
+  [`okc_binary_test`](https://applicable.tidymodels.org/dev/reference/okc_binary.md)
+  : OkCupid Binary Predictors
+
+- [`print(`*`<apd_hat_values>`*`)`](https://applicable.tidymodels.org/dev/reference/print.apd_hat_values.md)
+  : Print number of predictors and principal components used.
+
+- [`print(`*`<apd_pca>`*`)`](https://applicable.tidymodels.org/dev/reference/print.apd_pca.md)
+  : Print number of predictors and principal components used.
+
+- [`print(`*`<apd_similarity>`*`)`](https://applicable.tidymodels.org/dev/reference/print.apd_similarity.md)
+  : Print number of predictors and principal components used.
+
+- [`score()`](https://applicable.tidymodels.org/dev/reference/score.md)
+  : A scoring function
+
+- [`score(`*`<apd_hat_values>`*`)`](https://applicable.tidymodels.org/dev/reference/score.apd_hat_values.md)
+  : Score new samples using hat values
+
+- [`score(`*`<apd_pca>`*`)`](https://applicable.tidymodels.org/dev/reference/score.apd_pca.md)
+  :
+
+  Predict from a `apd_pca`
+
+- [`score(`*`<apd_similarity>`*`)`](https://applicable.tidymodels.org/dev/reference/score.apd_similarity.md)
+  : Score new samples using similarity methods
+
+# Articles
+
+### All vignettes
+
+- [Applicability domain methods for binary
+  data](https://applicable.tidymodels.org/dev/articles/binary-data.md):
+- [Applicability domain methods for continuous
+  data](https://applicable.tidymodels.org/dev/articles/continuous-data.md):
