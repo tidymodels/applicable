@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# applicable <img src="man/figures/logo.png" style='float: right'/>
+# applicable <a href='https://applicable.tidymodels.org'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -40,6 +40,16 @@ Install the development version of applicable from
 devtools::install_github("tidymodels/applicable")
 ```
 
+## Vignettes
+
+To learn about how to use applicable, check out the vignettes:
+
+- `vignette("binary-data", "applicable")`: Learn different methods to
+  analyze binary data.
+
+- `vignette("continuous-data", "applicable")`: Learn different methods
+  to analyze continuous data.
+
 ## Contributing
 
 This project is released with a [Contributor Code of
@@ -47,7 +57,7 @@ Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 - For questions and discussions about tidymodels packages, modeling, and
-  machine learning, please [post on RStudio
+  machine learning, please [post on Posit
   Community](https://forum.posit.co/new-topic?category_id=15&tags=tidymodels,question).
 
 - If you think you have encountered a bug, please [submit an

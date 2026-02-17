@@ -1,0 +1,88 @@
+---
+title: "Applicability domain methods for binary data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Applicability domain methods for binary data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(ggplot2)
+theme_set(theme_bw())
+```
+
+```{r, echo = FALSE}
+# TODO
+#- Mention different input data types: data.frame, recipes, matrix, etc.
+#- Maybe make a (better) conclusion?
+#- Explain the reason why the training set is diverse.
+```
+
+## Introduction
+
+```{r}
+library(applicable)
+```
+
+Similarity statistics can be used to compare data sets where all of the
+predictors are binary. One of the most common measures is the Jaccard index.
+
+For a training set of size `n`, there are `n` similarity statistics for each
+new sample. These can be summarized via the mean statistic or a quantile. In
+general, we want similarity to be low within the training set (i.e., a diverse
+training set) and high for new samples to be predicted.
+
+To analyze the Jaccard metric, `applicable` provides the following methods:
+
+* `apd_similarity`: analyzes samples in terms of similarity scores. For a
+training set of _n_ samples, a new sample is compared to each, resulting in _n_
+similarity scores. These can be summarized into the median similarity.
+
+* `autoplot`: shows the cumulative probability versus the unique similarity
+values in the training set.
+
+* `score`: scores new samples using similarity methods. In particular, it
+calculates the similarity scores and if `add_percentile = TRUE`, it also
+estimates the percentile of the similarity scores.
+
+## Example 
+
+The example data is from two QSAR data sets where binary fingerprints are used
+as predictors.
+
+```{r}
+data(qsar_binary)
+```
+
+Let us construct the model:
+
+```{r}
+jacc_sim <- apd_similarity(binary_tr)
+jacc_sim
+```
+
+As we can see below, this is a fairly diverse training set:
+
+```{r jac-plot, fig.width=5, fig.height=5.2,  out.width = '50%', fig.align='center'}
+library(ggplot2)
+
+# Plot the empirical cumulative distribution function for the training set
+autoplot(jacc_sim)
+```
+
+We can compare the similarity between new samples and the training set:
+
+```{r}
+# Summarize across all training set similarities
+mean_sim <- score(jacc_sim, new_data = binary_unk)
+mean_sim
+```
+
+Samples 3 and 5 are definitely extrapolations based on these predictors.
+In other words, the new samples are not similar to the training set and so
+predictions on them may not be very reliable.
