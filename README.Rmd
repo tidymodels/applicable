@@ -39,9 +39,17 @@ install.packages("applicable")
 Install the development version of applicable from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("tidymodels/applicable")
+# install.packages("pak")
+pak::pak("tidymodels/applicable")
 ```
+
+# Vignettes
+
+To learn about how to use applicable, check out the vignettes:
+
+- `vignette("binary-data", "applicable")`: Learn different methods to analyze binary data.
+
+- `vignette("continuous-data", "applicable")`: Learn different methods to analyze continuous data.
 
 ## Contributing
 
