@@ -34,7 +34,7 @@ Predict from a \code{apd_isolation}
 About the score
 }
 \examples{
-\dontshow{if (interactive()) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
 if (rlang::is_installed(c("isotree", "modeldata"))) {
   library(dplyr)
 

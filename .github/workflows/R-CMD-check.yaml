@@ -6,15 +6,12 @@
 # usethis::use_github_action("check-standard") will install it.
 on:
   push:
-    branches:
-    - develop
-    - main
+    branches: [main, master]
   pull_request:
-    branches:
-    - develop
-    - main
 
-name: R-CMD-check
+name: R-CMD-check.yaml
+
+permissions: read-all
 
 jobs:
   R-CMD-check:
@@ -27,9 +24,17 @@ jobs:
       matrix:
         config:
           - {os: macos-latest,   r: 'release'}
+
           - {os: windows-latest, r: 'release'}
-          - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
+          # use 4.0 or 4.1 to check with rtools40's older compiler
+          - {os: windows-latest, r: 'oldrel-4'}
+
+          - {os: ubuntu-latest,  r: 'devel', http-user-agent: 'release'}
+          - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest,  r: 'oldrel-1'}
+          - {os: ubuntu-latest,  r: 'oldrel-2'}
+          - {os: ubuntu-latest,  r: 'oldrel-3'}
+          - {os: ubuntu-latest,  r: 'oldrel-4'}
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
