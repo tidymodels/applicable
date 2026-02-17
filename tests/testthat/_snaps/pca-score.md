@@ -12,7 +12,7 @@
       score(model, iris$Species)
     Condition
       Error in `hardhat::forge()`:
-      ! The class of `new_data`, 'factor', is not recognized.
+      ! No `forge()` method provided for a <factor> object.
 
 # `score` fails when predictors are vectors
 

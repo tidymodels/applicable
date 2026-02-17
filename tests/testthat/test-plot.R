@@ -40,6 +40,6 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
 
   expect_equal(ad_plot$data, pctls)
   labs <- get_labs(ad_plot)
-  expect_equal(labs$x, "abs(value)")
+  expect_equal(labs$x, "distance to center")
   expect_equal(labs$y, "percentile")
 })
