@@ -27,7 +27,7 @@ apd_pca_impl <- function(predictors, threshold) {
   )
 
   if (threshold <= 0 || threshold > 1) {
-    cli::cli_abort("threshold must be between 0 and 1: (0, 1]")
+    rlang::abort("threshold must be between 0 and 1: (0, 1]")
   }
 
   eigs <- pcs$sdev^2
