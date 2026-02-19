@@ -58,7 +58,7 @@ test_that("`apd_hat_values` is defined for data.frame objects", {
 
 test_that("`apd_hat_values` is defined for formula objects", {
   x <- apd_hat_values(~ Sepal.Width + Sepal.Length, iris)
-  X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
+  X <- as.matrix(iris |> select(Sepal.Width, Sepal.Length))
   XpX <- t(X) %*% X
   XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
@@ -71,7 +71,7 @@ test_that("`apd_hat_values` is defined for formula objects", {
 test_that("`apd_hat_values` is defined for recipe objects", {
   rec <- recipes::recipe(~ Sepal.Width + Sepal.Length, iris)
   x <- apd_hat_values(rec, data = iris)
-  X <- as.matrix(iris %>% select(Sepal.Width, Sepal.Length))
+  X <- as.matrix(iris |> select(Sepal.Width, Sepal.Length))
   XpX <- t(X) %*% X
   XtX_inv <- qr.solve(XpX)
   dimnames(XtX_inv) <- NULL
@@ -82,7 +82,7 @@ test_that("`apd_hat_values` is defined for recipe objects", {
 })
 
 test_that("`apd_hat_values` is defined for matrix objects", {
-  X <- as.matrix(iris %>% select(-Species))
+  X <- as.matrix(iris |> select(-Species))
   x <- apd_hat_values(X)
   XpX <- t(X) %*% X
   XtX_inv <- qr.solve(XpX)
@@ -106,7 +106,7 @@ test_that("`apd_hat_values` is not defined for vectors", {
 })
 
 test_that("`apd_hat_values` fails when matrix has more predictors than samples", {
-  bad_data <- mtcars %>%
+  bad_data <- mtcars |>
     slice(1:5)
 
   expect_snapshot(error = TRUE,
@@ -128,5 +128,5 @@ test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
 
 test_that("`get_inv` behaves correctly when the input is not a matrix", {
   X <- c(1:5)
-  expect_error(get_inv(X), NA)
+  expect_no_error(get_inv(X))
 })

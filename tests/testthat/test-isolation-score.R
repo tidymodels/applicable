@@ -4,8 +4,8 @@ test_that("scoring isolation forests", {
   skip_if_not_installed("isotree")
   data(cells, package = "modeldata")
 
-  cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
-  cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
+  cells_tr <- cells |> filter(case == "Train") |> select(-case, -class)
+  cells_te <- cells |> filter(case != "Train") |> select(-case, -class)
 
   res_df <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
   expect_error(

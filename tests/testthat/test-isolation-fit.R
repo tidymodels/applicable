@@ -5,11 +5,11 @@ test_that("model fitting for isolation forests", {
 
   data(cells, package = "modeldata")
 
-  cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
-  cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
+  cells_tr <- cells |> filter(case == "Train") |> select(-case, -class)
+  cells_te <- cells |> filter(case != "Train") |> select(-case, -class)
 
   rec <-
-    recipe(~ ., data = cells_tr) %>%
+    recipe(~ ., data = cells_tr) |>
     step_pca(all_predictors(), num_comp = 2)
 
   expect_error(
@@ -17,7 +17,7 @@ test_that("model fitting for isolation forests", {
     regexp = NA
   )
   expect_error(
-    res_1d <- apd_isolation(cells_tr %>% dplyr::select(1),
+    res_1d <- apd_isolation(cells_tr |> dplyr::select(1),
                             ntrees = 10, nthreads = 1, ndim = 1),
     regexp = NA
   )
@@ -33,6 +33,7 @@ test_that("model fitting for isolation forests", {
   )
   expect_error(
     apd_isolation(print),
+    class = "rlang_error",
     regexp = "is not of a recognized type"
   )
   expect_snapshot(print(res_df))

@@ -89,7 +89,7 @@ test_that("formula method - quantile similarity", {
 
 test_that("recipe method - mean similarity", {
   rec <-
-    recipe(~., data = as.data.frame(tr_x)) %>%
+    recipe(~., data = as.data.frame(tr_x)) |>
     step_zv(all_predictors())
   tmp <- apd_similarity(rec, as.data.frame(tr_x))
   tmp_scores <- score(tmp, as.data.frame(un_x))
@@ -104,7 +104,7 @@ test_that("recipe method - mean similarity", {
 
 test_that("matrix method - quantile similarity", {
   rec <-
-    recipe(~., data = as.data.frame(tr_x)) %>%
+    recipe(~., data = as.data.frame(tr_x)) |>
     step_zv(all_predictors())
   tmp <- apd_similarity(rec, as.data.frame(tr_x), quantile = .1)
   tmp_scores <- score(tmp, as.data.frame(un_x))
