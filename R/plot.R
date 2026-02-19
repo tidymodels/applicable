@@ -1,4 +1,4 @@
-#' Plot the distribution function for pcas
+#' Plot the distribution function for principal components
 #'
 #' @param object An object produced by `apd_pca`.
 #'
@@ -33,12 +33,24 @@ autoplot.apd_pca <- function(object, ...) {
     pctl_data <- pctl_data %>% dplyr::select(!!terms, percentile)
   }
 
-  pctl_data %>%
+  p <-
+    pctl_data %>%
     tidyr::gather(component, value, -percentile) %>%
     ggplot2::ggplot(aes(x = value, y = percentile)) +
-    ggplot2::geom_step(direction = "hv") +
-    ggplot2::facet_wrap(~component) +
-    xlab("abs(value)")
+    ggplot2::geom_step(direction = "hv")
+
+  plot_cols <- names(pctl_data)[names(pctl_data) != "percentile"]
+  if (length(plot_cols) > 1) {
+    p <- p + ggplot2::facet_wrap(~ component, scales = "free_x")
+  }
+
+  if (all(plot_cols == "distance")) {
+    p <- p + xlab("distance to center")
+  } else {
+    p <- p + xlab("abs(value)")
+  }
+
+  p
 }
 
 #' Plot the cumulative distribution function for similarity metrics

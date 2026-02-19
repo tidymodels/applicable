@@ -12,15 +12,14 @@ test_that("`new_apd_hat_values` arguments are assigned correctly", {
 })
 
 test_that("XtX_inv is provided", {
-  expect_snapshot(
-    error = TRUE,
+  skip_if(packageVersion("base") < "4.3.3")
+  expect_snapshot(error = TRUE,
     new_apd_hat_values(blueprint = hardhat::default_xy_blueprint())
   )
 })
 
 test_that("`new_apd_hat_values` fails when blueprint is numeric", {
-  expect_snapshot(
-    error = TRUE,
+  expect_snapshot(error = TRUE,
     new_apd_hat_values(XtX_inv = 1, blueprint = 1)
   )
 })
@@ -110,8 +109,7 @@ test_that("`apd_hat_values` fails when matrix has more predictors than samples",
   bad_data <- mtcars %>%
     slice(1:5)
 
-  expect_snapshot(
-    error = TRUE,
+  expect_snapshot(error = TRUE,
     apd_hat_values(bad_data)
   )
 })
@@ -123,8 +121,7 @@ test_that("`apd_hat_values` fails when the matrix X^tX is singular", {
   )
   colnames(bad_data) <- c("A", "B")
 
-  expect_snapshot(
-    error = TRUE,
+  expect_snapshot(error = TRUE,
     apd_hat_values(bad_data)
   )
 })
