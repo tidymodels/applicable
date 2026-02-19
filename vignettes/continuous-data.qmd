@@ -147,6 +147,7 @@ autoplot(ames_pca)
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
 ```{r, echo = FALSE, results = "hold"}
+#| fig-alt: "Two PCA distribution plots: one for components PC1 through PC5, and one for distance values on a log-scaled x-axis, each showing percentile on the y-axis."
 autoplot(ames_pca, matches("PC[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
