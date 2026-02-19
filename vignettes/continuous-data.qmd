@@ -139,6 +139,7 @@ ames_pca
 Plotting the distribution function for the PCA scores is also helpful:
 
 ```{r autoplot, fig.align='center', fig.width=6}
+#| fig-alt: "Faceted empirical cumulative distribution chart for PCA-derived metrics, with absolute metric values on the x-axis and percentile on the y-axis."
 library(ggplot2)
 autoplot(ames_pca)
 ```
@@ -165,6 +166,7 @@ Notice how the samples, displayed in red, are fairly dissimilar to the training
 set in the first component:
 
 ```{r, echo = FALSE}
+#| fig-alt: "Histogram of first principal-component training scores with red vertical lines marking the three new-sample PC01 values."
 training_scores <- score(ames_pca, training_data)
 ggplot(training_scores, aes(x = PC01)) + 
   geom_histogram(col = "white", binwidth = .5) + 
@@ -185,6 +187,7 @@ These three houses are extreme in the most influential variable (year built) sin
 they were new homes. The also tend to have fairly large gross living areas:
 
 ```{r, echo = FALSE}
+#| fig-alt: "Histogram of gross living area in the training data with red vertical lines showing the gross living area for the three new properties."
 ggplot(training_data, aes(x = Gr_Liv_Area )) + 
   geom_histogram(col = "white", binwidth = 50) + 
   geom_vline(xintercept = ames_new$Gr_Liv_Area, col = "red")
