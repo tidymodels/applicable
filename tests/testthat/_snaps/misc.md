@@ -2,6 +2,7 @@
 
     Code
       names0(num)
-    Error <rlang_error>
-      `num` should be > 0
+    Condition
+      Error in `names0()`:
+      ! `num` should be > 0
 

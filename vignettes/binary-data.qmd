@@ -2,7 +2,7 @@
 title: "Applicability domain methods for binary data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{binary-data}
+  %\VignetteIndexEntry{Applicability domain methods for binary data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

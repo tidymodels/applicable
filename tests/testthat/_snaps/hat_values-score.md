@@ -2,22 +2,25 @@
 
     Code
       score_apd_hat_values_numeric(mtcars, mtcars)
-    Error <rlang_error>
-      The model must contain an XtX_inv argument.
+    Condition
+      Error in `score_apd_hat_values_numeric()`:
+      ! The model must contain an XtX_inv argument.
 
 # `score` fails when predictors only contain factors
 
     Code
       score(model, iris$Species)
-    Error <rlang_error>
-      The class of `new_data`, 'factor', is not recognized.
+    Condition
+      Error in `hardhat::forge()`:
+      ! No `forge()` method provided for a <factor> object.
 
 # `score` fails when predictors are vectors
 
     Code
       score(object)
-    Error <rlang_error>
-      `object` is not of a recognized type.
+    Condition
+      Error in `score()`:
+      ! `object` is not of a recognized type.
       Only data.frame, matrix, recipe, and formula objects are allowed.
       A data.frame was specified.
 
