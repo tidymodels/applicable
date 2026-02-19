@@ -4,7 +4,8 @@ Version: 0.1.1
 Authors@R: c(
     person("Marly", "Gotti", , "marlygotti@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "aut"),
-    person("Posit", role = "cph")
+    person("Posit Software, PBC", role = c("cph", "fnd"),
+           comment = c(ROR = "03wc8by49"))
   )
 Description: A modeling package compiling applicability domain methods in
     R. It combines different methods to measure the amount of
@@ -17,7 +18,7 @@ URL: https://github.com/tidymodels/applicable,
 BugReports: https://github.com/tidymodels/applicable/issues
 Depends: 
     ggplot2 (>= 4.0.2),
-    R (>= 3.6)
+    R (>= 4.1)
 Imports: 
     dplyr,
     glue,
@@ -43,9 +44,9 @@ Suggests:
     xml2
 Config/Needs/website: tidyverse/tidytemplate, quarto
 Config/testthat/edition: 3
+Config/usethis/last-upkeep: 2026-02-19
 Encoding: UTF-8
 Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
-Config/usethis/last-upkeep: 2026-02-19
