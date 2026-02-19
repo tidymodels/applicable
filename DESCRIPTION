@@ -48,3 +48,4 @@ Language: en-US
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
+Config/usethis/last-upkeep: 2026-02-19
