@@ -2,7 +2,7 @@
 title: "Applicability domain methods for continuous data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{continuous-data}
+  %\VignetteIndexEntry{Applicability domain methods for continuous data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -69,7 +69,12 @@ the statistics estimated from the training set.
 library(recipes)
 library(dplyr)
 
-ames_cols <- intersect(names(ames), names(ames_new))
+# Load custom houses from applicable.
+data(ames_new, package = "applicable")
+
+ames_cols <- c('MS_SubClass', 'Lot_Frontage', 'Lot_Area', 'Lot_Shape', 
+               'Neighborhood', 'Bldg_Type', 'Year_Built', 'Central_Air', 
+               'Gr_Liv_Area', 'Full_Bath', 'Half_Bath', 'Longitude', 'Latitude')
 
 training_data <- 
   ames %>% 
@@ -133,8 +138,7 @@ ames_pca
 
 Plotting the distribution function for the PCA scores is also helpful:
 
-```{r autoplot}
-#| fig-alt: "Faceted line chart. abs(value) along the x-axis, percentile along the y-axis. The facets are distance, followed by PC 1 through 12. All lines go up fairly fast."
+```{r autoplot, fig.align='center', fig.width=6}
 library(ggplot2)
 autoplot(ames_pca)
 ```
@@ -142,7 +146,7 @@ autoplot(ames_pca)
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
 ```{r, echo = FALSE, results = "hold"}
-autoplot(ames_pca, matches("PC0[1-5]"))
+autoplot(ames_pca, matches("PC[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
 
@@ -161,11 +165,10 @@ Notice how the samples, displayed in red, are fairly dissimilar to the training
 set in the first component:
 
 ```{r, echo = FALSE}
-#| fig-alt: "Histogram chart. PC001 along the x-axis, count along the y-axis. A vertical red line is placed inside the distribution."
 training_scores <- score(ames_pca, training_data)
-ggplot(training_scores, aes(x = PC001)) + 
+ggplot(training_scores, aes(x = PC01)) + 
   geom_histogram(col = "white", binwidth = .5) + 
-  geom_vline(xintercept = pca_score$PC001, col = "red")
+  geom_vline(xintercept = pca_score$PC01, col = "red")
 ```
 
 What is driving the first component? We can look at which predictors have the
@@ -179,13 +182,12 @@ comp_one[order(abs(comp_one), decreasing = TRUE)] %>% head(5)
 ```
 
 These three houses are extreme in the most influential variable (year built) since
-they were new homes. The also tend to have fairly large garages:
+they were new homes. The also tend to have fairly large gross living areas:
 
 ```{r, echo = FALSE}
-#| fig-alt: "Histogram chart. Garage_Area along the x-axis, count along the y-axis. Two red vertical lines are places. One on the edge of the distribution, another outside the distribution."
-ggplot(training_data, aes(x = Garage_Area)) + 
+ggplot(training_data, aes(x = Gr_Liv_Area )) + 
   geom_histogram(col = "white", binwidth = 50) + 
-  geom_vline(xintercept = ames_new$Garage_Area, col = "red")
+  geom_vline(xintercept = ames_new$Gr_Liv_Area, col = "red")
 ```
 
 This may be what is driving the first component. 

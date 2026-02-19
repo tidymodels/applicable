@@ -1,16 +1,17 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# applicable <img src="man/figures/logo.png" align="right"/>
+# applicable <a href="https://applicable.tidymodels.org"><img src="man/figures/logo.png" align="right" height="138" alt="applicable website" /></a>
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/tidymodels/applicable/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/tidymodels/applicable/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
-coverage](https://codecov.io/gh/tidymodels/applicable/branch/main/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/applicable?branch=main)
+coverage](https://codecov.io/gh/tidymodels/applicable/graph/badge.svg)](https://app.codecov.io/gh/tidymodels/applicable)
 [![Lifecycle:experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/applicable)](https://cran.r-project.org/package=applicable)
+
 <!-- badges: end -->
 
 ## Introduction
@@ -57,7 +58,7 @@ Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
 By contributing to this project, you agree to abide by its terms.
 
 - For questions and discussions about tidymodels packages, modeling, and
-  machine learning, please [post on RStudio
+  machine learning, please [post on Posit
   Community](https://community.rstudio.com/new-topic?category_id=15&tags=tidymodels,question).
 
 - If you think you have encountered a bug, please [submit an

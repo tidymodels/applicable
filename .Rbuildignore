@@ -12,3 +12,5 @@
 ^CODE_OF_CONDUCT\.md$
 ^\.github$
 ^codecov\.yml$
+^CRAN-SUBMISSION$
+^vignettes$
