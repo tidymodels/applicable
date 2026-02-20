@@ -68,8 +68,8 @@ if (rlang::is_installed(c("isotree", "modeldata"))) {
 
   data(cells, package = "modeldata")
 
-  cells_tr <- cells \%>\% filter(case == "Train") \%>\% select(-case, -class)
-  cells_te <- cells \%>\% filter(case != "Train") \%>\% select(-case, -class)
+  cells_tr <- cells |> filter(case == "Train") |> select(-case, -class)
+  cells_te <- cells |> filter(case != "Train") |> select(-case, -class)
 
   if_mod <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
   if_mod
