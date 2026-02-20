@@ -15,18 +15,18 @@ score_apd_pca_numeric <- function(model, predictors) {
   dists <- find_distance_to_pca_means(predicted_output, model$pca_means)
 
   predicted_output <-
-    as_tibble(predicted_output) %>%
-    setNames(names0(ncol(predicted_output), "PC")) %>%
+    as_tibble(predicted_output) |>
+    setNames(names0(ncol(predicted_output), "PC")) |>
     mutate(distance = dists)
 
   # Compute percentile of new pca values
   new_pctls <- purrr::map2_dfc(
-    model$pctls %>%
+    model$pctls |>
       dplyr::select(-percentile),
-    predicted_output %>% mutate_all(abs),
+    predicted_output |> mutate_all(abs),
     get_new_percentile,
     grid = model$pctls$percentile
-  ) %>%
+  ) |>
     dplyr::rename_all(paste0, "_pctl")
 
   tibble::as_tibble(

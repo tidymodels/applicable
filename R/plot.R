@@ -30,12 +30,12 @@ autoplot.apd_pca <- function(object, ...) {
 
   if (length(selections) > 0) {
     terms <- tidyselect::vars_select(names(pctl_data), !!!selections)
-    pctl_data <- pctl_data %>% dplyr::select(!!terms, percentile)
+    pctl_data <- pctl_data |> dplyr::select(!!terms, percentile)
   }
 
   p <-
-    pctl_data %>%
-    tidyr::gather(component, value, -percentile) %>%
+    pctl_data |>
+    tidyr::gather(component, value, -percentile) |>
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv")
 

@@ -25,8 +25,8 @@ apd_hat_values_impl <- function(predictors) {
   hat_values <- diag(P)
 
   # Calculate percentile for all PCs and distances
-  pctls <- as.data.frame(get_ref_percentile(hat_values)) %>%
-    setNames("hat_values_pctls") %>%
+  pctls <- as.data.frame(get_ref_percentile(hat_values)) |>
+    setNames("hat_values_pctls") |>
     mutate(percentile = seq(0, 100, length = 101))
 
   res <-

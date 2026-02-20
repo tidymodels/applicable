@@ -26,7 +26,7 @@ apd_isolation_impl <- function(predictors, options) {
 
   # Calculate percentile for scores
   pctls <-
-    tibble::tibble(score = get_ref_percentile(tr_pred)) %>%
+    tibble::tibble(score = get_ref_percentile(tr_pred)) |>
     mutate(percentile = seq(0, 100, length = 101))
 
   res <- list(
@@ -108,8 +108,8 @@ apd_isolation_bridge <- function(processed, ...) {
 #'
 #'   data(cells, package = "modeldata")
 #'
-#'   cells_tr <- cells %>% filter(case == "Train") %>% select(-case, -class)
-#'   cells_te <- cells %>% filter(case != "Train") %>% select(-case, -class)
+#'   cells_tr <- cells |> filter(case == "Train") |> select(-case, -class)
+#'   cells_te <- cells |> filter(case != "Train") |> select(-case, -class)
 #'
 #'   if_mod <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
 #'   if_mod
