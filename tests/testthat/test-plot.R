@@ -8,7 +8,7 @@ test_that("output of autoplot.apd_pca is correct when no options are provided", 
   ad_plot <- ggplot2::autoplot(ad)
 
   pctls <- ad$pctls |>
-    tidyr::gather(component, value, -percentile)
+    tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value")
 
   expect_equal(ad_plot$data, pctls)
   labs <- get_labs(ad_plot)
@@ -22,7 +22,7 @@ test_that("output of autoplot.apd_pca is correct when options=matches are provid
 
   pctls <- ad$pctls |>
     select(matches("PC[1-5]"), percentile) |>
-    tidyr::gather(component, value, -percentile)
+    tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value")
 
   expect_equal(ad_plot$data, pctls)
   labs <- get_labs(ad_plot)
@@ -36,7 +36,7 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
 
   pctls <- ad$pctls |>
     select(matches("distance"), percentile) |>
-    tidyr::gather(component, value, -percentile)
+    tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value")
 
   expect_equal(ad_plot$data, pctls)
   labs <- get_labs(ad_plot)

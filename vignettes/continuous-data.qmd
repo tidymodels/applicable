@@ -80,9 +80,9 @@ ames_cols <- c('MS_SubClass', 'Lot_Frontage', 'Lot_Area', 'Lot_Shape',
                'Gr_Liv_Area', 'Full_Bath', 'Half_Bath', 'Longitude', 'Latitude')
 
 training_data <- 
-  ames %>% 
+  ames |> 
   # For consistency, only analyze the data on new properties
-  dplyr::select(one_of(ames_cols)) %>% 
+  dplyr::select(any_of(ames_cols)) |> 
   mutate(
     # There is a new neighborhood in ames_new
     Neighborhood = as.character(Neighborhood),
@@ -91,12 +91,12 @@ training_data <-
 
 
 training_recipe <-
-  recipe( ~ ., data = training_data) %>%
-  step_dummy(all_nominal()) %>% 
+  recipe( ~ ., data = training_data) |>
+  step_dummy(all_nominal()) |> 
   # Remove variables that have the same value for every data point.
-  step_zv(all_predictors()) %>% 
+  step_zv(all_predictors()) |> 
   # Transform variables to be distributed as Gaussian-like as possible.
-  step_YeoJohnson(all_numeric()) %>%
+  step_YeoJohnson(all_numeric()) |>
   # Normalize numeric data to have a mean of zero and
   # standard deviation of one.
   step_normalize(all_numeric())
@@ -167,7 +167,7 @@ the original data:
 ```{r new_sample}
 ames_pca <- apd_pca(training_recipe, training_data)
 pca_score <- score(ames_pca, ames_new)
-pca_score %>% select(matches("PC00[1-3]"), contains("distance"))
+pca_score |> select(matches("PC00[1-3]"), contains("distance"))
 ```
 
 Notice how the samples, displayed in red, are fairly dissimilar to the training
@@ -189,7 +189,7 @@ combinations in the PC scores). The top five are:
 ```{r}
 # `ames_pca$pcs` is the output of `prcomp()`
 comp_one <- ames_pca$pcs$rotation[, 1]
-comp_one[order(abs(comp_one), decreasing = TRUE)] %>% head(5)
+comp_one[order(abs(comp_one), decreasing = TRUE)] |> head(5)
 ```
 
 These three houses are extreme in the most influential variable (year built) since
@@ -237,7 +237,7 @@ Let us apply `apd_hat_values` modeling function to our data (while ensuring that
 
 ```{r}
 non_singular_recipe <- 
-  training_recipe %>% 
+  training_recipe |> 
   step_lincomb(all_predictors())
 
 # Recipe interface

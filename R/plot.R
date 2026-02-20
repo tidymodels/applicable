@@ -35,7 +35,7 @@ autoplot.apd_pca <- function(object, ...) {
 
   p <-
     pctl_data |>
-    tidyr::gather(component, value, -percentile) |>
+    tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value") |>
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv")
 

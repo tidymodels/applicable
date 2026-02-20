@@ -8,10 +8,7 @@ test_that("scoring isolation forests", {
   cells_te <- cells |> filter(case != "Train") |> select(-case, -class)
 
   res_df <- apd_isolation(cells_tr, ntrees = 10, nthreads = 1)
-  expect_error(
-    score_te  <- score(res_df, cells_te),
-    regexp = NA
-  )
+  expect_no_error(score_te  <- score(res_df, cells_te))
 
   expect_true(identical(names(score_te), c("score", "score_pctl")))
   expect_true(inherits(score_te, "tbl_df"))

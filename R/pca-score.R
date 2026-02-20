@@ -23,11 +23,11 @@ score_apd_pca_numeric <- function(model, predictors) {
   new_pctls <- purrr::map2_dfc(
     model$pctls |>
       dplyr::select(-percentile),
-    predicted_output |> mutate_all(abs),
+    predicted_output |> mutate(dplyr::across(dplyr::everything(), abs)),
     get_new_percentile,
     grid = model$pctls$percentile
   ) |>
-    dplyr::rename_all(paste0, "_pctl")
+    dplyr::rename_with(\(x) paste0(x, "_pctl"))
 
   tibble::as_tibble(
     cbind(
