@@ -1,3 +1,9 @@
+# applicable (development version)
+
+- Modernized package code and examples to use base R pipes (`|>`) and updated deprecated tidyverse helpers (`gather()`, `mutate_all()`, and `rename_all()`).
+- Updated tests to use stricter modern expectations, including replacing success-path `expect_error(..., regexp = NA)` checks with `expect_no_error()`.
+- Added and used a changed-function test/coverage helper workflow during maintenance, and refreshed isolation method documentation.
+
 # applicable 0.1.1
 
 
