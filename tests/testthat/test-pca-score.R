@@ -78,3 +78,14 @@ test_that("`score_apd_pca_bridge` output is correct", {
     expected
   )
 })
+
+test_that("`score_apd_pca_numeric` warns for missing predictor values", {
+  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+  predictors[1, 1] <- NA_real_
+
+  expect_warning(
+    score_apd_pca_numeric(model, predictors),
+    "`new_data` contains missing predictor values"
+  )
+})
