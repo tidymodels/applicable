@@ -1,6 +1,6 @@
 Package: applicable
 Title: A Compilation of Applicability Domain Methods
-Version: 0.1.1
+Version: 0.2.1
 Authors@R: c(
     person("Marly", "Gotti", , "marlygotti@gmail.com", role = c("aut", "cre")),
     person("Max", "Kuhn", , "max@posit.co", role = "aut"),

@@ -70,7 +70,8 @@ jacc_sim
 
 As we can see below, this is a fairly diverse training set:
 
-```{r jac-plot}
+```{r}
+#| label: jac-plot
 #| fig-alt: "Empirical cumulative distribution chart. Mean similarity along the x-axis, Cumulative Probability along the why axis. Reading from left to right, values stay close to 0 from x = 0 to x = 0.25, from x = 0.25 to x = 0.4 there is a near-linear upwards trend to about y = 0.70. After that y = 1."
 library(ggplot2)
 

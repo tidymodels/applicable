@@ -35,7 +35,8 @@ library(applicable)
 
 We will use the Ames IA housing data for our example.
 
-```{r ames_data}
+```{r}
+#| label: ames_data
 #| message: false
 library(modeldata)
 data(ames)
@@ -67,7 +68,8 @@ predictor distributions more symmetric. After these, the data are centered and
 scaled. These same transformations will be applied to the new data points using
 the statistics estimated from the training set.
 
-```{r prep_data}
+```{r}
+#| label: prep_data
 #| message: false
 library(recipes)
 library(dplyr)
@@ -141,7 +143,8 @@ ames_pca
 
 Plotting the distribution function for the PCA scores is also helpful:
 
-```{r autoplot}
+```{r}
+#| label: autoplot
 #| fig-align: center
 #| fig-width: 6
 #| fig-alt: "Faceted empirical cumulative distribution chart for PCA-derived metrics, with absolute metric values on the x-axis and percentile on the y-axis."
@@ -164,7 +167,8 @@ the case where we capture 95% of the variation in the predictors and score the
 new samples. Since we used the recipe interface, we can give the score function
 the original data:
 
-```{r new_sample}
+```{r}
+#| label: new_sample
 ames_pca <- apd_pca(training_recipe, training_data)
 pca_score <- score(ames_pca, ames_new)
 pca_score |> select(matches("PC00[1-3]"), contains("distance"))
@@ -245,7 +249,8 @@ ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 ```
 
 
-```{r reset_options}
+```{r}
+#| label: reset_options
 
 options(prev_options)
 
