@@ -6,6 +6,9 @@
 - Added a helper script (`scripts/test-changed-functions.R`) to report changed functions, check test references, run testthat, and run `covr` coverage for changed code.
 - Improved CRAN/release readiness with additional housekeeping: build ignore updates for `scripts/`, version/roxygen metadata maintenance, link/DOI and vignette compliance fixes, plus spelling/WORDLIST updates.
 - Included prior plotting/printing refinements: PCA plot sizing/faceting and print-method formatting cleanups.
+- Updated Quarto vignette chunk options to in-body YAML style and bumped package version in `DESCRIPTION` to `0.2.1`.
+- Switched Ames dataset documentation links from `http` to `https` in source, vignette text, and generated `.Rd` docs.
+- Refreshed website/project assets and configuration files (including favicon assets and editor/project config updates).
 
 # applicable 0.1.1
 
