@@ -43,3 +43,12 @@ test_that("output of autoplot.apd_pca is correct when options=distance are provi
   expect_equal(labs$x, "distance to center")
   expect_equal(labs$y, "percentile")
 })
+
+test_that("autoplot.apd_pca errors when selectors match no columns", {
+  ad <- apd_pca(mtcars)
+
+  expect_error(
+    ggplot2::autoplot(ad, matches("DOES_NOT_EXIST")),
+    "No columns were selected for plotting"
+  )
+})

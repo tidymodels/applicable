@@ -33,13 +33,19 @@ autoplot.apd_pca <- function(object, ...) {
     pctl_data <- pctl_data |> dplyr::select(!!terms, percentile)
   }
 
+  plot_cols <- setdiff(names(pctl_data), "percentile")
+  if (length(plot_cols) == 0) {
+    rlang::abort(
+      "No columns were selected for plotting. Check the selectors supplied in `...`."
+    )
+  }
+
   p <-
     pctl_data |>
     tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value") |>
     ggplot2::ggplot(aes(x = value, y = percentile)) +
     ggplot2::geom_step(direction = "hv")
 
-  plot_cols <- names(pctl_data)[names(pctl_data) != "percentile"]
   if (length(plot_cols) > 1) {
     p <- p + ggplot2::facet_wrap(~ component, scales = "free_x")
   }

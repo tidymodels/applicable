@@ -1,5 +1,6 @@
 # applicable (development version)
 
+- Improved `autoplot.apd_pca()` selector handling to fail early with a clear error when `...` selectors match no columns.
 - Modernized package code, tests, and vignettes to use base R pipes (`|>`) and replaced superseded tidyverse helpers (`pivot_longer()`, `across()`, and `rename_with()`).
 - Updated tests to use stricter modern expectations, including replacing success-path `expect_error(..., regexp = NA)` checks with `expect_no_error()`.
 - Expanded isolation-method maintenance and coverage work, including formula-interface checks, `check_isotree()` test paths, and refreshed isolation `.Rd` documentation.
