@@ -78,3 +78,14 @@ test_that("`score_apd_pca_bridge` output is correct", {
     expected
   )
 })
+
+test_that("`score` percentiles clamp to 100 for extreme PCA values", {
+  model <- apd_pca(mtcars)
+  predictors <- mtcars[1, , drop = FALSE]
+  predictors[] <- predictors[] * 1000
+
+  pctls <- score(model, predictors) |>
+    dplyr::select(dplyr::ends_with("_pctl"))
+
+  expect_true(all(unlist(pctls, use.names = FALSE) == 100))
+})

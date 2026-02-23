@@ -57,7 +57,7 @@ get_inv <- function(X) {
 # Get percentile for new samples
 get_new_percentile <- function(ref, x_new, grid) {
   res <- approx(ref, grid, xout = x_new)$y
-  res[x_new < min(ref, na.rm = TRUE)] <- 0
-  res[x_new > max(ref, na.rm = TRUE)] <- 1
+  res[x_new < min(ref, na.rm = TRUE)] <- min(grid, na.rm = TRUE)
+  res[x_new > max(ref, na.rm = TRUE)] <- max(grid, na.rm = TRUE)
   res
 }
