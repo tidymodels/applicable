@@ -1,6 +1,5 @@
 # applicable (development version)
 
-- Fixed percentile clamping in `score()` outputs so extreme out-of-range values use the correct percentile scale (e.g. `100` instead of `1` on `*_pctl` / `score_pctl` columns).
 - Improved `autoplot.apd_pca()` selector handling to fail early with a clear error when `...` selectors match no columns.
 - Modernized package code, tests, and vignettes to use base R pipes (`|>`) and replaced superseded tidyverse helpers (`pivot_longer()`, `across()`, and `rename_with()`).
 - Updated tests to use stricter modern expectations, including replacing success-path `expect_error(..., regexp = NA)` checks with `expect_no_error()`.
