@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.R
 \name{autoplot.apd_pca}
 \alias{autoplot.apd_pca}
-\title{Plot the distribution function for pcas}
+\title{Plot the distribution function for principal components}
 \usage{
 \method{autoplot}{apd_pca}(object, ...)
 }
@@ -18,7 +18,7 @@ A \code{ggplot} object that shows the distribution function for each
 principal component.
 }
 \description{
-Plot the distribution function for pcas
+Plot the distribution function for principal components
 }
 \examples{
 library(ggplot2)

@@ -1,4 +1,4 @@
-#' Plot the distribution function for pcas
+#' Plot the distribution function for principal components
 #'
 #' @param object An object produced by `apd_pca`.
 #'
@@ -30,15 +30,33 @@ autoplot.apd_pca <- function(object, ...) {
 
   if (length(selections) > 0) {
     terms <- tidyselect::vars_select(names(pctl_data), !!!selections)
-    pctl_data <- pctl_data %>% dplyr::select(!!terms, percentile)
+    pctl_data <- pctl_data |> dplyr::select(!!terms, percentile)
   }
 
-  pctl_data %>%
-    tidyr::gather(component, value, -percentile) %>%
+  plot_cols <- setdiff(names(pctl_data), "percentile")
+  if (length(plot_cols) == 0) {
+    rlang::abort(
+      "No columns were selected for plotting. Check the selectors supplied in `...`."
+    )
+  }
+
+  p <-
+    pctl_data |>
+    tidyr::pivot_longer(-percentile, names_to = "component", values_to = "value") |>
     ggplot2::ggplot(aes(x = value, y = percentile)) +
-    ggplot2::geom_step(direction = "hv") +
-    ggplot2::facet_wrap(~component) +
-    xlab("abs(value)")
+    ggplot2::geom_step(direction = "hv")
+
+  if (length(plot_cols) > 1) {
+    p <- p + ggplot2::facet_wrap(~ component, scales = "free_x")
+  }
+
+  if (all(plot_cols == "distance")) {
+    p <- p + xlab("distance to center")
+  } else {
+    p <- p + xlab("abs(value)")
+  }
+
+  p
 }
 
 #' Plot the cumulative distribution function for similarity metrics

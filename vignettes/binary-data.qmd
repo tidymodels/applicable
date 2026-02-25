@@ -2,12 +2,13 @@
 title: "Applicability domain methods for binary data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{binary-data}
+  %\VignetteIndexEntry{Applicability domain methods for binary data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -16,7 +17,8 @@ library(ggplot2)
 theme_set(theme_bw())
 ```
 
-```{r, echo = FALSE}
+```{r}
+#| echo: false
 # TODO
 #- Mention different input data types: data.frame, recipes, matrix, etc.
 #- Maybe make a (better) conclusion?
@@ -68,7 +70,8 @@ jacc_sim
 
 As we can see below, this is a fairly diverse training set:
 
-```{r jac-plot}
+```{r}
+#| label: jac-plot
 #| fig-alt: "Empirical cumulative distribution chart. Mean similarity along the x-axis, Cumulative Probability along the why axis. Reading from left to right, values stay close to 0 from x = 0 to x = 0.25, from x = 0.25 to x = 0.4 there is a near-linear upwards trend to about y = 0.70. After that y = 1."
 library(ggplot2)
 

@@ -18,15 +18,14 @@ test_that("`new_apd_pca` arguments are assigned correctly", {
 })
 
 test_that("pcs is provided", {
-  expect_snapshot(
-    error = TRUE,
+  skip_if(packageVersion("base") < "4.3.3")
+  expect_snapshot(error = TRUE,
     new_apd_pca(blueprint = hardhat::default_xy_blueprint())
   )
 })
 
 test_that("`new_apd_pca` fails when blueprint is numeric", {
-  expect_snapshot(
-    error = TRUE,
+  expect_snapshot(error = TRUE,
     new_apd_pca(pcs = 1, blueprint = 1)
   )
 })
@@ -60,8 +59,7 @@ test_that("pcs matches `prcomp` output for the data frame method", {
   expected$x <- NULL
 
   # Data frame method
-  expect_equal(
-    ignore_attr = TRUE,
+  expect_equal(ignore_attr = TRUE,
     apd_pca(mtcars)$pcs,
     expected
   )
@@ -72,8 +70,7 @@ test_that("pcs matches `prcomp` output for the formula method", {
   expected$x <- NULL
 
   # Formula method
-  expect_equal(
-    ignore_attr = TRUE,
+  expect_equal(ignore_attr = TRUE,
     apd_pca(~., mtcars)$pcs,
     expected
   )
@@ -85,8 +82,7 @@ test_that("pcs matches `prcomp` output for the recipe method", {
 
   # Recipe method
   rec <- recipes::recipe(~., mtcars)
-  expect_equal(
-    ignore_attr = TRUE,
+  expect_equal(ignore_attr = TRUE,
     apd_pca(rec, data = mtcars)$pcs,
     expected
   )
@@ -97,8 +93,7 @@ test_that("pcs matches `prcomp` output for the matrix method", {
   expected$x <- NULL
 
   # Matrix method
-  expect_equal(
-    ignore_attr = TRUE,
+  expect_equal(ignore_attr = TRUE,
     apd_pca(as.matrix(mtcars))$pcs,
     expected
   )

@@ -28,10 +28,10 @@ apd_similarity_impl <- function(predictors, quantile, options) {
   ref_scores <-
     tibble::tibble(
       sim = score_apd_similarity_numeric(res, predictors[sampling, , drop = FALSE], options)
-    ) %>%
-    dplyr::group_by(sim) %>%
-    dplyr::count() %>%
-    dplyr::ungroup() %>%
+    ) |>
+    dplyr::group_by(sim) |>
+    dplyr::count() |>
+    dplyr::ungroup() |>
     dplyr::mutate(cumulative = cumsum(n) / sum(n))
   res$ref_scores <- ref_scores
   res
@@ -57,7 +57,7 @@ apd_similarity_bridge <- function(processed, quantile = NA_real_, ...) {
     predictors <- as.matrix(predictors)
   }
 
-  not_bin <- apply(predictors, 2, function(x) any(x != 1 & x != 0))
+  not_bin <- apply(predictors, 2, \(x) any(x != 1 & x != 0))
   if (any(not_bin)) {
     bad_x <- colnames(predictors)[not_bin]
     bad_x <- glue::glue_collapse(bad_x, sep = ", ", last = ", and ")

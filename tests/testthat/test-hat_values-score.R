@@ -23,8 +23,8 @@ test_that("`score` fails when predictors are vectors", {
 })
 
 test_that("`score` calculated hat_values are correct", {
-  model <- apd_hat_values(mtcars %>% dplyr::slice(1:15))
-  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+  model <- apd_hat_values(mtcars |> dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars |> dplyr::slice(16:30))
 
   proj_matrix <- predictors %*% model$XtX_inv %*% t(predictors)
   expected <- diag(proj_matrix)

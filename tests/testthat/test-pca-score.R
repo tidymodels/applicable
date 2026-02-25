@@ -23,14 +23,14 @@ test_that("`score` fails when predictors are vectors", {
 })
 
 test_that("`score_apd_pca_numeric` pcs output matches `stats::predict` output", {
-  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
-  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+  model <- apd_pca(mtcars |> dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars |> dplyr::slice(16:30))
 
   expected <- stats::predict(model$pcs, predictors)
   expected <- as.data.frame(expected[, 1:model$num_comp, drop = FALSE])
 
   # Select columns of the form PC{number}
-  actual_output <- score_apd_pca_numeric(model, predictors) %>%
+  actual_output <- score_apd_pca_numeric(model, predictors) |>
     dplyr::select(dplyr::matches("^PC\\d+$"))
 
   # Data frame method
@@ -42,14 +42,14 @@ test_that("`score_apd_pca_numeric` pcs output matches `stats::predict` output", 
 })
 
 test_that("`score` pcs output matches `stats::predict` output", {
-  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
-  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+  model <- apd_pca(mtcars |> dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars |> dplyr::slice(16:30))
 
   expected <- stats::predict(model$pcs, predictors)
   expected <- as.data.frame(expected[, 1:model$num_comp, drop = FALSE])
 
   # Select columns of the form PC{number}
-  actual_output <- score(model, predictors) %>%
+  actual_output <- score(model, predictors) |>
     dplyr::select(dplyr::matches("^PC\\d+$"))
 
   # Data frame method
@@ -61,14 +61,14 @@ test_that("`score` pcs output matches `stats::predict` output", {
 })
 
 test_that("`score_apd_pca_bridge` output is correct", {
-  model <- apd_pca(mtcars %>% dplyr::slice(1:15))
-  predictors <- as.matrix(mtcars %>% dplyr::slice(16:30))
+  model <- apd_pca(mtcars |> dplyr::slice(1:15))
+  predictors <- as.matrix(mtcars |> dplyr::slice(16:30))
 
   expected <- stats::predict(model$pcs, predictors)
   expected <- as.data.frame(expected[, 1:model$num_comp, drop = FALSE])
 
   # Select columns of the form PC{number}
-  actual_output <- score_apd_pca_bridge("numeric", model, predictors) %>%
+  actual_output <- score_apd_pca_bridge("numeric", model, predictors) |>
     dplyr::select(dplyr::matches("^PC\\d+$"))
 
   # Data frame method

@@ -2,12 +2,13 @@
 title: "Applicability domain methods for continuous data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{continuous-data}
+  %\VignetteIndexEntry{Applicability domain methods for continuous data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -34,7 +35,9 @@ library(applicable)
 
 We will use the Ames IA housing data for our example.
 
-```{r ames_data, message=FALSE}
+```{r}
+#| label: ames_data
+#| message: false
 library(modeldata)
 data(ames)
 ```
@@ -48,7 +51,7 @@ The Sale Price was recorded along with `r ncol(ames)` predictors, including:
 * General assessments such as overall quality and condition.
 * Number of bedrooms, baths, and so on.
 
-More details can be found in [De Cock (2011, Journal of Statistics Education)](http://jse.amstat.org/v19n3/decock.pdf).
+More details can be found in [De Cock (2011, Journal of Statistics Education)](https://jse.amstat.org/v19n3/decock.pdf).
 
 The raw data are at [`http://jse.amstat.org/v19n3/decock/AmesHousing.txt`](http://jse.amstat.org/v19n3/decock/AmesHousing.txt) but we 
 will use a processed version found in the 
@@ -65,16 +68,23 @@ predictor distributions more symmetric. After these, the data are centered and
 scaled. These same transformations will be applied to the new data points using
 the statistics estimated from the training set.
 
-```{r prep_data, message=FALSE}
+```{r}
+#| label: prep_data
+#| message: false
 library(recipes)
 library(dplyr)
 
-ames_cols <- intersect(names(ames), names(ames_new))
+# Load custom houses from applicable.
+data(ames_new, package = "applicable")
 
-training_data <-
-  ames %>%
+ames_cols <- c('MS_SubClass', 'Lot_Frontage', 'Lot_Area', 'Lot_Shape', 
+               'Neighborhood', 'Bldg_Type', 'Year_Built', 'Central_Air', 
+               'Gr_Liv_Area', 'Full_Bath', 'Half_Bath', 'Longitude', 'Latitude')
+
+training_data <- 
+  ames |> 
   # For consistency, only analyze the data on new properties
-  dplyr::select(one_of(ames_cols)) %>%
+  dplyr::select(any_of(ames_cols)) |> 
   mutate(
     # There is a new neighborhood in ames_new
     Neighborhood = as.character(Neighborhood),
@@ -83,12 +93,12 @@ training_data <-
 
 
 training_recipe <-
-  recipe(~., data = training_data) %>%
-  step_dummy(all_nominal()) %>%
+  recipe( ~ ., data = training_data) |>
+  step_dummy(all_nominal()) |> 
   # Remove variables that have the same value for every data point.
-  step_zv(all_predictors()) %>%
+  step_zv(all_predictors()) |> 
   # Transform variables to be distributed as Gaussian-like as possible.
-  step_YeoJohnson(all_numeric()) %>%
+  step_YeoJohnson(all_numeric()) |>
   # Normalize numeric data to have a mean of zero and
   # standard deviation of one.
   step_normalize(all_numeric())
@@ -133,16 +143,22 @@ ames_pca
 
 Plotting the distribution function for the PCA scores is also helpful:
 
-```{r autoplot}
-#| fig-alt: "Faceted line chart. abs(value) along the x-axis, percentile along the y-axis. The facets are distance, followed by PC 1 through 12. All lines go up fairly fast."
+```{r}
+#| label: autoplot
+#| fig-align: center
+#| fig-width: 6
+#| fig-alt: "Faceted empirical cumulative distribution chart for PCA-derived metrics, with absolute metric values on the x-axis and percentile on the y-axis."
 library(ggplot2)
 autoplot(ames_pca)
 ```
 
 You can use regular expressions to plot a smaller subset of the pca statistics:
 
-```{r, echo = FALSE, results = "hold"}
-autoplot(ames_pca, matches("PC0[1-5]"))
+```{r}
+#| echo: false
+#| results: hold
+#| fig-alt: "Two PCA distribution plots: one for components PC1 through PC5, and one for distance values on a log-scaled x-axis, each showing percentile on the y-axis."
+autoplot(ames_pca, matches("PC[1-5]"))
 autoplot(ames_pca, distance) + scale_x_log10()
 ```
 
@@ -151,21 +167,23 @@ the case where we capture 95% of the variation in the predictors and score the
 new samples. Since we used the recipe interface, we can give the score function
 the original data:
 
-```{r new_sample}
+```{r}
+#| label: new_sample
 ames_pca <- apd_pca(training_recipe, training_data)
 pca_score <- score(ames_pca, ames_new)
-pca_score %>% select(matches("PC00[1-3]"), contains("distance"))
+pca_score |> select(matches("PC00[1-3]"), contains("distance"))
 ```
 
 Notice how the samples, displayed in red, are fairly dissimilar to the training
 set in the first component:
 
-```{r, echo = FALSE}
-#| fig-alt: "Histogram chart. PC001 along the x-axis, count along the y-axis. A vertical red line is placed inside the distribution."
+```{r}
+#| echo: false
+#| fig-alt: "Histogram of first principal-component training scores with red vertical lines marking the three new-sample PC01 values."
 training_scores <- score(ames_pca, training_data)
-ggplot(training_scores, aes(x = PC001)) +
-  geom_histogram(col = "white", binwidth = .5) +
-  geom_vline(xintercept = pca_score$PC001, col = "red")
+ggplot(training_scores, aes(x = PC01)) + 
+  geom_histogram(col = "white", binwidth = .5) + 
+  geom_vline(xintercept = pca_score$PC01, col = "red")
 ```
 
 What is driving the first component? We can look at which predictors have the
@@ -175,17 +193,18 @@ combinations in the PC scores). The top five are:
 ```{r}
 # `ames_pca$pcs` is the output of `prcomp()`
 comp_one <- ames_pca$pcs$rotation[, 1]
-comp_one[order(abs(comp_one), decreasing = TRUE)] %>% head(5)
+comp_one[order(abs(comp_one), decreasing = TRUE)] |> head(5)
 ```
 
 These three houses are extreme in the most influential variable (year built) since
-they were new homes. The also tend to have fairly large garages:
+they were new homes. The also tend to have fairly large gross living areas:
 
-```{r, echo = FALSE}
-#| fig-alt: "Histogram chart. Garage_Area along the x-axis, count along the y-axis. Two red vertical lines are places. One on the edge of the distribution, another outside the distribution."
-ggplot(training_data, aes(x = Garage_Area)) +
-  geom_histogram(col = "white", binwidth = 50) +
-  geom_vline(xintercept = ames_new$Garage_Area, col = "red")
+```{r}
+#| echo: false
+#| fig-alt: "Histogram of gross living area in the training data with red vertical lines showing the gross living area for the three new properties."
+ggplot(training_data, aes(x = Gr_Liv_Area )) + 
+  geom_histogram(col = "white", binwidth = 50) + 
+  geom_vline(xintercept = ames_new$Gr_Liv_Area, col = "red")
 ```
 
 This may be what is driving the first component. 
@@ -221,8 +240,8 @@ Two caveats for using the hat values:
 Let us apply `apd_hat_values` modeling function to our data (while ensuring that there are no linear dependencies):
 
 ```{r}
-non_singular_recipe <-
-  training_recipe %>%
+non_singular_recipe <- 
+  training_recipe |> 
   step_lincomb(all_predictors())
 
 # Recipe interface
@@ -230,6 +249,9 @@ ames_hat <- apd_hat_values(non_singular_recipe, training_data)
 ```
 
 
-```{r reset_options}
+```{r}
+#| label: reset_options
+
 options(prev_options)
+
 ```

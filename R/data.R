@@ -62,9 +62,9 @@ NULL
 #'
 #' `https://www.cityofames.org/government/departments-divisions-a-h/city-assessor`
 #'
-#' \url{http://jse.amstat.org/v19n3/decock/DataDocumentation.txt}
+#' \url{https://jse.amstat.org/v19n3/decock/DataDocumentation.txt}
 #'
-#' \url{http://jse.amstat.org/v19n3/decock.pdf}
+#' \url{https://jse.amstat.org/v19n3/decock.pdf}
 #'
 #' @keywords datasets
 NULL

@@ -4,14 +4,10 @@
 ## usethis namespace: start
 
 #' @import rlang
-#' @importFrom dplyr %>%
 #' @importFrom dplyr count
 #' @importFrom dplyr group_by
 #' @importFrom dplyr matches
 #' @importFrom dplyr mutate
-#' @importFrom dplyr mutate_all
-#' @importFrom dplyr rename_all
-#' @importFrom dplyr sample_n
 #' @importFrom dplyr select
 #' @importFrom dplyr slice
 #' @importFrom dplyr starts_with
@@ -34,7 +30,7 @@
 #' @importFrom stats setNames
 #' @importFrom tibble as_tibble
 #' @importFrom tibble tibble
-#' @importFrom tidyr gather
+#' @importFrom tidyr pivot_longer
 #' @importFrom tidyselect vars_select
 #' @importFrom utils globalVariables
 ## usethis namespace: end
