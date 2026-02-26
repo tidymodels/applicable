@@ -1,4 +1,4 @@
-# applicable (development version)
+# applicable 0.2.1
 
 - Improved `autoplot.apd_pca()` selector handling to fail early with a clear error when `...` selectors match no columns.
 - Modernized package code, tests, and vignettes to use base R pipes (`|>`) and replaced superseded tidyverse helpers (`pivot_longer()`, `across()`, and `rename_with()`).
