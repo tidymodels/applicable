@@ -13,7 +13,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/tidymodels/applicable/blob/v0.2.1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/tidymodels/applicable/blob/main/DESCRIPTION)
 
 Gotti M, Kuhn M (2026). *applicable: A Compilation of Applicability
 Domain Methods*. R package version 0.2.1,

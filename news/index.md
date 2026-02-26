@@ -1,6 +1,8 @@
 # Changelog
 
-## applicable (development version)
+## applicable 0.2.1
+
+CRAN release: 2026-02-24
 
 - Improved
   [`autoplot.apd_pca()`](https://applicable.tidymodels.org/reference/autoplot.apd_pca.md)
