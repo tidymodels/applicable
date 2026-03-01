@@ -7,6 +7,21 @@ score_apd_pca_numeric <- function(model, predictors) {
     rlang::abort("The model must contain a pcs argument.")
   }
 
+  incomplete_rows <- which(!stats::complete.cases(predictors))
+
+  if (length(incomplete_rows) > 0) {
+    cols_with_na <- names(which(colSums(is.na(predictors)) > 0))
+    msg <- paste0(
+      "`new_data` contains missing predictor values; score columns may be `NA`. ",
+      "Rows with missing values: ",
+      paste(incomplete_rows, collapse = ", "),
+      ". Columns with missing values: ",
+      paste(cols_with_na, collapse = ", "),
+      "."
+    )
+    rlang::warn(msg)
+  }
+
   # Predict output and subset using `num_comp`
   predicted_output <- stats::predict(model$pcs, predictors)
   predicted_output <- predicted_output[, 1:model$num_comp, drop = FALSE]
